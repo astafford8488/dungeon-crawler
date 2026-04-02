@@ -490,7 +490,7 @@ const Game = (() => {
     }
   }
 
-  let autoPostBattle = false;
+  let autoPostBattleIdx = -1; // -1 = manual, 0-3 = auto-select that choice
 
   function showPostBattleChoice(onDone) {
     const choices = Dungeon.getPostBattleChoices();
@@ -499,9 +499,9 @@ const Game = (() => {
     const modal = document.getElementById('modal-rest');
     const continueBtn = document.getElementById('btn-rest-continue');
 
-    // Auto-select: pick "Rest briefly" (index 1) automatically
-    if (autoPostBattle) {
-      applyPostBattleChoice(choices[1], run);
+    // Auto-select if enabled
+    if (autoPostBattleIdx >= 0 && autoPostBattleIdx < choices.length) {
+      applyPostBattleChoice(choices[autoPostBattleIdx], run);
       onDone();
       return;
     }
@@ -512,16 +512,25 @@ const Game = (() => {
         <div style="display:flex;flex-direction:column;gap:6px;">
           ${choices.map((c, i) => `<button class="btn-small post-battle-btn" data-idx="${i}" style="padding:8px 12px;text-align:left;font-size:12px;">${c.icon} ${c.text}</button>`).join('')}
         </div>
-        <label style="display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--text-dim);cursor:pointer;">
-          <input type="checkbox" id="auto-post-battle" ${autoPostBattle ? 'checked' : ''}> Auto-select "Rest briefly" for future waves
-        </label>
+        <div style="margin-top:10px;border-top:1px solid var(--border);padding-top:8px;">
+          <div style="font-size:11px;color:var(--text-dim);margin-bottom:4px;">Auto-select for future waves:</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <button class="btn-small auto-choice-btn ${autoPostBattleIdx === -1 ? 'active' : ''}" data-auto-idx="-1" style="font-size:10px;">Manual</button>
+            ${choices.map((c, i) => `<button class="btn-small auto-choice-btn ${autoPostBattleIdx === i ? 'active' : ''}" data-auto-idx="${i}" style="font-size:10px;">${c.icon} ${c.text.split('(')[0].trim()}</button>`).join('')}
+          </div>
+        </div>
       </div>
     `;
     continueBtn.style.display = 'none';
     modal.style.display = 'flex';
 
-    content.querySelector('#auto-post-battle')?.addEventListener('change', (e) => {
-      autoPostBattle = e.target.checked;
+    content.querySelectorAll('.auto-choice-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        autoPostBattleIdx = parseInt(btn.dataset.autoIdx);
+        content.querySelectorAll('.auto-choice-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
     });
 
     content.querySelectorAll('.post-battle-btn').forEach(btn => {

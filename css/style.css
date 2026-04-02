@@ -781,6 +781,12 @@ html, body {
   50% { box-shadow: 0 0 12px rgba(255,215,0,0.6); }
 }
 
+.auto-choice-btn.active {
+  border-color: var(--accent) !important;
+  background: var(--accent) !important;
+  color: white !important;
+}
+
 .btn-battle-mode-active {
   border-color: var(--accent) !important;
   color: var(--accent-light) !important;
