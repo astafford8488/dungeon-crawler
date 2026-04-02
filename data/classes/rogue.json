@@ -19,7 +19,7 @@
     "wis": 0
   },
   "base_derived_bonuses": {
-    "hp": 0,
+    "hp": 10,
     "mp": 5,
     "phys_atk": 3,
     "mag_atk": 0,

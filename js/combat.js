@@ -78,7 +78,7 @@ const Combat = (() => {
   function calcMonsterDerived(monster) {
     const s = monster.scaledStats || monster.primary_stats;
     return {
-      hp: Math.floor(s.sta * 4.0 + s.str * 1.5 + 30),
+      hp: Math.floor(s.sta * 5.0 + 30),
       mp: Math.floor(s.int * 2.0 + 10),
       phys_atk: Math.floor(s.str * 2.0),
       mag_atk: Math.floor(s.int * 2.0),

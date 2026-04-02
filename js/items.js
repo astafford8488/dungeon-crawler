@@ -124,13 +124,16 @@ const Items = (() => {
   // Generate a random item appropriate for a given level
   // Dungeon tier -> max rarity unlocked
   // Each new rarity appears at 80:20 ratio with the previous highest
+  // Rarity caps: dungeon tier = items that DROP in that dungeon
+  // Tier 1 (Crypt) = common only. After clearing tier 1, uncommon unlocks for tier 2, etc.
   const DUNGEON_RARITY_CAPS = {
-    1: 'uncommon',   // Crypt: common 80%, uncommon 20%
-    2: 'rare',       // Thornwood: + rare at ~5%
-    3: 'epic',       // Iron Horde: + epic
-    4: 'legendary',  // Infernal: + legendary
-    5: 'mythical',   // Elemental: + mythical
-    6: 'divine',     // Abyss: + divine
+    1: 'common',     // Crypt: common only
+    2: 'uncommon',   // Thornwood: + uncommon (unlocked after clearing Crypt)
+    3: 'rare',       // Iron Horde: + rare
+    4: 'epic',       // Infernal: + epic
+    5: 'legendary',  // Elemental: + legendary
+    6: 'mythical',   // Abyss: + mythical
+    7: 'divine',     // Post-game / high difficulty: + divine
   };
 
   // Rarity weights: 80:20 cascade. Each tier is ~25% of the previous tier's weight

@@ -70,17 +70,24 @@ const Party = (() => {
       }
     } else {
       // Fallback: use class abilities from JSON (for classes without pool entries)
-      for (const ab of cls.abilities) {
-        if (ab.level_required <= 1) {
-          member.abilities.push(ab.id);
-          member.abilityData[ab.id] = ab;
-          // Auto-slot
-          if (ab.type === 'passive' || ab.type === 'aura') {
-            if (member.passiveSlots.length < (member.maxPassiveSlots || 2)) member.passiveSlots.push(ab.id);
-          } else {
-            if (member.abilitySlots.length < (member.maxActiveSlots || 4)) member.abilitySlots.push(ab.id);
-          }
+      // Give first level 1 ability as default, then present all as choices
+      const level1Abilities = cls.abilities.filter(ab => ab.level_required <= 1);
+      if (level1Abilities.length > 0) {
+        // Grant first ability so they can fight
+        const firstAb = level1Abilities[0];
+        member.abilities.push(firstAb.id);
+        member.abilityData[firstAb.id] = firstAb;
+        if (firstAb.type === 'passive' || firstAb.type === 'aura') {
+          if (member.passiveSlots.length < (member.maxPassiveSlots || 2)) member.passiveSlots.push(firstAb.id);
+        } else {
+          if (member.abilitySlots.length < (member.maxActiveSlots || 4)) member.abilitySlots.push(firstAb.id);
         }
+        // Present all level 1 abilities as choices (including upgrades to the default)
+        member.pendingAbilityChoices.push({
+          tier: 'level_1',
+          level: 1,
+          choices: level1Abilities,
+        });
       }
     }
 
@@ -283,7 +290,7 @@ const Party = (() => {
 
     // Calculate derived stats from formulas
     const derived = {};
-    derived.hp = Math.floor((flatDerived.hp || 0) + total.str * 1.5 + total.sta * 4.0);
+    derived.hp = Math.floor((flatDerived.hp || 0) + total.sta * 5.0);
     derived.mp = Math.floor((flatDerived.mp || 0) + total.int * 2.0);
     derived.phys_atk = Math.floor((flatDerived.phys_atk || 0) + total.str * 2.0);
     derived.mag_atk = Math.floor((flatDerived.mag_atk || 0) + total.int * 2.0);
@@ -327,7 +334,7 @@ const Party = (() => {
     const basePrimary = { ...member.primaryStats };
     const baseFlatDerived = { ...cls.base_derived_bonuses };
     const baseDerived = {};
-    baseDerived.hp = Math.floor((baseFlatDerived.hp || 0) + basePrimary.str * 1.5 + basePrimary.sta * 4.0);
+    baseDerived.hp = Math.floor((baseFlatDerived.hp || 0) + basePrimary.sta * 5.0);
     baseDerived.mp = Math.floor((baseFlatDerived.mp || 0) + basePrimary.int * 2.0);
     baseDerived.phys_atk = Math.floor((baseFlatDerived.phys_atk || 0) + basePrimary.str * 2.0);
     baseDerived.mag_atk = Math.floor((baseFlatDerived.mag_atk || 0) + basePrimary.int * 2.0);

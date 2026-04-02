@@ -181,7 +181,7 @@ const Dungeon = (() => {
       const dungeonTier = current.dungeon.tier || 1;
       const bossDrops = 1 + Math.floor(current.difficulty / 3);
       for (let i = 0; i < bossDrops; i++) {
-        const bonusItem = Items.generateRandom(current.recLevel + 10, null, Math.min(6, dungeonTier + 1));
+        const bonusItem = Items.generateRandom(current.recLevel + 10, null, dungeonTier);
         if (bonusItem) items.push(bonusItem);
       }
     }
