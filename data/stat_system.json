@@ -1,0 +1,175 @@
+{
+  "version": "2.0",
+  "description": "Core stat system. Primary stats drive all derived stats. Resistances are percentage-based damage reduction by type.",
+
+  "primary_stats": {
+    "str": {
+      "name": "Strength",
+      "abbr": "STR",
+      "description": "Raw physical power. Governs physical attack damage and contributes to physical defense.",
+      "derived_contributions": {
+        "phys_atk": 2.0,
+        "phys_def": 0.5,
+        "hp": 1.0
+      }
+    },
+    "int": {
+      "name": "Intelligence",
+      "abbr": "INT",
+      "description": "Mental acuity and arcane knowledge. Governs magic attack, magic defense, MP pool, and healing power.",
+      "derived_contributions": {
+        "mag_atk": 2.0,
+        "mag_def": 1.0,
+        "mp": 2.0,
+        "heal_power": 1.5
+      }
+    },
+    "dex": {
+      "name": "Dexterity",
+      "abbr": "DEX",
+      "description": "Agility and precision. Governs speed, critical hit rate, and dodge chance.",
+      "derived_contributions": {
+        "spd": 1.5,
+        "crit_rate": 0.002,
+        "dodge": 0.002
+      }
+    },
+    "sta": {
+      "name": "Stamina",
+      "abbr": "STA",
+      "description": "Endurance and toughness. Governs max HP, physical defense, and base resistances.",
+      "derived_contributions": {
+        "hp": 3.0,
+        "phys_def": 0.8,
+        "mag_def": 0.3,
+        "base_resist_all": 0.001
+      }
+    }
+  },
+
+  "derived_stats": {
+    "hp": {
+      "name": "Hit Points",
+      "formula": "base_hp + (str × 1.0) + (sta × 3.0)",
+      "description": "Total health. Character dies when this reaches 0."
+    },
+    "mp": {
+      "name": "Mana Points",
+      "formula": "base_mp + (int × 2.0)",
+      "description": "Resource for abilities. Most abilities cost MP."
+    },
+    "phys_atk": {
+      "name": "Physical Attack",
+      "formula": "base_phys_atk + (str × 2.0)",
+      "description": "Damage dealt by physical attacks and abilities."
+    },
+    "mag_atk": {
+      "name": "Magic Attack",
+      "formula": "base_mag_atk + (int × 2.0)",
+      "description": "Damage dealt by magic attacks and abilities."
+    },
+    "phys_def": {
+      "name": "Physical Defense",
+      "formula": "base_phys_def + (str × 0.5) + (sta × 0.8)",
+      "description": "Flat reduction to incoming physical damage."
+    },
+    "mag_def": {
+      "name": "Magic Defense",
+      "formula": "base_mag_def + (int × 1.0) + (sta × 0.3)",
+      "description": "Flat reduction to incoming magic damage."
+    },
+    "spd": {
+      "name": "Speed",
+      "formula": "base_spd + (dex × 1.5)",
+      "description": "Determines turn order. Higher SPD acts first."
+    },
+    "crit_rate": {
+      "name": "Critical Rate",
+      "formula": "base_crit (0.05) + (dex × 0.002)",
+      "description": "Chance to land a critical hit (2x damage). Capped at 75%.",
+      "cap": 0.75
+    },
+    "dodge": {
+      "name": "Dodge Chance",
+      "formula": "base_dodge (0.0) + (dex × 0.002)",
+      "description": "Chance to completely avoid a physical attack. Capped at 50%.",
+      "cap": 0.50
+    },
+    "heal_power": {
+      "name": "Healing Power",
+      "formula": "base_heal_power + (int × 1.5)",
+      "description": "Multiplier for outgoing healing effects."
+    }
+  },
+
+  "damage_formula": {
+    "physical": "phys_atk × ability_multiplier − target_phys_def × (1 − armor_pierce)",
+    "magic": "(mag_atk × ability_multiplier − target_mag_def) × (1 − target_resistance[element])",
+    "true": "flat_damage (ignores all defense and resistance)",
+    "minimum_damage": 1,
+    "critical_multiplier": 2.0,
+    "note": "Physical damage is reduced by defense, then further by physical resistance. Magic damage is reduced by magic defense, then by elemental resistance."
+  },
+
+  "resistances": {
+    "description": "Percentage reduction to incoming damage of that type. Each resistance starts at 0% and is increased by gear, buffs, and a tiny amount from STA. Capped at 75%.",
+    "cap": 0.75,
+    "types": {
+      "fire_resist": {
+        "name": "Fire Resistance",
+        "abbr": "FIR",
+        "color": "#ff4422",
+        "counters": "fire"
+      },
+      "ice_resist": {
+        "name": "Ice Resistance",
+        "abbr": "ICE",
+        "color": "#44bbff",
+        "counters": "ice"
+      },
+      "lightning_resist": {
+        "name": "Lightning Resistance",
+        "abbr": "LTN",
+        "color": "#ffee44",
+        "counters": "lightning"
+      },
+      "holy_resist": {
+        "name": "Holy Resistance",
+        "abbr": "HLY",
+        "color": "#ffffcc",
+        "counters": "holy"
+      },
+      "dark_resist": {
+        "name": "Dark Resistance",
+        "abbr": "DRK",
+        "color": "#8844aa",
+        "counters": "dark"
+      },
+      "poison_resist": {
+        "name": "Poison Resistance",
+        "abbr": "PSN",
+        "color": "#44cc44",
+        "counters": "poison"
+      },
+      "physical_resist": {
+        "name": "Physical Resistance",
+        "abbr": "PHY",
+        "color": "#aa8866",
+        "counters": "physical"
+      }
+    }
+  },
+
+  "stat_per_level": "Each level grants primary stat points based on the class growth table. Derived stats are recalculated automatically.",
+
+  "equipment_stat_types": {
+    "description": "Items can grant primary stats (str, int, dex, sta), flat derived stat bonuses, and resistance percentages.",
+    "examples": [
+      { "item": "Iron Sword", "grants": { "str": 3 } },
+      { "item": "Crystal Staff", "grants": { "int": 5 } },
+      { "item": "Leather Armor", "grants": { "dex": 2, "sta": 2 } },
+      { "item": "Fire Resist Ring", "grants": { "fire_resist": 0.08 } },
+      { "item": "Plate Armor", "grants": { "sta": 6, "physical_resist": 0.05 } }
+    ]
+  }
+}

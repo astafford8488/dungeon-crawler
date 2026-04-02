@@ -1,0 +1,20 @@
+{
+  "project": "dungeon-crawler",
+  "style": {
+    "theme": "dark fantasy medieval",
+    "pixel_style": "16-bit SNES style",
+    "reference_asset_id": null
+  },
+  "assets": [
+    {
+      "id": "warrior_test",
+      "category": "character",
+      "file": "assets/test/warrior_test.png",
+      "spritecook_asset_id": "2f910fed-ee7a-4d28-8d00-fc10b6e0ab10",
+      "width": 64,
+      "height": 64,
+      "prompt": "a fantasy warrior character, front-facing idle pose, plate armor, sword and shield, RPG game character sprite",
+      "generated": "2026-04-02T06:52:00Z"
+    }
+  ]
+}

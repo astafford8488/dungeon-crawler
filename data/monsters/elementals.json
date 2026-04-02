@@ -1,0 +1,220 @@
+{
+  "theme": "elemental",
+  "monsters": [
+    {
+      "id": "fire_elemental",
+      "name": "Fire Elemental",
+      "type": "elemental",
+      "role": "caster",
+      "description": "A living pillar of flame that sets everything around it ablaze.",
+      "primary_stats": { "str": 6, "int": 14, "dex": 9, "sta": 7 },
+      "base_resistances": {
+        "fire_resist": 1.0,
+        "ice_resist": -0.40,
+        "lightning_resist": 0.10,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0,
+        "poison_resist": 1.0,
+        "physical_resist": 0.10
+      },
+      "immunities": ["poison_dot", "burn_dot"],
+      "abilities": [
+        {
+          "id": "flame_lash",
+          "name": "Flame Lash",
+          "type": "attack",
+          "damage_type": "fire",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 1.1,
+          "cooldown": 0
+        },
+        {
+          "id": "immolate",
+          "name": "Immolate",
+          "type": "attack",
+          "damage_type": "fire",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.5,
+          "effect": { "burn_dot": true, "dot_percent": 0.06, "dot_duration": 3 },
+          "cooldown": 3
+        },
+        {
+          "id": "flame_burst",
+          "name": "Flame Burst",
+          "type": "attack",
+          "damage_type": "fire",
+          "target": "all_enemies",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.7,
+          "cooldown": 4
+        }
+      ],
+      "ai_behavior": "aoe_focused",
+      "base_xp": 22,
+      "base_gold": { "min": 8, "max": 25 },
+      "loot_tags": ["fire_gem", "elemental_core", "rare_gear"]
+    },
+    {
+      "id": "ice_elemental",
+      "name": "Ice Elemental",
+      "type": "elemental",
+      "role": "tank",
+      "description": "A hulking figure of crystalline ice that freezes the air around it.",
+      "primary_stats": { "str": 8, "int": 10, "dex": 4, "sta": 14 },
+      "base_resistances": {
+        "ice_resist": 1.0,
+        "fire_resist": -0.40,
+        "lightning_resist": 0.0,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0,
+        "poison_resist": 1.0,
+        "physical_resist": 0.15
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "frost_slam",
+          "name": "Frost Slam",
+          "type": "attack",
+          "damage_type": "ice",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.0,
+          "effect": { "reduce_spd": 0.20, "duration": 1 },
+          "cooldown": 0
+        },
+        {
+          "id": "flash_freeze",
+          "name": "Flash Freeze",
+          "type": "debuff",
+          "damage_type": "ice",
+          "target": "all_enemies",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.4,
+          "effect": { "reduce_spd": 0.40, "duration": 2 },
+          "cooldown": 5
+        },
+        {
+          "id": "ice_armor",
+          "name": "Ice Armor",
+          "type": "defense",
+          "target": "self",
+          "effect": { "phys_def_multiplier": 1.5, "thorns_ice_damage": 5, "duration": 3 },
+          "cooldown": 5
+        }
+      ],
+      "ai_behavior": "targets_highest_atk",
+      "base_xp": 22,
+      "base_gold": { "min": 8, "max": 25 },
+      "loot_tags": ["ice_gem", "elemental_core", "rare_gear"]
+    },
+    {
+      "id": "lightning_elemental",
+      "name": "Lightning Elemental",
+      "type": "elemental",
+      "role": "skirmisher",
+      "description": "A crackling mass of electrical energy that moves with blinding speed.",
+      "primary_stats": { "str": 5, "int": 12, "dex": 16, "sta": 4 },
+      "base_resistances": {
+        "lightning_resist": 1.0,
+        "ice_resist": 0.10,
+        "fire_resist": 0.10,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0,
+        "poison_resist": 1.0,
+        "physical_resist": -0.10
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "spark",
+          "name": "Spark",
+          "type": "attack",
+          "damage_type": "lightning",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 1.0,
+          "cooldown": 0
+        },
+        {
+          "id": "chain_bolt",
+          "name": "Chain Bolt",
+          "type": "attack",
+          "damage_type": "lightning",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 1.2,
+          "chain": { "targets": 2, "falloff": 0.5 },
+          "cooldown": 3
+        },
+        {
+          "id": "static_field",
+          "name": "Static Field",
+          "type": "debuff",
+          "target": "all_enemies",
+          "effect": { "reduce_spd": 0.25, "lightning_resist_reduction": 0.15, "duration": 2 },
+          "cooldown": 4
+        }
+      ],
+      "ai_behavior": "targets_healer",
+      "base_xp": 22,
+      "base_gold": { "min": 8, "max": 25 },
+      "loot_tags": ["lightning_gem", "elemental_core", "rare_gear"]
+    },
+    {
+      "id": "earth_elemental",
+      "name": "Earth Elemental",
+      "type": "elemental",
+      "role": "tank",
+      "description": "A walking boulder of stone and earth. Nearly impossible to damage with physical attacks.",
+      "primary_stats": { "str": 12, "int": 4, "dex": 2, "sta": 18 },
+      "base_resistances": {
+        "physical_resist": 0.30,
+        "lightning_resist": -0.25,
+        "fire_resist": 0.10,
+        "ice_resist": 0.10,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0,
+        "poison_resist": 1.0
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "boulder_smash",
+          "name": "Boulder Smash",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.2,
+          "cooldown": 0
+        },
+        {
+          "id": "quake",
+          "name": "Quake",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "all_enemies",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.5,
+          "effect": { "stun_chance": 0.25, "stun_duration": 1 },
+          "cooldown": 4
+        },
+        {
+          "id": "stone_skin",
+          "name": "Stone Skin",
+          "type": "defense",
+          "target": "self",
+          "effect": { "physical_resist_bonus": 0.15, "duration": 3 },
+          "cooldown": 5
+        }
+      ],
+      "ai_behavior": "targets_random",
+      "base_xp": 25,
+      "base_gold": { "min": 10, "max": 28 },
+      "loot_tags": ["earth_gem", "elemental_core", "rare_gear"]
+    }
+  ]
+}

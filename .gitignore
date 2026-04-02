@@ -1,0 +1,11 @@
+# Sensitive files - DO NOT PUBLISH
+.mcp.json
+.claude/
+
+# Dev files
+node_modules/
+assets/test/
+
+# OS files
+.DS_Store
+Thumbs.db

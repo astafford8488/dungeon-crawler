@@ -1,0 +1,170 @@
+{
+  "id": "elementalist",
+  "name": "Elementalist",
+  "role": "summoner_caster",
+  "description": "A master of elemental magic who conjures living fire, ice, and lightning spirits to overwhelm enemies with raw elemental power.",
+  "lore": "Trained at the Planar Convergence Academy, Elementalists learn to tear open tiny rifts to the elemental planes and bind the spirits within. Each elemental is a fragment of pure destructive force given shape and purpose.",
+  "primary_stats": {
+    "str": 3,
+    "int": 16,
+    "dex": 6,
+    "sta": 5,
+    "wis": 8
+  },
+  "stat_growth_per_level": {
+    "str": 0,
+    "int": 5,
+    "dex": 1,
+    "sta": 1,
+    "wis": 1
+  },
+  "base_derived_bonuses": {
+    "hp": 0,
+    "mp": 20,
+    "phys_atk": 0,
+    "mag_atk": 8,
+    "phys_def": 0,
+    "mag_def": 3,
+    "spd": 0,
+    "crit_rate": 0.05,
+    "dodge": 0.0,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.05,
+    "ice_resist": 0.05,
+    "lightning_resist": 0.05,
+    "holy_resist": 0.0,
+    "dark_resist": 0.0,
+    "poison_resist": 0.0,
+    "physical_resist": -0.05
+  },
+  "equipment_slots": ["weapon", "armor", "accessory", "tome"],
+  "preferred_weapons": ["staff", "orb"],
+  "abilities": [
+    {
+      "id": "elemental_spark",
+      "name": "Elemental Spark",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "fire",
+      "target": "single_enemy",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 1.0,
+      "mp_cost": 5,
+      "cooldown": 0,
+      "description": "Launches a spark of elemental energy at a single enemy. Damage type matches the last summoned elemental, defaulting to fire."
+    },
+    {
+      "id": "summon_fire_elemental",
+      "name": "Summon Fire Elemental",
+      "level_required": 1,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": { "summon_id": "fire_elemental", "summon_hp_percent": 0.3, "summon_atk_percent": 0.5, "aura_damage_type": "fire", "duration": 4 },
+      "mp_cost": 15,
+      "cooldown": 6,
+      "description": "Summons a fire elemental that attacks with fire damage and radiates a burning aura for 4 turns."
+    },
+    {
+      "id": "elemental_shield",
+      "name": "Elemental Shield",
+      "level_required": 5,
+      "type": "defense",
+      "target": "self",
+      "effect": { "fire_resist_bonus": 0.20, "ice_resist_bonus": 0.20, "lightning_resist_bonus": 0.20, "duration": 3 },
+      "mp_cost": 15,
+      "cooldown": 5,
+      "description": "Conjures a shimmering elemental barrier that increases Fire, Ice, and Lightning Resistance by 20% for 3 turns."
+    },
+    {
+      "id": "summon_ice_elemental",
+      "name": "Summon Ice Elemental",
+      "level_required": 10,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": { "summon_id": "ice_elemental", "summon_hp_percent": 0.4, "summon_atk_percent": 0.35, "slow_aura": 0.20, "duration": 4 },
+      "mp_cost": 18,
+      "cooldown": 6,
+      "description": "Summons an ice elemental that slows all enemies by 20% and attacks with ice damage for 4 turns."
+    },
+    {
+      "id": "summon_lightning_elemental",
+      "name": "Summon Lightning Elemental",
+      "level_required": 20,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": { "summon_id": "lightning_elemental", "summon_hp_percent": 0.25, "summon_atk_percent": 0.6, "chain_attack_targets": 2, "duration": 4 },
+      "mp_cost": 22,
+      "cooldown": 6,
+      "description": "Summons a lightning elemental whose attacks chain to 2 additional enemies for 4 turns."
+    },
+    {
+      "id": "elemental_convergence",
+      "name": "Elemental Convergence",
+      "level_required": 30,
+      "type": "attack",
+      "damage_type": "fire",
+      "target": "all_enemies",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 2.0,
+      "effect": { "requires_two_elementals": true, "combines_elements": true, "reduce_all_resists": 0.15, "duration": 2 },
+      "mp_cost": 35,
+      "cooldown": 6,
+      "description": "Combines the power of active elementals into a devastating AoE blast dealing 2x damage. Requires at least 2 elementals active. Reduces all enemy resistances by 15% for 2 turns."
+    },
+    {
+      "id": "planar_attunement",
+      "name": "Planar Attunement",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "elemental_summon_duration_bonus": 1, "mag_atk_per_summon": 0.10, "fire_resist": 0.05, "ice_resist": 0.05, "lightning_resist": 0.05 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: All elemental summons last 1 extra turn. Gain 10% Magic ATK for each active elemental. Gain 5% additional Fire, Ice, and Lightning Resistance."
+    },
+    {
+      "id": "primordial_storm",
+      "name": "Primordial Storm",
+      "level_required": 50,
+      "type": "attack",
+      "damage_type": "lightning",
+      "target": "all_enemies",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 2.5,
+      "effect": {
+        "multi_element": ["fire", "ice", "lightning"],
+        "summon_all_elementals": true,
+        "dot_all_types_percent": 0.10,
+        "dot_duration": 3,
+        "duration": 3
+      },
+      "mp_cost": 60,
+      "cooldown": 10,
+      "description": "Ultimate: Tears open a rift to all three elemental planes simultaneously, dealing 2.5x multi-elemental damage to all enemies, summoning all three elementals, and applying fire, ice, and lightning DoT for 3 turns."
+    }
+  ],
+  "ai_priority": [
+    "use_primordial_storm_if_no_elementals_and_available",
+    "use_elemental_convergence_if_two_or_more_elementals_active",
+    "use_summon_fire_elemental_if_no_summons",
+    "use_summon_ice_elemental_if_one_summon",
+    "use_summon_lightning_elemental_if_two_summons",
+    "use_elemental_spark",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Witch: Curse-reduced resistances make elemental damage devastatingly effective",
+    "Auramancer: Damage amplification auras boost both Elementalist and elemental summon damage",
+    "Necromancer: Combined summon armies overwhelm enemies with sheer numbers"
+  ],
+  "weaknesses": [
+    "The most fragile summoner — negative physical resistance and very low STA",
+    "Requires multiple turns to set up a full elemental army",
+    "Highest MP costs of any class — runs dry without mana support",
+    "Elemental Convergence is wasted if elementals are killed before it can be used"
+  ],
+  "hire_cost": 140,
+  "hire_description": "Three tiny spirits — one of crackling flame, one of shimmering ice, one of buzzing lightning — orbit a calm figure reading at a table. They look up with glowing eyes. \"Three elements, one will. Shall I show you what convergence looks like?\""
+}

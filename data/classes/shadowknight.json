@@ -1,0 +1,173 @@
+{
+  "id": "shadowknight",
+  "name": "Shadowknight",
+  "role": "tank_debuffer",
+  "description": "A dark warrior who sustains through stolen life force while weakening enemies with dread and shadow magic.",
+  "lore": "Once holy knights who fell from grace, Shadowknights draw power from the void between life and death. They wade into battle absorbing punishment while draining the essence of their foes to sustain themselves.",
+  "primary_stats": {
+    "str": 9,
+    "int": 8,
+    "dex": 5,
+    "sta": 14,
+    "wis": 5
+  },
+  "stat_growth_per_level": {
+    "str": 2,
+    "int": 1,
+    "dex": 1,
+    "sta": 3,
+    "wis": 0
+  },
+  "base_derived_bonuses": {
+    "hp": 15,
+    "mp": 5,
+    "phys_atk": 0,
+    "mag_atk": 0,
+    "phys_def": 4,
+    "mag_def": 2,
+    "spd": 0,
+    "crit_rate": 0.05,
+    "dodge": 0.0,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.0,
+    "lightning_resist": 0.0,
+    "holy_resist": -0.10,
+    "dark_resist": 0.15,
+    "poison_resist": 0.05,
+    "physical_resist": 0.05
+  },
+  "equipment_slots": ["weapon", "shield", "armor", "accessory"],
+  "preferred_weapons": ["sword", "mace", "axe"],
+  "abilities": [
+    {
+      "id": "shadow_strike",
+      "name": "Shadow Strike",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 0.9,
+      "effect": { "lifesteal": 0.15 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "A dark-infused strike that heals you for 15% of damage dealt."
+    },
+    {
+      "id": "dread_aura",
+      "name": "Wave of Dread",
+      "level_required": 1,
+      "type": "debuff",
+      "target": "all_enemies",
+      "effect": { "reduce_phys_atk": 0.15, "reduce_mag_atk": 0.10, "duration": 3 },
+      "mp_cost": 15,
+      "cooldown": 5,
+      "description": "Active: Unleash a wave of dread. All enemies lose 15% Phys ATK and 10% Mag ATK for 3 turns."
+    },
+    {
+      "id": "dark_blade",
+      "name": "Dark Blade",
+      "level_required": 5,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 1.4,
+      "effect": { "lifesteal": 0.35 },
+      "mp_cost": 12,
+      "cooldown": 2,
+      "description": "A vicious dark-empowered slash dealing 1.4x dark damage. Heals for 35% of damage dealt."
+    },
+    {
+      "id": "soul_tap",
+      "name": "Soul Tap",
+      "level_required": 10,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 1.3,
+      "effect": { "lifesteal": 0.50, "reduce_heal_received": 0.30, "duration": 2 },
+      "mp_cost": 18,
+      "cooldown": 3,
+      "description": "Drain the target's soul. 1.3x dark damage, 50% lifesteal, reduces their healing by 30% for 2 turns."
+    },
+    {
+      "id": "shadow_shield",
+      "name": "Shadow Shield",
+      "level_required": 20,
+      "type": "defense",
+      "target": "self",
+      "effect": { "phys_def_multiplier": 1.4, "dark_resist_bonus": 0.15, "reflect_damage_percent": 0.08, "duration": 3 },
+      "mp_cost": 20,
+      "cooldown": 5,
+      "description": "+40% Phys DEF, +15% Dark Resist, reflect 8% damage for 3 turns."
+    },
+    {
+      "id": "plague_touch",
+      "name": "Plague Touch",
+      "level_required": 30,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "all_enemies",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 0.7,
+      "effect": { "poison_dot": true, "dot_percent": 0.04, "dot_duration": 3, "reduce_phys_def": 0.15, "duration": 3 },
+      "mp_cost": 25,
+      "cooldown": 4,
+      "description": "Dark AoE + poison DoT (4%/turn, 3 turns) + target DEF -15%."
+    },
+    {
+      "id": "unholy_pact",
+      "name": "Unholy Pact",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "lifesteal": 0.10, "dark_resist": 0.10, "hp_regen_when_enemy_debuffed": 8 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: +10% lifesteal on all attacks, +10% dark resist, regen 8 HP/turn when any enemy has a debuff."
+    },
+    {
+      "id": "death_knight",
+      "name": "Death Knight",
+      "level_required": 50,
+      "type": "buff",
+      "target": "self",
+      "effect": {
+        "phys_atk_multiplier": 1.4,
+        "phys_def_multiplier": 1.3,
+        "lifesteal": 0.30,
+        "dark_resist_bonus": 0.20,
+        "duration": 4
+      },
+      "mp_cost": 55,
+      "cooldown": 10,
+      "description": "Ultimate: Transform into a Death Knight. +40% ATK, +30% DEF, +30% lifesteal, +20% dark resist for 4 turns."
+    }
+  ],
+  "ai_priority": [
+    "use_death_knight_if_hp_below_30",
+    "use_shadow_shield_if_hp_below_50",
+    "use_dread_aura_at_fight_start",
+    "use_plague_touch_if_enemies_above_2",
+    "use_soul_tap_if_target_above_60_hp",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Witch: Combined debuffs shred enemy stats to nothing",
+    "Cleric: Cleric keeps the Shadowknight alive while they drain enemies",
+    "Warrior: Double tank comp where one debuffs and one pure tanks"
+  ],
+  "weaknesses": [
+    "Vulnerable to holy damage (-10% holy resist)",
+    "Split STR/INT means neither is maxed",
+    "Relies on lifesteal — heal reduction effects are devastating",
+    "Lower SPD means enemies often act first"
+  ],
+  "hire_cost": 130,
+  "hire_description": "A figure in blackened plate emerges from the shadows, their armor etched with pulsing red runes. Dark wisps curl around a blade that seems to drink the light. \"I've walked in death's shadow and returned. Your enemies won't be so lucky.\""
+}

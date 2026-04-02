@@ -1,0 +1,311 @@
+{
+  "theme": "humanoid",
+  "monsters": [
+    {
+      "id": "goblin_grunt",
+      "name": "Goblin Grunt",
+      "type": "humanoid",
+      "role": "swarm",
+      "description": "A scrappy little green-skinned warrior armed with a rusty shiv. Cowardly alone, emboldened in groups.",
+      "primary_stats": { "str": 5, "int": 3, "dex": 9, "sta": 4 },
+      "base_resistances": {
+        "fire_resist": -0.10,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0,
+        "poison_resist": 0.10,
+        "physical_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "shiv",
+          "name": "Shiv",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.9,
+          "cooldown": 0
+        },
+        {
+          "id": "dirty_trick",
+          "name": "Dirty Trick",
+          "type": "debuff",
+          "target": "single_enemy",
+          "effect": { "miss_chance": 0.25, "duration": 1 },
+          "cooldown": 3
+        }
+      ],
+      "ai_behavior": "random",
+      "base_xp": 8,
+      "base_gold": { "min": 3, "max": 10 },
+      "loot_tags": ["rusty_weapon", "stolen_goods", "common_gear"]
+    },
+    {
+      "id": "goblin_shaman",
+      "name": "Goblin Shaman",
+      "type": "humanoid",
+      "role": "support",
+      "description": "A goblin witch doctor who chants dark blessings over its tribe.",
+      "primary_stats": { "str": 3, "int": 10, "dex": 7, "sta": 5 },
+      "base_resistances": {
+        "fire_resist": 0.10,
+        "dark_resist": 0.10,
+        "holy_resist": -0.10,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0,
+        "poison_resist": 0.15,
+        "physical_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "hex_bolt",
+          "name": "Hex Bolt",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.8,
+          "cooldown": 0
+        },
+        {
+          "id": "tribal_heal",
+          "name": "Tribal Heal",
+          "type": "heal",
+          "target": "single_ally",
+          "heal_stat": "mag_atk",
+          "heal_multiplier": 1.2,
+          "heal_base": 8,
+          "cooldown": 3
+        },
+        {
+          "id": "war_chant",
+          "name": "War Chant",
+          "type": "buff",
+          "target": "all_allies",
+          "effect": { "phys_atk_multiplier": 1.20, "duration": 3 },
+          "cooldown": 5
+        }
+      ],
+      "ai_behavior": "support_priority",
+      "base_xp": 15,
+      "base_gold": { "min": 6, "max": 18 },
+      "loot_tags": ["ritual_component", "dark_gem", "uncommon_gear"]
+    },
+    {
+      "id": "orc_berserker",
+      "name": "Orc Berserker",
+      "type": "humanoid",
+      "role": "bruiser",
+      "description": "A massive, scarred orc who fights in a frenzy, swinging a brutal two-handed axe.",
+      "primary_stats": { "str": 14, "int": 2, "dex": 7, "sta": 11 },
+      "base_resistances": {
+        "fire_resist": 0.0,
+        "ice_resist": 0.05,
+        "lightning_resist": 0.0,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0,
+        "poison_resist": 0.10,
+        "physical_resist": 0.05
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "brutal_chop",
+          "name": "Brutal Chop",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.3,
+          "cooldown": 0
+        },
+        {
+          "id": "blood_frenzy",
+          "name": "Blood Frenzy",
+          "type": "buff",
+          "target": "self",
+          "effect": { "phys_atk_multiplier": 1.5, "phys_def_multiplier": 0.7, "duration": 3 },
+          "cooldown": 5
+        },
+        {
+          "id": "cleave",
+          "name": "Cleave",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "all_enemies",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.7,
+          "cooldown": 3
+        }
+      ],
+      "ai_behavior": "targets_highest_atk",
+      "base_xp": 22,
+      "base_gold": { "min": 8, "max": 28 },
+      "loot_tags": ["crude_weapon", "orc_trophy", "uncommon_gear"]
+    },
+    {
+      "id": "bandit_rogue",
+      "name": "Bandit Rogue",
+      "type": "humanoid",
+      "role": "skirmisher",
+      "description": "A quick-fingered cutthroat who targets vulnerable party members.",
+      "primary_stats": { "str": 8, "int": 5, "dex": 14, "sta": 6 },
+      "base_resistances": {
+        "fire_resist": 0.0,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0,
+        "holy_resist": 0.0,
+        "dark_resist": 0.05,
+        "poison_resist": 0.10,
+        "physical_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "quick_stab",
+          "name": "Quick Stab",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.1,
+          "crit_bonus": 0.10,
+          "cooldown": 0
+        },
+        {
+          "id": "poison_dagger",
+          "name": "Poison Dagger",
+          "type": "attack",
+          "damage_type": "poison",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.7,
+          "effect": { "poison_dot": true, "dot_percent": 0.04, "dot_duration": 3 },
+          "cooldown": 4
+        },
+        {
+          "id": "vanish",
+          "name": "Vanish",
+          "type": "defense",
+          "target": "self",
+          "effect": { "dodge_bonus": 0.70, "duration": 1 },
+          "cooldown": 4
+        }
+      ],
+      "ai_behavior": "targets_healer",
+      "base_xp": 18,
+      "base_gold": { "min": 10, "max": 35 },
+      "loot_tags": ["stolen_goods", "poison_vial", "uncommon_gear"]
+    },
+    {
+      "id": "dark_knight",
+      "name": "Dark Knight",
+      "type": "humanoid",
+      "role": "tank",
+      "description": "A fallen paladin encased in blackened plate. Wields dark magic alongside martial skill.",
+      "primary_stats": { "str": 12, "int": 8, "dex": 6, "sta": 13 },
+      "base_resistances": {
+        "dark_resist": 0.20,
+        "holy_resist": -0.15,
+        "physical_resist": 0.10,
+        "fire_resist": 0.05,
+        "ice_resist": 0.05,
+        "lightning_resist": 0.0,
+        "poison_resist": 0.05
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "dark_slash",
+          "name": "Dark Slash",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.1,
+          "cooldown": 0
+        },
+        {
+          "id": "dark_shield",
+          "name": "Dark Shield",
+          "type": "defense",
+          "target": "self",
+          "effect": { "phys_def_multiplier": 1.4, "mag_def_multiplier": 1.3, "duration": 3 },
+          "cooldown": 5
+        },
+        {
+          "id": "corrupting_strike",
+          "name": "Corrupting Strike",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.5,
+          "effect": { "reduce_heal_received": 0.50, "duration": 3 },
+          "cooldown": 4,
+          "description": "Wounds that resist healing — target receives 50% less healing for 3 turns."
+        }
+      ],
+      "ai_behavior": "targets_healer",
+      "base_xp": 30,
+      "base_gold": { "min": 15, "max": 40 },
+      "loot_tags": ["dark_plate", "cursed_weapon", "rare_gear"]
+    },
+    {
+      "id": "cultist",
+      "name": "Cultist",
+      "type": "humanoid",
+      "role": "caster",
+      "description": "A fanatical worshipper of dark powers who channels forbidden magic.",
+      "primary_stats": { "str": 4, "int": 13, "dex": 7, "sta": 6 },
+      "base_resistances": {
+        "dark_resist": 0.15,
+        "holy_resist": -0.15,
+        "fire_resist": 0.05,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0,
+        "poison_resist": 0.10,
+        "physical_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "dark_blast",
+          "name": "Dark Blast",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 1.0,
+          "cooldown": 0
+        },
+        {
+          "id": "curse_of_weakness",
+          "name": "Curse of Weakness",
+          "type": "debuff",
+          "target": "single_enemy",
+          "effect": { "reduce_phys_atk": 0.20, "reduce_mag_atk": 0.20, "duration": 3 },
+          "cooldown": 4
+        },
+        {
+          "id": "blood_ritual",
+          "name": "Blood Ritual",
+          "type": "buff",
+          "target": "all_allies",
+          "effect": { "mag_atk_multiplier": 1.25, "duration": 3 },
+          "cost_hp_percent": 0.10,
+          "cooldown": 5,
+          "description": "Sacrifices 10% of own HP to boost all allies' Magic ATK by 25%."
+        }
+      ],
+      "ai_behavior": "support_priority",
+      "base_xp": 20,
+      "base_gold": { "min": 8, "max": 25 },
+      "loot_tags": ["ritual_component", "dark_tome", "uncommon_gear"]
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "id": "necromancer",
+  "name": "Necromancer",
+  "role": "summoner_dps",
+  "description": "A dark caster who raises the dead to fight alongside the party, draining life from foes to fuel unholy magic.",
+  "lore": "Exiled from the Arcane Collegium for forbidden research, Necromancers draw power from the boundary between life and death. Their undead servants are tireless, fearless, and utterly expendable.",
+  "primary_stats": {
+    "str": 3,
+    "int": 14,
+    "dex": 5,
+    "sta": 6,
+    "wis": 10
+  },
+  "stat_growth_per_level": {
+    "str": 0,
+    "int": 4,
+    "dex": 1,
+    "sta": 1,
+    "wis": 2
+  },
+  "base_derived_bonuses": {
+    "hp": 0,
+    "mp": 15,
+    "phys_atk": 0,
+    "mag_atk": 5,
+    "phys_def": 0,
+    "mag_def": 3,
+    "spd": 0,
+    "crit_rate": 0.05,
+    "dodge": 0.0,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.0,
+    "lightning_resist": 0.0,
+    "holy_resist": -0.10,
+    "dark_resist": 0.15,
+    "poison_resist": 0.10,
+    "physical_resist": 0.0
+  },
+  "equipment_slots": ["weapon", "armor", "accessory", "tome"],
+  "preferred_weapons": ["staff", "wand"],
+  "abilities": [
+    {
+      "id": "shadow_bolt",
+      "name": "Shadow Bolt",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "single_enemy",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 1.0,
+      "mp_cost": 5,
+      "cooldown": 0,
+      "description": "Hurls a bolt of dark energy at a single enemy."
+    },
+    {
+      "id": "raise_skeleton",
+      "name": "Raise Skeleton",
+      "level_required": 1,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": { "summon_id": "skeleton_warrior", "summon_hp_percent": 0.4, "summon_atk_percent": 0.3, "duration": 5 },
+      "mp_cost": 15,
+      "cooldown": 6,
+      "description": "Raises a skeleton warrior from the ground that fights alongside the party for 5 turns."
+    },
+    {
+      "id": "bone_armor",
+      "name": "Bone Armor",
+      "level_required": 5,
+      "type": "defense",
+      "target": "self",
+      "effect": { "phys_def_multiplier": 1.30, "dark_resist_bonus": 0.10, "duration": 3 },
+      "mp_cost": 12,
+      "cooldown": 4,
+      "description": "Encases the Necromancer in a shield of bones, increasing Physical DEF by 30% and Dark Resistance by 10% for 3 turns."
+    },
+    {
+      "id": "life_drain",
+      "name": "Life Drain",
+      "level_required": 10,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "single_enemy",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 1.2,
+      "effect": { "heal_percent_of_damage": 0.5 },
+      "mp_cost": 18,
+      "cooldown": 3,
+      "description": "Drains life force from an enemy, dealing 1.2x dark damage and healing the Necromancer for 50% of damage dealt."
+    },
+    {
+      "id": "summon_wraith",
+      "name": "Summon Wraith",
+      "level_required": 20,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": { "summon_id": "wraith", "summon_hp_percent": 0.3, "summon_atk_percent": 0.5, "phasing": true, "duration": 4 },
+      "mp_cost": 25,
+      "cooldown": 7,
+      "description": "Summons a phasing wraith that ignores enemy Physical DEF and attacks with dark damage for 4 turns."
+    },
+    {
+      "id": "corpse_explosion",
+      "name": "Corpse Explosion",
+      "level_required": 30,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "all_enemies",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 1.8,
+      "effect": { "requires_dead_summon": true, "bonus_if_summon_active": 0.5 },
+      "mp_cost": 30,
+      "cooldown": 5,
+      "description": "Detonates fallen minions, dealing 1.8x dark damage to all enemies. Bonus damage if a summon was recently destroyed."
+    },
+    {
+      "id": "dark_pact",
+      "name": "Dark Pact",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "summon_atk_bonus": 0.20, "summon_duration_bonus": 1, "dark_resist": 0.10 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: All summons gain 20% increased ATK, +1 turn duration, and the Necromancer gains an additional 10% Dark Resistance."
+    },
+    {
+      "id": "army_of_the_dead",
+      "name": "Army of the Dead",
+      "level_required": 50,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": {
+        "summon_id": "undead_legion",
+        "summon_count": 3,
+        "summon_hp_percent": 0.35,
+        "summon_atk_percent": 0.4,
+        "duration": 4,
+        "on_summon_death": { "dark_damage_aoe": 0.5 }
+      },
+      "mp_cost": 55,
+      "cooldown": 10,
+      "description": "Ultimate: Raises a legion of 3 undead minions for 4 turns. When each minion falls, it explodes for dark AoE damage."
+    }
+  ],
+  "ai_priority": [
+    "use_army_of_the_dead_if_no_summons_and_available",
+    "use_summon_wraith_if_no_summons_active",
+    "use_raise_skeleton_if_below_max_summons",
+    "use_life_drain_if_hp_below_40",
+    "use_corpse_explosion_if_summon_recently_died_and_multiple_enemies",
+    "use_shadow_bolt",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Warrior: Warrior holds aggro while Necromancer builds an undead army safely from the back line",
+    "Witch: Witch curses reduce enemy resistances, amplifying the Necromancer's dark damage",
+    "Cleric: Cleric keeps the fragile Necromancer alive, but holy magic conflicts thematically"
+  ],
+  "weaknesses": [
+    "Extremely fragile — low STA and no defensive abilities",
+    "Holy damage is devastating due to negative holy resistance",
+    "Summons take time to build up — vulnerable in the first few turns",
+    "High MP costs drain resources quickly without careful management"
+  ],
+  "hire_cost": 130,
+  "hire_description": "A gaunt figure in tattered robes sits alone in the corner, skeletal fingers tracing symbols on the table. The candle beside them flickers without wind. \"The dead remember everything. Shall I introduce you?\""
+}

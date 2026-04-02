@@ -1,0 +1,50 @@
+{
+  "description": "Crafting and upgrade system. Items can be salvaged into materials. Materials + gold upgrade items by rank or rarity.",
+
+  "material_types": [
+    { "id": "metal_scrap", "name": "Metal Scrap", "icon": "&#9881;", "description": "Common metal fragments" },
+    { "id": "leather_scrap", "name": "Leather Scrap", "icon": "&#128218;", "description": "Common leather pieces" },
+    { "id": "cloth_scrap", "name": "Cloth Scrap", "icon": "&#127808;", "description": "Common fabric remnants" },
+    { "id": "wood_scrap", "name": "Wood Scrap", "icon": "&#127795;", "description": "Common wood splinters" },
+    { "id": "gem_dust", "name": "Gem Dust", "icon": "&#128142;", "description": "Powdered gemstones for enchanting" },
+    { "id": "essence", "name": "Magical Essence", "icon": "&#10024;", "description": "Concentrated magical energy" }
+  ],
+
+  "salvage_yields": {
+    "description": "What you get from salvaging an item. Quantity = rank. Material rarity matches item rarity.",
+    "by_slot": {
+      "weapon": ["metal_scrap", "wood_scrap"],
+      "armor": ["metal_scrap", "leather_scrap"],
+      "shield": ["metal_scrap", "wood_scrap"],
+      "accessory": ["gem_dust", "essence"],
+      "tome": ["cloth_scrap", "essence"],
+      "offhand_weapon": ["metal_scrap", "leather_scrap"],
+      "quiver": ["wood_scrap", "leather_scrap"],
+      "focus": ["gem_dust", "essence"]
+    },
+    "quantity_per_rank": 1,
+    "bonus_materials_from_effects": "Items with bonus effects yield 1 extra gem_dust per effect"
+  },
+
+  "upgrade_rank": {
+    "description": "Upgrade an item's rank (1->2, 2->3, etc). Costs materials of the same rarity + gold.",
+    "costs": {
+      "1_to_2": { "materials": 3, "gold": 50 },
+      "2_to_3": { "materials": 5, "gold": 100 },
+      "3_to_4": { "materials": 8, "gold": 200 },
+      "4_to_5": { "materials": 12, "gold": 400 }
+    }
+  },
+
+  "upgrade_rarity": {
+    "description": "Upgrade item rarity (must be rank 5). Requires materials of the NEXT rarity tier + gold. Resets rank to 1.",
+    "costs": {
+      "common_to_uncommon": { "materials": 5, "gold": 200 },
+      "uncommon_to_rare": { "materials": 8, "gold": 500 },
+      "rare_to_epic": { "materials": 12, "gold": 1200 },
+      "epic_to_legendary": { "materials": 18, "gold": 3000 },
+      "legendary_to_mythical": { "materials": 25, "gold": 8000 },
+      "mythical_to_divine": { "materials": 35, "gold": 20000 }
+    }
+  }
+}

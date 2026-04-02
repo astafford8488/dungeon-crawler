@@ -1,0 +1,252 @@
+{
+  "category": "weapon",
+  "slot": "weapon",
+  "items": [
+    {
+      "id": "iron_sword",
+      "name": "Iron Sword",
+      "type": "sword",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "A standard-issue blade, reliable if unexceptional.",
+      "base_stats": { "str": 3 },
+      "base_price": 25,
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "broad_sword",
+      "name": "Broad Sword",
+      "type": "sword",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "A wide blade built for heavy cleaving strikes.",
+      "base_stats": { "str": 5, "dex": -1 },
+      "base_price": 40,
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "bastard_sword",
+      "name": "Bastard Sword",
+      "type": "sword",
+      "classes": ["warrior", "shadowknight"],
+      "description": "A massive hand-and-a-half sword that hits like a battering ram.",
+      "base_stats": { "str": 7, "dex": -2 },
+      "base_price": 60,
+      "tags": ["melee", "two_handed"]
+    },
+    {
+      "id": "war_axe",
+      "name": "War Axe",
+      "type": "axe",
+      "classes": ["warrior", "paladin", "shadowknight", "beastlord"],
+      "description": "A vicious chopping weapon that bites deep into armor.",
+      "base_stats": { "str": 4, "sta": -1 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["armor_pierce"],
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "battle_axe",
+      "name": "Battle Axe",
+      "type": "axe",
+      "classes": ["warrior", "shadowknight", "beastlord"],
+      "description": "A double-headed axe of terrifying power.",
+      "base_stats": { "str": 6, "dex": -2 },
+      "base_price": 55,
+      "bonus_effect_affinity": ["armor_pierce", "crit_damage"],
+      "tags": ["melee", "two_handed"]
+    },
+    {
+      "id": "flanged_mace",
+      "name": "Flanged Mace",
+      "type": "mace",
+      "classes": ["warrior", "paladin", "cleric", "shadowknight", "auramancer"],
+      "description": "A sturdy bludgeon that bypasses armor with blunt force.",
+      "base_stats": { "str": 3, "sta": 1 },
+      "base_price": 25,
+      "bonus_effect_affinity": ["armor_pierce"],
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "war_hammer",
+      "name": "War Hammer",
+      "type": "hammer",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "A massive hammer that crushes bone and steel alike.",
+      "base_stats": { "str": 6, "sta": 1, "dex": -3 },
+      "base_price": 50,
+      "bonus_effect_affinity": ["armor_pierce", "crit_damage"],
+      "tags": ["melee", "two_handed"]
+    },
+    {
+      "id": "steel_dagger",
+      "name": "Steel Dagger",
+      "type": "dagger",
+      "classes": ["rogue"],
+      "description": "A quick blade made for finding gaps in armor.",
+      "base_stats": { "str": 1, "dex": 3 },
+      "base_price": 20,
+      "bonus_effect_affinity": ["crit_chance", "double_strike"],
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "stiletto",
+      "name": "Stiletto",
+      "type": "dagger",
+      "classes": ["rogue"],
+      "description": "A needle-thin blade designed for piercing vital organs.",
+      "base_stats": { "str": 2, "dex": 4 },
+      "base_price": 35,
+      "bonus_effect_affinity": ["crit_chance", "crit_damage", "armor_pierce"],
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "assassin_blade",
+      "name": "Assassin's Blade",
+      "type": "dagger",
+      "classes": ["rogue"],
+      "description": "A blackened blade with a serrated edge that leaves grievous wounds.",
+      "base_stats": { "str": 2, "dex": 6 },
+      "base_price": 55,
+      "bonus_effect_affinity": ["crit_chance", "crit_damage", "lifesteal"],
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "short_sword",
+      "name": "Short Sword",
+      "type": "short_sword",
+      "classes": ["rogue"],
+      "description": "A quick blade balanced for speed over power.",
+      "base_stats": { "str": 2, "dex": 2 },
+      "base_price": 22,
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "hunting_bow",
+      "name": "Hunting Bow",
+      "type": "bow",
+      "classes": ["ranger", "beastlord"],
+      "description": "A simple but effective shortbow for medium range.",
+      "base_stats": { "dex": 3, "str": 1 },
+      "base_price": 22,
+      "tags": ["ranged", "two_handed"]
+    },
+    {
+      "id": "longbow",
+      "name": "Longbow",
+      "type": "bow",
+      "classes": ["ranger", "beastlord"],
+      "description": "A powerful bow with exceptional range and penetrating force.",
+      "base_stats": { "str": 3, "dex": 3 },
+      "base_price": 45,
+      "bonus_effect_affinity": ["crit_chance", "armor_pierce"],
+      "tags": ["ranged", "two_handed"]
+    },
+    {
+      "id": "composite_bow",
+      "name": "Composite Bow",
+      "type": "bow",
+      "classes": ["ranger", "beastlord"],
+      "description": "A recurve bow of layered materials — fast and deadly.",
+      "base_stats": { "dex": 5, "str": 1 },
+      "base_price": 40,
+      "bonus_effect_affinity": ["double_strike", "crit_chance"],
+      "tags": ["ranged", "two_handed"]
+    },
+    {
+      "id": "crossbow",
+      "name": "Crossbow",
+      "type": "crossbow",
+      "classes": ["ranger", "beastlord"],
+      "description": "A mechanical bow that trades speed for raw punching power.",
+      "base_stats": { "str": 5, "dex": -2 },
+      "base_price": 50,
+      "bonus_effect_affinity": ["armor_pierce", "crit_damage"],
+      "tags": ["ranged", "two_handed"]
+    },
+    {
+      "id": "oak_staff",
+      "name": "Oak Staff",
+      "type": "staff",
+      "classes": ["mage", "cleric", "necromancer", "witch", "elementalist", "auramancer"],
+      "description": "A simple wooden staff that channels magical energy.",
+      "base_stats": { "int": 3, "sta": 1 },
+      "base_price": 20,
+      "tags": ["magic", "two_handed"]
+    },
+    {
+      "id": "crystal_staff",
+      "name": "Crystal Staff",
+      "type": "staff",
+      "classes": ["mage", "necromancer", "witch", "elementalist", "auramancer"],
+      "description": "A staff topped with a pulsing arcane crystal.",
+      "base_stats": { "int": 6, "sta": 1 },
+      "base_price": 45,
+      "bonus_effect_affinity": ["fire_damage", "ice_damage", "lightning_damage"],
+      "tags": ["magic", "two_handed"]
+    },
+    {
+      "id": "bone_staff",
+      "name": "Bone Staff",
+      "type": "staff",
+      "classes": ["mage", "necromancer", "witch", "elementalist", "auramancer"],
+      "description": "A staff carved from the spine of a great beast, thrumming with dark power.",
+      "base_stats": { "int": 8 },
+      "base_price": 65,
+      "bonus_effect_affinity": ["crit_damage", "lifesteal"],
+      "tags": ["magic", "two_handed"]
+    },
+    {
+      "id": "wand",
+      "name": "Wand",
+      "type": "wand",
+      "classes": ["mage", "cleric", "necromancer", "witch", "elementalist"],
+      "description": "A slender wand that allows one-handed casting.",
+      "base_stats": { "int": 2, "dex": 1 },
+      "base_price": 18,
+      "tags": ["magic", "one_handed"]
+    },
+    {
+      "id": "scepter",
+      "name": "Scepter",
+      "type": "scepter",
+      "classes": ["cleric", "paladin", "auramancer"],
+      "description": "A holy scepter that amplifies divine power.",
+      "base_stats": { "int": 4, "sta": 1 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["heal_bonus", "holy_damage"],
+      "tags": ["magic", "one_handed"]
+    },
+    {
+      "id": "holy_mace",
+      "name": "Holy Mace",
+      "type": "mace",
+      "classes": ["cleric", "paladin", "auramancer"],
+      "description": "A blessed weapon that radiates warm golden light.",
+      "base_stats": { "str": 2, "int": 3 },
+      "base_price": 35,
+      "bonus_effect_affinity": ["holy_damage", "heal_bonus"],
+      "tags": ["melee", "one_handed"]
+    },
+    {
+      "id": "bone_wand",
+      "name": "Bone Wand",
+      "type": "wand",
+      "classes": ["necromancer", "witch"],
+      "description": "A wand carved from ancient bone that channels necrotic energy.",
+      "base_stats": { "int": 4, "wis": 2 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["lifesteal", "crit_damage"],
+      "tags": ["magic", "one_handed"]
+    },
+    {
+      "id": "nature_bow",
+      "name": "Nature Bow",
+      "type": "bow",
+      "classes": ["beastlord"],
+      "description": "A bow grown from living wood, attuned to the primal forces of nature.",
+      "base_stats": { "str": 2, "dex": 4 },
+      "base_price": 35,
+      "bonus_effect_affinity": ["crit_chance", "double_strike"],
+      "tags": ["ranged", "two_handed"]
+    }
+  ]
+}

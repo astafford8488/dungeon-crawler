@@ -1,0 +1,95 @@
+{
+  "dungeon_id": "thornwood_depths",
+  "dungeon_name": "Thornwood Depths",
+  "theme": "beast",
+  "tier": 1,
+  "base_level": 5,
+  "description": "A network of caves beneath the ancient Thornwood forest. Something is driving the wildlife mad, turning once-docile creatures into savage predators.",
+  "unlock_condition": "clear_crypt_of_shadows",
+  "environment": {
+    "backdrop": "forest_cave",
+    "ambience": "chittering, growling, distant howling",
+    "lighting": "bioluminescent fungi, shafts of daylight"
+  },
+  "enemy_pool": ["giant_rat", "dire_wolf", "cave_spider", "cave_bear", "giant_scorpion", "bat_swarm"],
+  "encounter_waves": [
+    {
+      "wave": 1,
+      "template": "easy_intro",
+      "name": "Vermin Nest",
+      "description": "Giant rats scurry out of the undergrowth, baring yellowed fangs.",
+      "fixed_enemies": [
+        { "id": "giant_rat", "count": 4 },
+        { "id": "bat_swarm", "count": 1 }
+      ]
+    },
+    {
+      "wave": 2,
+      "template": "standard",
+      "name": "Spider Den",
+      "description": "Webs thick as rope crisscross the passage. Shapes move in the darkness above.",
+      "fixed_enemies": [
+        { "id": "cave_spider", "count": 3 }
+      ]
+    },
+    {
+      "wave": 3,
+      "template": "standard",
+      "name": "Wolf Pack",
+      "description": "A pack of dire wolves blocks the path, their alpha howling a challenge.",
+      "fixed_enemies": [
+        { "id": "dire_wolf", "count": 3 }
+      ]
+    },
+    {
+      "wave": 4,
+      "template": "tough",
+      "name": "Scorpion Pit",
+      "description": "The ground is littered with bones. Giant scorpions emerge from burrows, pincers snapping.",
+      "fixed_enemies": [
+        { "id": "giant_scorpion", "count": 2 },
+        { "id": "cave_spider", "count": 2 }
+      ]
+    },
+    {
+      "wave": 5,
+      "template": "tough",
+      "name": "The Bear's Domain",
+      "description": "A massive cave bear guards its territory, roaring as you approach.",
+      "fixed_enemies": [
+        { "id": "cave_bear", "count": 1, "elite": true, "elite_prefix": "Enraged" },
+        { "id": "dire_wolf", "count": 2 }
+      ],
+      "difficulty_slider_min": 3
+    },
+    {
+      "wave": 6,
+      "template": "mini_boss",
+      "name": "The Brood Mother",
+      "description": "A cave spider the size of a horse descends from the ceiling, flanked by her swarm.",
+      "fixed_enemies": [
+        { "id": "cave_spider", "count": 1, "elite": true, "elite_prefix": "Venomous" },
+        { "id": "cave_spider", "count": 3 }
+      ],
+      "difficulty_slider_min": 5
+    }
+  ],
+  "boss": {
+    "boss_id": "boss_alpha_beast",
+    "pre_battle_text": "The tunnel opens into a vast underground cavern. The stench of death is overwhelming. In the center, a creature of nightmarish proportions gnaws on the remains of something large.",
+    "intro_dialogue": "Goremaw lifts its head, blood dripping from rows of teeth. It doesn't roar — it just stares, sizing you up like prey.",
+    "victory_text": "Goremaw collapses with a ground-shaking thud. The cave falls eerily silent — the beasts of the Thornwood will trouble the surface no more.",
+    "defeat_text": "Goremaw's jaws close with terrible finality..."
+  },
+  "completion_rewards": {
+    "first_clear_bonus": {
+      "gold": 300,
+      "xp": 200,
+      "unlock": "iron_horde_fortress"
+    },
+    "repeatable_bonus": {
+      "gold_multiplier": 0.5,
+      "xp_multiplier": 0.5
+    }
+  }
+}

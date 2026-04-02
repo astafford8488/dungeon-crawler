@@ -1,0 +1,98 @@
+{
+  "version": "2.0",
+  "description": "Item scaling system. Items grant primary stats (STR/INT/DEX/STA) and resistances. Final primary stats = floor(base_stat × rarity_multiplier × rank_multiplier). Resistances on items are flat (not multiplied by rarity/rank). Higher rarities unlock bonus effects.",
+
+  "rarities": {
+    "common":    { "tier": 1, "multiplier": 1.0,  "color": "#9d9d9d", "max_bonus_effects": 0, "sell_multiplier": 1.0,  "drop_level_min": 1  },
+    "uncommon":  { "tier": 2, "multiplier": 1.5,  "color": "#1eff00", "max_bonus_effects": 1, "sell_multiplier": 1.5,  "drop_level_min": 1  },
+    "rare":      { "tier": 3, "multiplier": 2.2,  "color": "#0070dd", "max_bonus_effects": 1, "sell_multiplier": 3.0,  "drop_level_min": 5  },
+    "epic":      { "tier": 4, "multiplier": 3.0,  "color": "#a335ee", "max_bonus_effects": 2, "sell_multiplier": 6.0,  "drop_level_min": 15 },
+    "legendary": { "tier": 5, "multiplier": 4.0,  "color": "#ff8000", "max_bonus_effects": 2, "sell_multiplier": 12.0, "drop_level_min": 25 },
+    "mythical":  { "tier": 6, "multiplier": 5.5,  "color": "#e6cc80", "max_bonus_effects": 3, "sell_multiplier": 25.0, "drop_level_min": 35 },
+    "divine":    { "tier": 7, "multiplier": 7.5,  "color": "#ff4040", "max_bonus_effects": 3, "sell_multiplier": 50.0, "drop_level_min": 45 }
+  },
+
+  "ranks": {
+    "1": { "multiplier": 1.0,  "suffix": "",     "level_offset": 0  },
+    "2": { "multiplier": 1.2,  "suffix": "II",   "level_offset": 2  },
+    "3": { "multiplier": 1.4,  "suffix": "III",  "level_offset": 4  },
+    "4": { "multiplier": 1.6,  "suffix": "IV",   "level_offset": 6  },
+    "5": { "multiplier": 1.85, "suffix": "V",    "level_offset": 8  }
+  },
+
+  "level_requirement_formula": "rarity.drop_level_min + rank.level_offset",
+
+  "stat_formula": "floor(base_primary_stat × rarity.multiplier × rank.multiplier)",
+  "resistance_formula": "base_resistance (flat, not scaled by rarity/rank — higher rarity items simply have higher base resist values)",
+  "price_formula": "floor(base_price × rarity.sell_multiplier × rank.multiplier)",
+
+  "naming_convention": {
+    "format": "[prefix] [base_name] [suffix]",
+    "examples": [
+      "Iron Sword",
+      "Fine Iron Sword II",
+      "Blazing Iron Sword III",
+      "Runic Iron Sword IV",
+      "Celestial Iron Sword V"
+    ]
+  },
+
+  "rarity_prefixes": {
+    "common":    ["", "Old", "Worn", "Simple"],
+    "uncommon":  ["Fine", "Sturdy", "Keen", "Polished"],
+    "rare":      ["Superior", "Enchanted", "Gleaming", "Tempered"],
+    "epic":      ["Blazing", "Runic", "Shadowforged", "Arcane"],
+    "legendary": ["Mythic", "Soulbound", "Doomforged", "Eternal"],
+    "mythical":  ["Primordial", "Void-Touched", "Astral", "Abyssal"],
+    "divine":    ["Celestial", "God-Forged", "Seraphic", "Transcendent"]
+  },
+
+  "bonus_effect_pool": {
+    "offensive": [
+      { "id": "crit_chance",       "name": "+Crit Chance",       "values": [0.03, 0.05, 0.08, 0.12, 0.15] },
+      { "id": "crit_damage",       "name": "+Crit Damage",       "values": [0.10, 0.15, 0.25, 0.35, 0.50] },
+      { "id": "armor_pierce",      "name": "Armor Piercing",     "values": [0.05, 0.08, 0.12, 0.18, 0.25] },
+      { "id": "lifesteal",         "name": "Lifesteal",          "values": [0.03, 0.05, 0.08, 0.12, 0.15] },
+      { "id": "double_strike",     "name": "Double Strike",      "values": [0.05, 0.08, 0.10, 0.15, 0.20] },
+      { "id": "fire_damage",       "name": "+Fire Damage",       "values": [3, 6, 10, 16, 24] },
+      { "id": "ice_damage",        "name": "+Ice Damage",        "values": [3, 6, 10, 16, 24] },
+      { "id": "lightning_damage",   "name": "+Lightning Damage",  "values": [3, 6, 10, 16, 24] },
+      { "id": "holy_damage",       "name": "+Holy Damage",       "values": [3, 6, 10, 16, 24] }
+    ],
+    "defensive": [
+      { "id": "damage_reduction",  "name": "Damage Reduction",   "values": [0.02, 0.04, 0.06, 0.09, 0.12] },
+      { "id": "dodge_chance",      "name": "+Dodge Chance",      "values": [0.03, 0.05, 0.08, 0.10, 0.15] },
+      { "id": "hp_regen",          "name": "HP Regen/Turn",      "values": [2, 4, 7, 11, 16] },
+      { "id": "block_chance",      "name": "Block Chance",       "values": [0.05, 0.08, 0.12, 0.16, 0.20] },
+      { "id": "thorns",            "name": "Thorns Damage",      "values": [2, 4, 8, 13, 20] },
+      { "id": "magic_resist",      "name": "Magic Resistance",   "values": [0.03, 0.05, 0.08, 0.12, 0.18] }
+    ],
+    "utility": [
+      { "id": "mp_regen",          "name": "MP Regen/Turn",      "values": [1, 2, 4, 6, 9] },
+      { "id": "xp_bonus",          "name": "+XP Bonus",          "values": [0.03, 0.05, 0.08, 0.12, 0.18] },
+      { "id": "gold_bonus",        "name": "+Gold Find",         "values": [0.05, 0.08, 0.12, 0.18, 0.25] },
+      { "id": "cooldown_reduction","name": "Cooldown Reduction",  "values": [0.03, 0.05, 0.08, 0.10, 0.15] },
+      { "id": "heal_bonus",        "name": "+Healing Power",     "values": [0.05, 0.08, 0.12, 0.18, 0.25] },
+      { "id": "spd_bonus",         "name": "+Speed",             "values": [1, 2, 3, 5, 7] }
+    ]
+  },
+
+  "bonus_effect_tier_by_rank": {
+    "1": 0, "2": 1, "3": 2, "4": 3, "5": 4
+  },
+
+  "shop_stock_rules": {
+    "blacksmith": {
+      "max_rarity": "rare",
+      "max_rank": 3,
+      "restock_on_dungeon_clear": true,
+      "categories": ["weapon", "armor", "shield"]
+    },
+    "alchemist": {
+      "max_rarity": "epic",
+      "max_rank": 5,
+      "restock_on_dungeon_clear": true,
+      "categories": ["consumable"]
+    }
+  }
+}

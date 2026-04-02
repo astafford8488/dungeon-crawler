@@ -1,0 +1,96 @@
+{
+  "description": "Random events that occur between dungeon waves. Each has 2-4 choices with different outcomes.",
+  "event_chance": 0.35,
+  "events": [
+    {
+      "id": "mysterious_chest",
+      "name": "Mysterious Chest",
+      "description": "A dust-covered chest sits in an alcove, its lock glowing faintly. Something rattles inside.",
+      "icon": "&#128230;",
+      "choices": [
+        { "id": "open", "text": "Force it open", "outcome": "random", "good": { "type": "loot", "count": 2, "message": "The chest contains valuable treasures!" }, "bad": { "type": "damage_party", "percent": 0.15, "message": "A poison needle trap! The party takes damage." }, "good_chance": 0.5 },
+        { "id": "pick_lock", "text": "Pick the lock carefully (Rogue required)", "class_bonus": "rogue", "class_required": true, "outcome": "random", "good": { "type": "loot", "count": 3, "message": "The rogue expertly disarms the trap and finds extra treasure!" }, "bad": { "type": "damage_one", "percent": 0.10, "message": "The lock mechanism snaps — minor injury." }, "good_chance": 0.7, "class_bonus_chance": 0.9 },
+        { "id": "leave", "text": "Leave it alone", "outcome": "fixed", "result": { "type": "nothing", "message": "You wisely move on." } },
+        { "id": "smash", "text": "Smash it open", "outcome": "fixed", "result": { "type": "materials", "count": 3, "message": "The chest shatters into useful crafting materials." } }
+      ]
+    },
+    {
+      "id": "wounded_traveler",
+      "name": "Wounded Traveler",
+      "description": "A wounded adventurer leans against the wall, clutching a bleeding wound. They look up with desperate eyes.",
+      "icon": "&#129492;",
+      "choices": [
+        { "id": "heal", "text": "Heal their wounds", "class_bonus": "cleric", "outcome": "fixed", "result": { "type": "buff_party", "stat": "phys_atk", "value": 0.10, "duration": "rest_of_dungeon", "message": "Grateful, they share knowledge of enemy weaknesses. Party ATK +10%!" } },
+        { "id": "trade", "text": "Share your potions (lose 1 potion)", "outcome": "fixed", "cost": { "type": "potion", "amount": 1 }, "result": { "type": "buff_party", "stat": "phys_def", "value": 0.10, "duration": "rest_of_dungeon", "message": "Grateful, they teach defensive techniques. Party DEF +10%!" } },
+        { "id": "rob", "text": "Take their supplies", "outcome": "fixed", "result": { "type": "gold", "amount": 75, "message": "You take their remaining gold... but feel terrible about it." } },
+        { "id": "ignore", "text": "Move on", "outcome": "fixed", "result": { "type": "nothing", "message": "You leave them behind." } }
+      ]
+    },
+    {
+      "id": "poison_gas_trap",
+      "name": "Poison Gas Trap",
+      "description": "Green mist seeps from cracks in the floor. The air burns your throat. You must act quickly.",
+      "icon": "&#9763;",
+      "choices": [
+        { "id": "rush", "text": "Rush through!", "outcome": "fixed", "result": { "type": "damage_party", "percent": 0.12, "message": "The party charges through, taking poison damage!" } },
+        { "id": "disarm", "text": "Disarm the trap", "class_bonus": "ranger", "outcome": "random", "good": { "type": "nothing", "message": "Trap disarmed! The gas dissipates harmlessly." }, "bad": { "type": "damage_party", "percent": 0.20, "message": "The disarm fails — concentrated blast hits everyone!" }, "good_chance": 0.5, "class_bonus_chance": 0.8 },
+        { "id": "wait", "text": "Wait for it to clear", "outcome": "fixed", "result": { "type": "debuff_party", "stat": "spd", "value": 0.15, "duration": 3, "message": "The gas lingers... everyone feels sluggish. SPD -15% for 3 combats." } }
+      ]
+    },
+    {
+      "id": "ancient_shrine",
+      "name": "Ancient Shrine",
+      "description": "A crumbling shrine radiates faint energy. Offerings and prayers litter the base of a forgotten idol.",
+      "icon": "&#9962;",
+      "choices": [
+        { "id": "pray", "text": "Pray at the shrine", "class_bonus": "paladin", "outcome": "random", "good": { "type": "buff_party", "stat": "all_resist", "value": 0.08, "duration": "rest_of_dungeon", "message": "Divine blessing! All resistances +8%!" }, "bad": { "type": "debuff_party", "stat": "mag_def", "value": 0.10, "duration": 3, "message": "The shrine curses you! Mag DEF -10% for 3 combats." }, "good_chance": 0.6, "class_bonus_chance": 0.85 },
+        { "id": "offer_gold", "text": "Offer 100 gold", "outcome": "fixed", "cost": { "type": "gold", "amount": 100 }, "result": { "type": "heal_party", "percent": 0.30, "message": "Warm light washes over the party. HP restored!" } },
+        { "id": "smash", "text": "Smash the idol", "outcome": "fixed", "result": { "type": "materials", "count": 5, "message": "The idol breaks apart into rare materials!" } }
+      ]
+    },
+    {
+      "id": "fork_in_road",
+      "name": "Fork in the Road",
+      "description": "The tunnel splits. Left is darker and ominous. Right shows flickering torchlight.",
+      "icon": "&#128268;",
+      "choices": [
+        { "id": "left", "text": "Take the dark path", "outcome": "fixed", "result": { "type": "harder_next", "stat_mult": 1.25, "loot_mult": 1.5, "message": "The enemies ahead are stronger... but the rewards will be greater." } },
+        { "id": "right", "text": "Take the lit path", "outcome": "fixed", "result": { "type": "easier_next", "stat_mult": 0.8, "message": "An easier route. The enemies seem weaker here." } }
+      ]
+    },
+    {
+      "id": "trapped_floor",
+      "name": "Trapped Floor",
+      "description": "The floor tiles have suspicious markings. Some are clearly pressure plates.",
+      "icon": "&#9888;",
+      "choices": [
+        { "id": "careful", "text": "Step carefully around them", "class_bonus": "rogue", "outcome": "random", "good": { "type": "nothing", "message": "Navigated safely!" }, "bad": { "type": "damage_one", "percent": 0.20, "message": "CLICK. A dart hits one party member!" }, "good_chance": 0.6, "class_bonus_chance": 0.9 },
+        { "id": "trigger", "text": "Trigger them from a distance", "class_bonus": "mage", "outcome": "fixed", "result": { "type": "nothing", "message": "A fireball safely detonates all the traps at once." }, "class_required": true },
+        { "id": "tank_it", "text": "Just walk through", "class_bonus": "warrior", "outcome": "fixed", "result": { "type": "damage_one_class", "class": "warrior", "percent": 0.10, "message": "The warrior shrugs off the darts with their heavy armor." } }
+      ]
+    },
+    {
+      "id": "gambling_merchant",
+      "name": "Wandering Merchant",
+      "description": "A hooded figure sits cross-legged with trinkets spread on a cloth. 'Care to try your luck, adventurer?'",
+      "icon": "&#127922;",
+      "choices": [
+        { "id": "buy", "text": "Buy a random item (150g)", "outcome": "fixed", "cost": { "type": "gold", "amount": 150 }, "result": { "type": "loot", "count": 1, "rarity_boost": 2, "message": "The merchant hands you a wrapped package..." } },
+        { "id": "gamble", "text": "Gamble 200g (double or nothing)", "outcome": "random", "cost": { "type": "gold", "amount": 200 }, "good": { "type": "gold", "amount": 400, "message": "You win! Double your gold back!" }, "bad": { "type": "nothing", "message": "You lose. The merchant grins and pockets your gold." }, "good_chance": 0.45 },
+        { "id": "trade_info", "text": "Trade stories", "outcome": "fixed", "result": { "type": "buff_party", "stat": "crit", "value": 0.05, "duration": "rest_of_dungeon", "message": "The merchant shares combat tips. Party crit rate +5%!" } },
+        { "id": "leave", "text": "Walk away", "outcome": "fixed", "result": { "type": "nothing", "message": "The merchant shrugs. 'Your loss.'" } }
+      ]
+    },
+    {
+      "id": "healing_spring",
+      "name": "Underground Spring",
+      "description": "Crystal-clear water bubbles up from the rocks, glowing with a faint blue light. It looks refreshing.",
+      "icon": "&#128167;",
+      "choices": [
+        { "id": "drink", "text": "Everyone drinks", "outcome": "random", "good": { "type": "heal_party", "percent": 0.25, "message": "The water is incredibly refreshing! Party healed!" }, "bad": { "type": "debuff_party", "stat": "phys_atk", "value": 0.10, "duration": 2, "message": "The water tastes odd... everyone feels weakened." }, "good_chance": 0.7 },
+        { "id": "fill_bottles", "text": "Fill empty bottles", "outcome": "fixed", "result": { "type": "potions", "count": 2, "message": "You gain 2 health potions!" } },
+        { "id": "leave", "text": "Don't trust it", "outcome": "fixed", "result": { "type": "nothing", "message": "Better safe than sorry." } }
+      ]
+    }
+  ]
+}

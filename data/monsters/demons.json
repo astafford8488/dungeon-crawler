@@ -1,0 +1,255 @@
+{
+  "theme": "demon",
+  "monsters": [
+    {
+      "id": "imp",
+      "name": "Imp",
+      "type": "demon",
+      "role": "swarm",
+      "description": "A small, cackling fiend that hurls bolts of hellfire. Annoying individually, dangerous in groups.",
+      "primary_stats": { "str": 4, "int": 9, "dex": 11, "sta": 4 },
+      "base_resistances": {
+        "fire_resist": 0.30,
+        "dark_resist": 0.15,
+        "holy_resist": -0.25,
+        "ice_resist": -0.15,
+        "poison_resist": 0.10,
+        "physical_resist": 0.0,
+        "lightning_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "fire_bolt",
+          "name": "Fire Bolt",
+          "type": "attack",
+          "damage_type": "fire",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.9,
+          "cooldown": 0
+        },
+        {
+          "id": "scatter",
+          "name": "Scatter",
+          "type": "defense",
+          "target": "self",
+          "effect": { "dodge_bonus": 0.40, "duration": 1 },
+          "cooldown": 3
+        }
+      ],
+      "ai_behavior": "random",
+      "base_xp": 10,
+      "base_gold": { "min": 4, "max": 12 },
+      "loot_tags": ["demon_horn", "fire_gem", "common_gear"]
+    },
+    {
+      "id": "hellhound",
+      "name": "Hellhound",
+      "type": "demon",
+      "role": "skirmisher",
+      "description": "A two-headed canine wreathed in flames. Each head bites independently.",
+      "primary_stats": { "str": 11, "int": 4, "dex": 13, "sta": 8 },
+      "base_resistances": {
+        "fire_resist": 0.50,
+        "dark_resist": 0.10,
+        "holy_resist": -0.20,
+        "ice_resist": -0.25,
+        "poison_resist": 0.10,
+        "physical_resist": 0.0,
+        "lightning_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "flame_bite",
+          "name": "Flame Bite",
+          "type": "attack",
+          "damage_type": "fire",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.1,
+          "effect": { "burn_dot": true, "dot_percent": 0.03, "dot_duration": 2 },
+          "cooldown": 0
+        },
+        {
+          "id": "twin_lunge",
+          "name": "Twin Lunge",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.7,
+          "hits": 2,
+          "cooldown": 3
+        }
+      ],
+      "ai_behavior": "targets_lowest_hp",
+      "base_xp": 20,
+      "base_gold": { "min": 8, "max": 25 },
+      "loot_tags": ["demon_fang", "fire_gem", "infernal_hide", "uncommon_gear"]
+    },
+    {
+      "id": "succubus",
+      "name": "Succubus",
+      "type": "demon",
+      "role": "caster",
+      "description": "A seductive fiend that drains willpower and turns allies against each other.",
+      "primary_stats": { "str": 5, "int": 15, "dex": 12, "sta": 6 },
+      "base_resistances": {
+        "fire_resist": 0.15,
+        "dark_resist": 0.25,
+        "holy_resist": -0.30,
+        "ice_resist": 0.0,
+        "poison_resist": 0.15,
+        "physical_resist": 0.0,
+        "lightning_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "shadow_bolt",
+          "name": "Shadow Bolt",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 1.1,
+          "cooldown": 0
+        },
+        {
+          "id": "charm",
+          "name": "Charm",
+          "type": "debuff",
+          "target": "single_enemy",
+          "effect": { "confusion": true, "duration": 2 },
+          "cooldown": 5,
+          "description": "Charmed target has 30% chance to attack their own allies each turn."
+        },
+        {
+          "id": "life_siphon",
+          "name": "Life Siphon",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.8,
+          "effect": { "lifesteal": 0.60 },
+          "cooldown": 3
+        }
+      ],
+      "ai_behavior": "targets_highest_atk",
+      "base_xp": 28,
+      "base_gold": { "min": 12, "max": 35 },
+      "loot_tags": ["dark_gem", "demon_horn", "rare_gear"]
+    },
+    {
+      "id": "pit_fiend",
+      "name": "Pit Fiend",
+      "type": "demon",
+      "role": "bruiser",
+      "description": "A hulking demon of muscle and flame, armed with a jagged greatsword of infernal iron.",
+      "primary_stats": { "str": 16, "int": 6, "dex": 6, "sta": 14 },
+      "base_resistances": {
+        "fire_resist": 0.40,
+        "dark_resist": 0.20,
+        "holy_resist": -0.25,
+        "ice_resist": -0.15,
+        "poison_resist": 0.20,
+        "physical_resist": 0.10,
+        "lightning_resist": 0.05
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "infernal_cleave",
+          "name": "Infernal Cleave",
+          "type": "attack",
+          "damage_type": "fire",
+          "target": "all_enemies",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.7,
+          "cooldown": 0
+        },
+        {
+          "id": "hellfire_slam",
+          "name": "Hellfire Slam",
+          "type": "attack",
+          "damage_type": "fire",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.8,
+          "effect": { "burn_dot": true, "dot_percent": 0.04, "dot_duration": 3 },
+          "cooldown": 4
+        },
+        {
+          "id": "demonic_roar",
+          "name": "Demonic Roar",
+          "type": "debuff",
+          "target": "all_enemies",
+          "effect": { "reduce_phys_atk": 0.15, "reduce_mag_atk": 0.15, "duration": 2 },
+          "cooldown": 5
+        }
+      ],
+      "ai_behavior": "targets_highest_atk",
+      "base_xp": 35,
+      "base_gold": { "min": 18, "max": 50 },
+      "loot_tags": ["infernal_iron", "demon_horn", "fire_gem", "epic_gear"]
+    },
+    {
+      "id": "shadow_stalker",
+      "name": "Shadow Stalker",
+      "type": "demon",
+      "role": "skirmisher",
+      "description": "A lithe demon that slips between shadows, striking from impossible angles.",
+      "primary_stats": { "str": 10, "int": 6, "dex": 16, "sta": 5 },
+      "base_resistances": {
+        "dark_resist": 0.35,
+        "fire_resist": 0.10,
+        "holy_resist": -0.25,
+        "physical_resist": 0.0,
+        "ice_resist": 0.0,
+        "lightning_resist": -0.10,
+        "poison_resist": 0.10
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "shadow_strike",
+          "name": "Shadow Strike",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.4,
+          "crit_bonus": 0.15,
+          "cooldown": 0
+        },
+        {
+          "id": "shadow_step",
+          "name": "Shadow Step",
+          "type": "defense",
+          "target": "self",
+          "effect": { "dodge_bonus": 0.60, "duration": 1 },
+          "cooldown": 3
+        },
+        {
+          "id": "backstab_dark",
+          "name": "Shadowstab",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 2.2,
+          "condition": "bonus_if_target_debuffed",
+          "conditional_multiplier": 3.0,
+          "cooldown": 4
+        }
+      ],
+      "ai_behavior": "targets_healer",
+      "base_xp": 28,
+      "base_gold": { "min": 10, "max": 30 },
+      "loot_tags": ["shadow_essence", "dark_gem", "rare_gear"]
+    }
+  ]
+}

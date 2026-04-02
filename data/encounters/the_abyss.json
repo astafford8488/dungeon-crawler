@@ -1,0 +1,262 @@
+{
+  "dungeon_id": "the_abyss",
+  "dungeon_name": "The Abyss",
+  "theme": "mixed",
+  "tier": 4,
+  "base_level": 40,
+  "description": "The deepest dungeon — a nightmare realm where all the world's horrors converge. Every type of enemy dwells here, and at the bottom waits something ancient and unknowable. Only the strongest parties dare enter.",
+  "unlock_condition": "clear_elemental_sanctum",
+  "environment": {
+    "backdrop": "void_realm",
+    "ambience": "whispers, heartbeat, reality tearing",
+    "lighting": "shifting unreality, purple-black void with floating debris"
+  },
+  "enemy_pool": [
+    "wraith", "necromancer_acolyte",
+    "cave_bear", "dire_wolf",
+    "pit_fiend", "succubus", "shadow_stalker",
+    "fire_elemental", "ice_elemental", "lightning_elemental", "earth_elemental",
+    "dark_knight", "orc_berserker", "cultist"
+  ],
+  "encounter_waves": [
+    {
+      "wave": 1,
+      "template": "standard",
+      "name": "The Threshold",
+      "description": "Reality warps. The ground shifts beneath your feet as twisted creatures materialize.",
+      "fixed_enemies": [
+        { "id": "wraith", "count": 2 },
+        { "id": "shadow_stalker", "count": 1 }
+      ]
+    },
+    {
+      "wave": 2,
+      "template": "ambush",
+      "name": "Echoes of the Wild",
+      "description": "Twisted beasts from a corrupted version of the Thornwood attack from all sides.",
+      "fixed_enemies": [
+        { "id": "cave_bear", "count": 1, "elite": true, "elite_prefix": "Corrupted" },
+        { "id": "dire_wolf", "count": 2 }
+      ]
+    },
+    {
+      "wave": 3,
+      "template": "tough",
+      "name": "Fallen Legion",
+      "description": "Dark knights and cultists who sought power in the Abyss — and found it, at a cost.",
+      "fixed_enemies": [
+        { "id": "dark_knight", "count": 2 },
+        { "id": "cultist", "count": 1 },
+        { "id": "necromancer_acolyte", "count": 1 }
+      ]
+    },
+    {
+      "wave": 4,
+      "template": "tough",
+      "name": "Infernal Remnants",
+      "description": "Demons banished to the Abyss prowl these halls, hungrier than ever.",
+      "fixed_enemies": [
+        { "id": "pit_fiend", "count": 1 },
+        { "id": "succubus", "count": 1 },
+        { "id": "shadow_stalker", "count": 2 }
+      ]
+    },
+    {
+      "wave": 5,
+      "template": "mini_boss",
+      "name": "Elemental Chaos",
+      "description": "The elements themselves have gone mad in this place. Warped elementals clash and attack everything.",
+      "fixed_enemies": [
+        { "id": "fire_elemental", "count": 1, "elite": true, "elite_prefix": "Frenzied" },
+        { "id": "ice_elemental", "count": 1, "elite": true, "elite_prefix": "Corrupted" },
+        { "id": "lightning_elemental", "count": 1 }
+      ]
+    },
+    {
+      "wave": 6,
+      "template": "tough",
+      "name": "The Gauntlet",
+      "description": "Wave after wave of the Abyss's denizens. They just keep coming.",
+      "fixed_enemies": [
+        { "id": "orc_berserker", "count": 1, "elite": true, "elite_prefix": "Savage" },
+        { "id": "wraith", "count": 1, "elite": true, "elite_prefix": "Ancient" },
+        { "id": "pit_fiend", "count": 1 }
+      ]
+    },
+    {
+      "wave": 7,
+      "template": "mini_boss",
+      "name": "The Void Sentinels",
+      "description": "The final guardians of the Abyss — twisted amalgamations of every horror you've faced.",
+      "fixed_enemies": [
+        { "id": "dark_knight", "count": 1, "elite": true, "elite_prefix": "Cursed" },
+        { "id": "succubus", "count": 1, "elite": true, "elite_prefix": "Ancient" },
+        { "id": "earth_elemental", "count": 1, "elite": true, "elite_prefix": "Ironhide" }
+      ],
+      "difficulty_slider_min": 5
+    }
+  ],
+  "boss": {
+    "boss_id": "boss_abyss_lord",
+    "boss_override": {
+      "id": "boss_abyss_lord",
+      "name": "Neth'arak the Void",
+      "title": "Devourer of Worlds",
+      "type": "demon",
+      "description": "An entity from beyond reality itself. It has no form — only hunger. It wears the shapes of your worst fears.",
+      "primary_stats": { "str": 22, "int": 22, "dex": 12, "sta": 26 },
+      "base_resistances": {
+        "fire_resist": 0.15,
+        "ice_resist": 0.15,
+        "lightning_resist": 0.15,
+        "holy_resist": -0.15,
+        "dark_resist": 0.40,
+        "poison_resist": 1.0,
+        "physical_resist": 0.15
+      },
+      "immunities": ["poison_dot", "stun", "confusion"],
+      "phases": [
+        {
+          "phase": 1,
+          "hp_threshold": 1.0,
+          "name": "The Shape of Fear",
+          "description": "Neth'arak takes the form of a massive shadow, lashing out with tendrils of void energy.",
+          "abilities": [
+            {
+              "id": "void_lash",
+              "name": "Void Lash",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.4,
+              "cooldown": 0
+            },
+            {
+              "id": "void_eruption",
+              "name": "Void Eruption",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 0.8,
+              "effect": { "reduce_all_resist": 0.10, "duration": 2 },
+              "cooldown": 3
+            },
+            {
+              "id": "summon_nightmare",
+              "name": "Summon Nightmare",
+              "type": "summon",
+              "target": "self",
+              "effect": { "summon_random_elite": true, "summon_count": 1 },
+              "cooldown": 5,
+              "description": "Summons a random elite enemy from any theme."
+            }
+          ],
+          "ai_behavior": "caster"
+        },
+        {
+          "phase": 2,
+          "hp_threshold": 0.60,
+          "name": "The Hungry Dark",
+          "description": "Neth'arak expands, filling the arena with darkness. Every attack drains life.",
+          "transition_text": "The void SURGES. Neth'arak's form expands until it fills your entire vision. \"I AM THE DARK BETWEEN STARS. I AM THE HUNGER THAT CONSUMES.\"",
+          "on_transition": { "aoe_dark_damage_percent": 0.15, "reduce_party_max_hp_percent": 0.10 },
+          "abilities": [
+            {
+              "id": "devour_light",
+              "name": "Devour Light",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.0,
+              "effect": { "lifesteal": 0.30, "reduce_heal_received": 0.30, "duration": 2 },
+              "cooldown": 0
+            },
+            {
+              "id": "void_prison",
+              "name": "Void Prison",
+              "type": "debuff",
+              "target": "single_enemy",
+              "effect": { "immobilize": true, "dark_dot_percent": 0.06, "duration": 2 },
+              "cooldown": 4,
+              "description": "Traps one party member in a void prison. Immobilized and taking dark damage."
+            },
+            {
+              "id": "reality_tear",
+              "name": "Reality Tear",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 2.5,
+              "cooldown": 4
+            }
+          ],
+          "ai_behavior": "aggressive_caster"
+        },
+        {
+          "phase": 3,
+          "hp_threshold": 0.25,
+          "name": "Annihilation",
+          "description": "Neth'arak begins to collapse reality itself. The arena crumbles into the void.",
+          "transition_text": "Reality SHATTERS. The floor, the walls, the ceiling — all falling into infinite darkness. Only you and the entity remain, suspended in nothing.",
+          "on_transition": { "kill_all_summons": true },
+          "stat_multipliers": { "str": 1.4, "int": 1.4, "dex": 1.4 },
+          "mechanic": {
+            "type": "void_collapse",
+            "turns": 8,
+            "damage_per_turn_percent": 0.03,
+            "on_expire": "party_wipe",
+            "description": "Reality is collapsing. The party takes escalating void damage each turn. Kill Neth'arak before turn 8 or be consumed."
+          },
+          "abilities": [
+            {
+              "id": "oblivion",
+              "name": "Oblivion",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 2.0,
+              "cooldown": 0
+            },
+            {
+              "id": "unmake",
+              "name": "Unmake",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 4.0,
+              "cooldown": 3,
+              "description": "Attempts to erase a party member from existence. Massive single-target dark damage."
+            }
+          ],
+          "ai_behavior": "berserk"
+        }
+      ],
+      "base_xp": 800,
+      "base_gold": { "min": 500, "max": 2000 },
+      "guaranteed_drops": ["void_heart", "reality_fragment"],
+      "loot_tags": ["divine_gear", "legendary_gear", "dark_gem", "spirit_essence"]
+    },
+    "pre_battle_text": "There is no chamber. There is no floor. There is only darkness — and in that darkness, something watches. Something vast. Something that has always been waiting for you.",
+    "intro_dialogue": "A voice that isn't a voice echoes from everywhere and nowhere: \"Finally. I've been so... hungry.\"",
+    "victory_text": "Neth'arak screams — a sound that threatens to shatter your minds — and then implodes. A blinding flash of white. When your vision clears, you're standing in an empty cave. Sunlight streams through a crack above. It's over.",
+    "defeat_text": "The darkness closes in. There is no pain. There is nothing at all."
+  },
+  "completion_rewards": {
+    "first_clear_bonus": {
+      "gold": 3000,
+      "xp": 2000,
+      "unlock": "endless_mode"
+    },
+    "repeatable_bonus": {
+      "gold_multiplier": 0.75,
+      "xp_multiplier": 0.75,
+      "note": "The Abyss is the endgame dungeon — repeating it still gives decent rewards"
+    }
+  }
+}

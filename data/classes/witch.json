@@ -1,0 +1,175 @@
+{
+  "id": "witch",
+  "name": "Witch",
+  "role": "debuffer",
+  "description": "A cunning hex-weaver who cripples enemies with curses, strips their defenses, and watches them wither under relentless afflictions.",
+  "lore": "Witches practice the oldest and most feared form of magic — the art of the curse. Shunned by polite society but invaluable in a dungeon, they unravel an enemy's strengths thread by thread until nothing remains but a hollow shell.",
+  "primary_stats": {
+    "str": 3,
+    "int": 14,
+    "dex": 8,
+    "sta": 5,
+    "wis": 8
+  },
+  "stat_growth_per_level": {
+    "str": 0,
+    "int": 4,
+    "dex": 2,
+    "sta": 1,
+    "wis": 1
+  },
+  "base_derived_bonuses": {
+    "hp": 0,
+    "mp": 15,
+    "phys_atk": 0,
+    "mag_atk": 5,
+    "phys_def": 0,
+    "mag_def": 2,
+    "spd": 2,
+    "crit_rate": 0.05,
+    "dodge": 0.05,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.0,
+    "lightning_resist": 0.0,
+    "holy_resist": -0.05,
+    "dark_resist": 0.10,
+    "poison_resist": 0.15,
+    "physical_resist": 0.0
+  },
+  "equipment_slots": ["weapon", "armor", "accessory", "tome"],
+  "preferred_weapons": ["wand", "staff"],
+  "abilities": [
+    {
+      "id": "hex_bolt",
+      "name": "Hex Bolt",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "dark",
+      "target": "single_enemy",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 0.9,
+      "effect": { "reduce_mag_def": 0.05, "duration": 2 },
+      "mp_cost": 5,
+      "cooldown": 0,
+      "description": "Fires a bolt of cursed energy that deals 0.9x dark damage and slightly reduces the target's Magic DEF by 5% for 2 turns."
+    },
+    {
+      "id": "curse_of_weakness",
+      "name": "Curse of Weakness",
+      "level_required": 1,
+      "type": "debuff",
+      "target": "single_enemy",
+      "effect": { "reduce_phys_atk": 0.25, "reduce_mag_atk": 0.25, "duration": 3 },
+      "mp_cost": 12,
+      "cooldown": 4,
+      "description": "Curses an enemy, reducing their Physical ATK and Magic ATK by 25% for 3 turns."
+    },
+    {
+      "id": "enfeeble",
+      "name": "Enfeeble",
+      "level_required": 5,
+      "type": "debuff",
+      "target": "single_enemy",
+      "effect": { "reduce_phys_atk": 0.20, "reduce_mag_atk": 0.20, "duration": 3 },
+      "mp_cost": 12,
+      "cooldown": 4,
+      "description": "Weakens a single enemy, reducing their Physical ATK and Magic ATK by 20% for 3 turns."
+    },
+    {
+      "id": "venom_hex",
+      "name": "Venom Hex",
+      "level_required": 10,
+      "type": "attack",
+      "damage_type": "poison",
+      "target": "single_enemy",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 0.8,
+      "effect": { "poison_dot_percent": 0.08, "dot_duration": 4, "reduce_heal_received": 0.30 },
+      "mp_cost": 14,
+      "cooldown": 3,
+      "description": "Inflicts a venomous hex dealing 0.8x poison damage, plus 8% poison DoT for 4 turns. Reduces the target's healing received by 30%."
+    },
+    {
+      "id": "shatter_ward",
+      "name": "Shatter Ward",
+      "level_required": 20,
+      "type": "debuff",
+      "target": "single_enemy",
+      "effect": { "reduce_phys_def": 0.30, "reduce_mag_def": 0.30, "strip_buffs": 1, "duration": 3 },
+      "mp_cost": 20,
+      "cooldown": 5,
+      "description": "Shatters an enemy's defenses, reducing Physical and Magic DEF by 30% for 3 turns and removing one active buff."
+    },
+    {
+      "id": "spreading_curse",
+      "name": "Spreading Curse",
+      "level_required": 30,
+      "type": "debuff",
+      "damage_type": "dark",
+      "target": "all_enemies",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 1.0,
+      "effect": { "dark_dot_percent": 0.06, "dot_duration": 3, "reduce_all_resists": 0.10, "duration": 3 },
+      "mp_cost": 28,
+      "cooldown": 5,
+      "description": "Spreads a virulent curse to all enemies, dealing 1x dark damage, inflicting dark DoT for 3 turns, and reducing all resistances by 10%."
+    },
+    {
+      "id": "maleficence",
+      "name": "Maleficence",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "debuff_duration_bonus": 1, "bonus_damage_vs_debuffed": 0.20, "dark_resist": 0.10 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: All debuffs last 1 additional turn. Deal 20% bonus damage to enemies afflicted by any debuff. Gain 10% additional Dark Resistance."
+    },
+    {
+      "id": "doom",
+      "name": "Doom",
+      "level_required": 50,
+      "type": "debuff",
+      "damage_type": "dark",
+      "target": "single_enemy",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 1.5,
+      "effect": {
+        "doom_counter": 3,
+        "doom_damage_multiplier": 4.0,
+        "reduce_all_stats": 0.20,
+        "reduce_all_resists": 0.20,
+        "duration": 3
+      },
+      "mp_cost": 50,
+      "cooldown": 10,
+      "description": "Ultimate: Places Doom on a single enemy — reduces all stats and resistances by 20% for 3 turns. When Doom expires, the target takes 4x Magic ATK as dark damage."
+    }
+  ],
+  "ai_priority": [
+    "use_doom_on_boss_if_available",
+    "use_shatter_ward_on_high_def_enemy",
+    "use_spreading_curse_if_multiple_enemies_not_debuffed",
+    "use_curse_of_weakness_on_highest_atk_enemy",
+    "use_venom_hex_if_enemy_not_poisoned",
+    "use_hex_bolt",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Necromancer: Resistance reduction makes the Necromancer's dark damage even more devastating",
+    "Elementalist: Shattered wards and reduced resistances let elemental attacks hit at full force",
+    "Rogue: Defense shredding enables massive physical burst damage from Rogue backstabs"
+  ],
+  "weaknesses": [
+    "Very low direct damage output — relies on allies to capitalize on debuffs",
+    "Fragile with low STA and no defensive abilities",
+    "Debuffs are less effective against bosses with debuff resistance",
+    "Holy damage exploits the Witch's negative holy resistance",
+    "Doom is wasted if the target dies before the counter expires"
+  ],
+  "hire_cost": 120,
+  "hire_description": "A cloaked figure stirs a bubbling cauldron that wasn't there a moment ago. Something writhes in the smoke above it. They flash a crooked grin. \"Everyone brings a sword to the dungeon. I bring something worse — bad luck.\""
+}

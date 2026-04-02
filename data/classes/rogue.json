@@ -1,0 +1,157 @@
+{
+  "id": "rogue",
+  "name": "Rogue",
+  "role": "dps_melee",
+  "description": "A lightning-fast assassin who exploits enemy weaknesses with critical strikes and poison.",
+  "lore": "The Shadow Market produces killers of unmatched precision. Rogues don't fight fair — they fight to win, striking vital points before the enemy knows they're there.",
+  "primary_stats": {
+    "str": 8,
+    "int": 4,
+    "dex": 20,
+    "sta": 7,
+    "wis": 3
+  },
+  "stat_growth_per_level": {
+    "str": 2,
+    "int": 0,
+    "dex": 6,
+    "sta": 1,
+    "wis": 0
+  },
+  "base_derived_bonuses": {
+    "hp": 0,
+    "mp": 5,
+    "phys_atk": 3,
+    "mag_atk": 0,
+    "phys_def": 0,
+    "mag_def": 0,
+    "spd": 3,
+    "crit_rate": 0.10,
+    "dodge": 0.05,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.0,
+    "lightning_resist": 0.0,
+    "holy_resist": 0.0,
+    "dark_resist": 0.05,
+    "poison_resist": 0.10,
+    "physical_resist": 0.0
+  },
+  "equipment_slots": ["weapon", "offhand_weapon", "armor", "accessory"],
+  "preferred_weapons": ["dagger", "short_sword", "throwing_knives"],
+  "abilities": [
+    {
+      "id": "backstab",
+      "name": "Backstab",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 1.3,
+      "crit_bonus": 0.15,
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "A precise strike at a vital point. +15% bonus crit chance."
+    },
+    {
+      "id": "poison_blade",
+      "name": "Poison Blade",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "poison",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 0.8,
+      "effect": { "poison_dot": true, "dot_percent": 0.04, "dot_duration": 3 },
+      "mp_cost": 10,
+      "cooldown": 3,
+      "description": "Coats blade in venom. Reduced initial damage but poisons for 4% max HP/turn for 3 turns."
+    },
+    {
+      "id": "evasion",
+      "name": "Evasion",
+      "level_required": 10,
+      "type": "defense",
+      "target": "self",
+      "effect": { "dodge_bonus": 0.50, "duration": 2 },
+      "mp_cost": 15,
+      "cooldown": 5,
+      "description": "Heightens reflexes, granting +50% dodge chance for 2 turns."
+    },
+    {
+      "id": "ambush",
+      "name": "Ambush",
+      "level_required": 20,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 2.5,
+      "condition": "bonus_if_target_debuffed",
+      "conditional_multiplier": 3.75,
+      "mp_cost": 20,
+      "cooldown": 4,
+      "description": "2.5x damage. If target has any debuff, 3.75x instead."
+    },
+    {
+      "id": "smoke_bomb",
+      "name": "Smoke Bomb",
+      "level_required": 30,
+      "type": "debuff",
+      "target": "all_enemies",
+      "effect": { "miss_chance": 0.35, "duration": 2 },
+      "mp_cost": 20,
+      "cooldown": 6,
+      "description": "All enemies have 35% miss chance for 2 turns."
+    },
+    {
+      "id": "blade_dance",
+      "name": "Blade Dance",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "double_strike_chance": 0.20, "crit_rate_bonus": 0.10 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: 20% chance to strike twice. +10% crit rate."
+    },
+    {
+      "id": "death_mark",
+      "name": "Death Mark",
+      "level_required": 50,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 3.0,
+      "effect": { "execute_threshold": 0.20, "damage_taken_increase": 0.25, "mark_duration": 3 },
+      "mp_cost": 40,
+      "cooldown": 10,
+      "description": "Ultimate: 3x damage. Target takes 25% more from all sources for 3 turns. Executed instantly if they drop below 20% HP."
+    }
+  ],
+  "ai_priority": [
+    "use_evasion_if_hp_below_40",
+    "use_death_mark_on_boss_or_strongest_enemy",
+    "use_smoke_bomb_if_multiple_allies_low_hp",
+    "use_ambush_if_target_has_debuff",
+    "use_poison_blade_if_target_not_poisoned",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Warrior: Taunt keeps aggro off the Rogue",
+    "Mage: Frost Nova slow counts as a debuff for Ambush bonus",
+    "Ranger: Hunter's Mark + Death Mark stacks for massive focus damage"
+  ],
+  "weaknesses": [
+    "Low STA means below-average HP",
+    "Single-target focused — struggles against groups",
+    "Relies on debuffs to maximize damage",
+    "Low INT means zero magic defense contribution"
+  ],
+  "hire_cost": 120,
+  "hire_description": "You almost don't notice the hooded figure until a dagger embeds itself in the notice board beside you. \"Looking for someone who gets results? I don't ask questions if you don't.\""
+}

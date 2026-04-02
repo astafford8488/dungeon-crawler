@@ -1,0 +1,112 @@
+{
+  "dungeon_id": "elemental_sanctum",
+  "dungeon_name": "Elemental Sanctum",
+  "theme": "elemental",
+  "tier": 3,
+  "base_level": 30,
+  "description": "An ancient temple where the four primal elements converge. Once a place of worship, now a battleground where elemental forces rage unchecked.",
+  "unlock_condition": "clear_infernal_rift",
+  "environment": {
+    "backdrop": "elemental_temple",
+    "ambience": "crackling energy, howling wind, grinding stone",
+    "lighting": "shifts between element colors per encounter"
+  },
+  "enemy_pool": ["fire_elemental", "ice_elemental", "lightning_elemental", "earth_elemental"],
+  "encounter_waves": [
+    {
+      "wave": 1,
+      "template": "easy_intro",
+      "name": "Earth Antechamber",
+      "description": "The stone floor ripples and rises. Earth elementals coalesce from the walls.",
+      "fixed_enemies": [
+        { "id": "earth_elemental", "count": 2 }
+      ],
+      "environment_effect": { "type": "physical_resist_boost", "value": 0.05, "affects": "enemies" }
+    },
+    {
+      "wave": 2,
+      "template": "standard",
+      "name": "The Furnace",
+      "description": "The temperature soars. The air shimmers with heat as fire elementals materialize.",
+      "fixed_enemies": [
+        { "id": "fire_elemental", "count": 2 },
+        { "id": "earth_elemental", "count": 1 }
+      ],
+      "environment_effect": { "type": "fire_damage_per_turn", "value": 3, "affects": "party" }
+    },
+    {
+      "wave": 3,
+      "template": "standard",
+      "name": "The Frozen Gallery",
+      "description": "Ice coats every surface. Your breath crystallizes as ice elementals glide forward.",
+      "fixed_enemies": [
+        { "id": "ice_elemental", "count": 2 },
+        { "id": "lightning_elemental", "count": 1 }
+      ],
+      "environment_effect": { "type": "spd_reduction", "value": 0.10, "affects": "party" }
+    },
+    {
+      "wave": 4,
+      "template": "tough",
+      "name": "Storm Chamber",
+      "description": "Lightning arcs between metal pillars. The elementals here move with blinding speed.",
+      "fixed_enemies": [
+        { "id": "lightning_elemental", "count": 2 },
+        { "id": "fire_elemental", "count": 1 }
+      ],
+      "environment_effect": { "type": "random_lightning_strike", "damage": 15, "chance": 0.15, "affects": "party" }
+    },
+    {
+      "wave": 5,
+      "template": "tough",
+      "name": "Elemental Convergence",
+      "description": "All four elements clash in a chaotic melee. The room shifts between fire, ice, lightning, and stone.",
+      "fixed_enemies": [
+        { "id": "fire_elemental", "count": 1 },
+        { "id": "ice_elemental", "count": 1 },
+        { "id": "lightning_elemental", "count": 1 },
+        { "id": "earth_elemental", "count": 1 }
+      ]
+    },
+    {
+      "wave": 6,
+      "template": "mini_boss",
+      "name": "The Primal Wardens",
+      "description": "Two massive elemental wardens block the inner sanctum, each empowered by opposing forces.",
+      "fixed_enemies": [
+        { "id": "fire_elemental", "count": 1, "elite": true, "elite_prefix": "Ancient" },
+        { "id": "ice_elemental", "count": 1, "elite": true, "elite_prefix": "Ancient" }
+      ],
+      "difficulty_slider_min": 4
+    },
+    {
+      "wave": 7,
+      "template": "mini_boss",
+      "name": "The Storm Guardians",
+      "description": "The final guardians — elite lightning and earth elementals fused with the sanctum's power.",
+      "fixed_enemies": [
+        { "id": "lightning_elemental", "count": 1, "elite": true, "elite_prefix": "Frenzied" },
+        { "id": "earth_elemental", "count": 1, "elite": true, "elite_prefix": "Ironhide" }
+      ],
+      "difficulty_slider_min": 7
+    }
+  ],
+  "boss": {
+    "boss_id": "boss_elemental_titan",
+    "pre_battle_text": "The inner sanctum is a dome of raw elemental energy. At its center, a titanic figure of swirling stone, flame, lightning, and ice slowly turns to face you. The ground cracks beneath its footsteps.",
+    "intro_dialogue": "Terrakai does not speak. It simply raises one massive fist, and the elements ROAR to life around it.",
+    "victory_text": "Terrakai shatters into four streams of elemental energy that spiral upward and dissipate through the sanctum's dome. The temple grows still. Balance is restored.",
+    "defeat_text": "The elements consume everything..."
+  },
+  "completion_rewards": {
+    "first_clear_bonus": {
+      "gold": 1200,
+      "xp": 900,
+      "unlock": "the_abyss"
+    },
+    "repeatable_bonus": {
+      "gold_multiplier": 0.5,
+      "xp_multiplier": 0.5
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "dungeon_id": "infernal_rift",
+  "dungeon_name": "Infernal Rift",
+  "theme": "demon",
+  "tier": 3,
+  "base_level": 20,
+  "description": "A tear in reality where the mortal world bleeds into the Abyss. Demonic forces pour through, and the air itself burns with infernal heat.",
+  "unlock_condition": "clear_iron_horde_fortress",
+  "environment": {
+    "backdrop": "hellscape",
+    "ambience": "roaring flames, distant screaming, cracking stone",
+    "lighting": "hellfire glow, rivers of lava, red sky"
+  },
+  "enemy_pool": ["imp", "hellhound", "succubus", "pit_fiend", "shadow_stalker"],
+  "encounter_waves": [
+    {
+      "wave": 1,
+      "template": "easy_intro",
+      "name": "The Rift's Edge",
+      "description": "Imps swarm through the tear, cackling as they hurl bolts of fire.",
+      "fixed_enemies": [
+        { "id": "imp", "count": 4 },
+        { "id": "hellhound", "count": 1 }
+      ]
+    },
+    {
+      "wave": 2,
+      "template": "standard",
+      "name": "Hellhound Kennels",
+      "description": "Flaming hounds strain against spectral chains — then break free.",
+      "fixed_enemies": [
+        { "id": "hellhound", "count": 3 }
+      ]
+    },
+    {
+      "wave": 3,
+      "template": "ambush",
+      "name": "Shadow Ambush",
+      "description": "The shadows deepen unnaturally. Something moves behind you.",
+      "fixed_enemies": [
+        { "id": "shadow_stalker", "count": 2 },
+        { "id": "imp", "count": 3 }
+      ]
+    },
+    {
+      "wave": 4,
+      "template": "tough",
+      "name": "The Seduction",
+      "description": "A succubus appears, flanked by charmed warriors turned against their will.",
+      "fixed_enemies": [
+        { "id": "succubus", "count": 1 },
+        { "id": "shadow_stalker", "count": 1 },
+        { "id": "hellhound", "count": 2 }
+      ]
+    },
+    {
+      "wave": 5,
+      "template": "tough",
+      "name": "Pit Fiend Vanguard",
+      "description": "A massive pit fiend steps through the rift, flames licking its blade.",
+      "fixed_enemies": [
+        { "id": "pit_fiend", "count": 1 },
+        { "id": "imp", "count": 3 }
+      ]
+    },
+    {
+      "wave": 6,
+      "template": "mini_boss",
+      "name": "The Twin Terrors",
+      "description": "Two elite demons guard the path to Azgoroth's sanctum.",
+      "fixed_enemies": [
+        { "id": "pit_fiend", "count": 1, "elite": true, "elite_prefix": "Savage" },
+        { "id": "succubus", "count": 1, "elite": true, "elite_prefix": "Corrupted" }
+      ],
+      "difficulty_slider_min": 4
+    },
+    {
+      "wave": 7,
+      "template": "mini_boss",
+      "name": "The Abyssal Gate",
+      "description": "The final gate blazes with infernal runes. Its guardians will not yield.",
+      "fixed_enemies": [
+        { "id": "shadow_stalker", "count": 2, "elite": true, "elite_prefix": "Ancient" },
+        { "id": "pit_fiend", "count": 1 }
+      ],
+      "difficulty_slider_min": 7
+    }
+  ],
+  "boss": {
+    "boss_id": "boss_demon_lord",
+    "pre_battle_text": "The rift widens into a vast infernal chamber. Rivers of lava cascade down obsidian walls. At the center, a towering demon prince stands wreathed in flame, his infernal blade planted in the scorched earth.",
+    "intro_dialogue": "\"Mortals. You've come far, but your journey ends in ash. I am Azgoroth, Lord of Cinders, and this rift belongs to ME.\"",
+    "victory_text": "Azgoroth's dying explosion is contained by the rift's collapse. The tear seals itself with a thunderous crack, and cool air rushes in. The Infernal Rift is closed — for now.",
+    "defeat_text": "\"Your world will BURN.\""
+  },
+  "completion_rewards": {
+    "first_clear_bonus": {
+      "gold": 800,
+      "xp": 600,
+      "unlock": "elemental_sanctum"
+    },
+    "repeatable_bonus": {
+      "gold_multiplier": 0.5,
+      "xp_multiplier": 0.5
+    }
+  }
+}

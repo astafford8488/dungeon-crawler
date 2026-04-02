@@ -1,0 +1,78 @@
+{
+  "category": "shield",
+  "slot": "shield",
+  "items": [
+    {
+      "id": "wooden_shield",
+      "name": "Wooden Shield",
+      "type": "shield",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "A simple shield of bound planks. Better than nothing.",
+      "base_stats": { "sta": 2 },
+      "base_resistances": { "physical_resist": 0.03 },
+      "base_price": 15,
+      "bonus_effect_affinity": ["block_chance"],
+      "tags": ["shield"]
+    },
+    {
+      "id": "iron_shield",
+      "name": "Iron Shield",
+      "type": "shield",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "A solid iron shield with a riveted boss.",
+      "base_stats": { "sta": 3, "dex": -1 },
+      "base_resistances": { "physical_resist": 0.05 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["block_chance", "damage_reduction"],
+      "tags": ["shield"]
+    },
+    {
+      "id": "tower_shield",
+      "name": "Tower Shield",
+      "type": "shield",
+      "classes": ["warrior", "shadowknight"],
+      "description": "A massive full-body shield that can block almost anything.",
+      "base_stats": { "sta": 5, "dex": -3 },
+      "base_resistances": { "physical_resist": 0.08, "fire_resist": 0.03, "ice_resist": 0.03 },
+      "base_price": 55,
+      "bonus_effect_affinity": ["block_chance", "damage_reduction", "thorns"],
+      "tags": ["shield"]
+    },
+    {
+      "id": "buckler",
+      "name": "Buckler",
+      "type": "shield",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "A small, nimble shield for parrying — defense through agility.",
+      "base_stats": { "dex": 2 },
+      "base_resistances": { "physical_resist": 0.02 },
+      "base_price": 18,
+      "bonus_effect_affinity": ["dodge_chance", "block_chance"],
+      "tags": ["shield"]
+    },
+    {
+      "id": "sanctified_shield",
+      "name": "Sanctified Shield",
+      "type": "shield",
+      "classes": ["paladin", "shadowknight"],
+      "description": "A shield bearing the Dawn Temple's sigil, glowing with protective light.",
+      "base_stats": { "sta": 2, "int": 2 },
+      "base_resistances": { "holy_resist": 0.05, "dark_resist": 0.05, "physical_resist": 0.03 },
+      "base_price": 40,
+      "bonus_effect_affinity": ["magic_resist", "block_chance", "heal_bonus"],
+      "tags": ["shield"]
+    },
+    {
+      "id": "spiked_shield",
+      "name": "Spiked Shield",
+      "type": "shield",
+      "classes": ["warrior", "shadowknight"],
+      "description": "An iron shield fitted with cruel spikes that punish attackers.",
+      "base_stats": { "str": 2, "sta": 2 },
+      "base_resistances": { "physical_resist": 0.04 },
+      "base_price": 35,
+      "bonus_effect_affinity": ["thorns", "block_chance"],
+      "tags": ["shield"]
+    }
+  ]
+}

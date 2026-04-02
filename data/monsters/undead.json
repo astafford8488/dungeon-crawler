@@ -1,0 +1,270 @@
+{
+  "theme": "undead",
+  "monsters": [
+    {
+      "id": "skeleton_warrior",
+      "name": "Skeleton Warrior",
+      "type": "undead",
+      "role": "bruiser",
+      "description": "A reanimated warrior, still clutching a rusted sword. Mindless but relentless.",
+      "primary_stats": { "str": 10, "int": 2, "dex": 6, "sta": 8 },
+      "base_resistances": {
+        "holy_resist": -0.25,
+        "dark_resist": 0.15,
+        "poison_resist": 1.0,
+        "physical_resist": 0.05,
+        "fire_resist": 0.0,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "rusty_slash",
+          "name": "Rusty Slash",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.0,
+          "cooldown": 0
+        },
+        {
+          "id": "bone_shield",
+          "name": "Bone Shield",
+          "type": "defense",
+          "target": "self",
+          "effect": { "phys_def_multiplier": 1.3, "duration": 2 },
+          "cooldown": 4
+        }
+      ],
+      "ai_behavior": "targets_lowest_hp",
+      "base_xp": 15,
+      "base_gold": { "min": 5, "max": 15 },
+      "loot_tags": ["bone", "rusted_weapon", "common_gear"]
+    },
+    {
+      "id": "skeleton_archer",
+      "name": "Skeleton Archer",
+      "type": "undead",
+      "role": "skirmisher",
+      "description": "A skeletal marksman that fires arrows with eerie accuracy despite having no eyes.",
+      "primary_stats": { "str": 7, "int": 2, "dex": 10, "sta": 5 },
+      "base_resistances": {
+        "holy_resist": -0.25,
+        "dark_resist": 0.15,
+        "poison_resist": 1.0,
+        "physical_resist": 0.0,
+        "fire_resist": 0.0,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "bone_arrow",
+          "name": "Bone Arrow",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.1,
+          "crit_bonus": 0.05,
+          "cooldown": 0
+        }
+      ],
+      "ai_behavior": "targets_healer",
+      "base_xp": 12,
+      "base_gold": { "min": 4, "max": 12 },
+      "loot_tags": ["bone", "arrow", "common_gear"]
+    },
+    {
+      "id": "zombie",
+      "name": "Zombie",
+      "type": "undead",
+      "role": "tank",
+      "description": "A shambling corpse that refuses to stay down. Slow but incredibly durable.",
+      "primary_stats": { "str": 8, "int": 1, "dex": 3, "sta": 14 },
+      "base_resistances": {
+        "holy_resist": -0.25,
+        "dark_resist": 0.20,
+        "poison_resist": 1.0,
+        "physical_resist": 0.10,
+        "fire_resist": -0.15,
+        "ice_resist": 0.10,
+        "lightning_resist": 0.0
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "slam",
+          "name": "Slam",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.9,
+          "cooldown": 0
+        },
+        {
+          "id": "rotten_grasp",
+          "name": "Rotten Grasp",
+          "type": "debuff",
+          "target": "single_enemy",
+          "effect": { "reduce_spd": 0.3, "duration": 2 },
+          "damage_type": "physical",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.5,
+          "cooldown": 3
+        }
+      ],
+      "ai_behavior": "targets_lowest_hp",
+      "base_xp": 12,
+      "base_gold": { "min": 3, "max": 10 },
+      "loot_tags": ["rotting_flesh", "common_gear"]
+    },
+    {
+      "id": "wraith",
+      "name": "Wraith",
+      "type": "undead",
+      "role": "caster",
+      "description": "An incorporeal spirit that drains the life force of the living.",
+      "primary_stats": { "str": 3, "int": 14, "dex": 10, "sta": 5 },
+      "base_resistances": {
+        "holy_resist": -0.30,
+        "dark_resist": 0.30,
+        "poison_resist": 1.0,
+        "physical_resist": 0.25,
+        "fire_resist": 0.0,
+        "ice_resist": 0.10,
+        "lightning_resist": 0.0
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "life_drain",
+          "name": "Life Drain",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 1.0,
+          "effect": { "lifesteal": 0.50 },
+          "cooldown": 0
+        },
+        {
+          "id": "wail_of_despair",
+          "name": "Wail of Despair",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "all_enemies",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.6,
+          "effect": { "reduce_mag_atk": 0.2, "duration": 2 },
+          "cooldown": 4
+        }
+      ],
+      "ai_behavior": "targets_highest_atk",
+      "base_xp": 22,
+      "base_gold": { "min": 8, "max": 25 },
+      "loot_tags": ["spirit_essence", "dark_gem", "rare_gear"]
+    },
+    {
+      "id": "necromancer_acolyte",
+      "name": "Necromancer Acolyte",
+      "type": "undead",
+      "role": "support",
+      "description": "A dark mage who raises and strengthens the undead around them.",
+      "primary_stats": { "str": 3, "int": 12, "dex": 6, "sta": 7 },
+      "base_resistances": {
+        "holy_resist": -0.20,
+        "dark_resist": 0.25,
+        "poison_resist": 0.30,
+        "physical_resist": 0.0,
+        "fire_resist": 0.0,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0
+      },
+      "immunities": [],
+      "abilities": [
+        {
+          "id": "dark_bolt",
+          "name": "Dark Bolt",
+          "type": "attack",
+          "damage_type": "dark",
+          "target": "single_enemy",
+          "damage_stat": "mag_atk",
+          "damage_multiplier": 0.9,
+          "cooldown": 0
+        },
+        {
+          "id": "raise_skeleton",
+          "name": "Raise Skeleton",
+          "type": "summon",
+          "target": "self",
+          "effect": { "summon_id": "skeleton_warrior", "summon_count": 1, "summon_hp_percent": 0.5 },
+          "cooldown": 5
+        },
+        {
+          "id": "dark_mend",
+          "name": "Dark Mend",
+          "type": "heal",
+          "target": "single_ally",
+          "heal_stat": "mag_atk",
+          "heal_multiplier": 1.0,
+          "heal_base": 10,
+          "cooldown": 3
+        }
+      ],
+      "ai_behavior": "support_priority",
+      "base_xp": 25,
+      "base_gold": { "min": 10, "max": 30 },
+      "loot_tags": ["dark_tome", "ritual_component", "rare_gear"]
+    },
+    {
+      "id": "ghoul",
+      "name": "Ghoul",
+      "type": "undead",
+      "role": "skirmisher",
+      "description": "A feral undead that moves with terrifying speed, clawing at exposed flesh.",
+      "primary_stats": { "str": 9, "int": 2, "dex": 12, "sta": 6 },
+      "base_resistances": {
+        "holy_resist": -0.25,
+        "dark_resist": 0.15,
+        "poison_resist": 1.0,
+        "physical_resist": 0.0,
+        "fire_resist": -0.10,
+        "ice_resist": 0.0,
+        "lightning_resist": 0.0
+      },
+      "immunities": ["poison_dot"],
+      "abilities": [
+        {
+          "id": "rend",
+          "name": "Rend",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 1.2,
+          "cooldown": 0
+        },
+        {
+          "id": "paralyzing_bite",
+          "name": "Paralyzing Bite",
+          "type": "attack",
+          "damage_type": "physical",
+          "target": "single_enemy",
+          "damage_stat": "phys_atk",
+          "damage_multiplier": 0.8,
+          "effect": { "stun_duration": 1 },
+          "cooldown": 4
+        }
+      ],
+      "ai_behavior": "targets_healer",
+      "base_xp": 18,
+      "base_gold": { "min": 5, "max": 18 },
+      "loot_tags": ["claw", "rotting_flesh", "uncommon_gear"]
+    }
+  ]
+}

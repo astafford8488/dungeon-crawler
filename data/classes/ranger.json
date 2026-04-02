@@ -1,0 +1,155 @@
+{
+  "id": "ranger",
+  "name": "Ranger",
+  "role": "dps_ranged",
+  "description": "A keen-eyed marksman who picks off enemies from range while supporting allies with traps and tracking.",
+  "lore": "Rangers of the Thornwood patrol the wild frontiers where civilization ends. Their bows strike true, their traps ensnare, and their knowledge of beasts makes them invaluable when monstrous enemies appear.",
+  "primary_stats": {
+    "str": 8,
+    "int": 6,
+    "dex": 18,
+    "sta": 8,
+    "wis": 3
+  },
+  "stat_growth_per_level": {
+    "str": 2,
+    "int": 1,
+    "dex": 5,
+    "sta": 1,
+    "wis": 0
+  },
+  "base_derived_bonuses": {
+    "hp": 5,
+    "mp": 5,
+    "phys_atk": 2,
+    "mag_atk": 0,
+    "phys_def": 0,
+    "mag_def": 0,
+    "spd": 2,
+    "crit_rate": 0.08,
+    "dodge": 0.03,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.05,
+    "lightning_resist": 0.0,
+    "holy_resist": 0.0,
+    "dark_resist": 0.0,
+    "poison_resist": 0.10,
+    "physical_resist": 0.0
+  },
+  "equipment_slots": ["weapon", "armor", "accessory", "quiver"],
+  "preferred_weapons": ["bow", "crossbow", "longbow"],
+  "abilities": [
+    {
+      "id": "precise_shot",
+      "name": "Precise Shot",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 1.2,
+      "crit_bonus": 0.10,
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "A carefully aimed arrow. +10% crit chance."
+    },
+    {
+      "id": "hunters_mark",
+      "name": "Hunter's Mark",
+      "level_required": 1,
+      "type": "debuff",
+      "target": "single_enemy",
+      "effect": { "damage_taken_increase": 0.15, "duration": 4 },
+      "mp_cost": 10,
+      "cooldown": 4,
+      "description": "Marks a target to take 15% more damage from all sources for 4 turns."
+    },
+    {
+      "id": "volley",
+      "name": "Volley",
+      "level_required": 10,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "all_enemies",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 0.6,
+      "mp_cost": 15,
+      "cooldown": 3,
+      "description": "Fires a rain of arrows hitting all enemies."
+    },
+    {
+      "id": "snare_trap",
+      "name": "Snare Trap",
+      "level_required": 20,
+      "type": "debuff",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 0.5,
+      "effect": { "immobilize": true, "reduce_spd_to_zero": true, "duration": 2 },
+      "mp_cost": 15,
+      "cooldown": 5,
+      "description": "Immobilizes one enemy for 2 turns and deals minor damage."
+    },
+    {
+      "id": "beast_lore",
+      "name": "Beast Lore",
+      "level_required": 30,
+      "type": "buff",
+      "target": "all_allies",
+      "effect": { "damage_bonus_all": 0.15, "damage_bonus_vs_beast": 0.30, "duration": 4 },
+      "mp_cost": 20,
+      "cooldown": 6,
+      "description": "All allies deal 15% more damage (30% vs beasts) for 4 turns."
+    },
+    {
+      "id": "eagle_eye",
+      "name": "Eagle Eye",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "crit_rate_bonus": 0.15, "ignore_evasion": true },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: +15% crit rate. Attacks cannot be dodged."
+    },
+    {
+      "id": "headshot",
+      "name": "Headshot",
+      "level_required": 50,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 4.0,
+      "effect": { "stun_duration": 2, "guaranteed_crit": true, "ignore_phys_def": true },
+      "mp_cost": 45,
+      "cooldown": 10,
+      "description": "Ultimate: Guaranteed crit for 4x damage, ignores Physical DEF, stuns for 2 turns."
+    }
+  ],
+  "ai_priority": [
+    "use_headshot_on_boss_or_highest_threat",
+    "use_hunters_mark_on_strongest_unmarked_enemy",
+    "use_snare_trap_on_enemy_targeting_healer",
+    "use_beast_lore_at_fight_start_if_not_active",
+    "use_volley_if_enemies_above_3",
+    "basic_attack_highest_hp_enemy"
+  ],
+  "synergies": [
+    "Rogue: Hunter's Mark + Death Mark stacks for massive single-target focus",
+    "Mage: Snare Trap pins targets for guaranteed spell hits",
+    "Warrior: Beast Lore damage buff enhances even the Warrior's attacks"
+  ],
+  "weaknesses": [
+    "Below-average HP — not as squishy as Mage but can't take sustained hits",
+    "Single-target focused outside of Volley",
+    "Debuff-reliant for maximum output",
+    "Moderate INT means mediocre magic defense"
+  ],
+  "hire_cost": 110,
+  "hire_description": "A weathered hunter sits in the corner, fletching arrows with practiced ease. A massive longbow leans against the wall beside her. \"I can put an arrow through a goblin's eye at 200 paces. That useful enough for you?\""
+}

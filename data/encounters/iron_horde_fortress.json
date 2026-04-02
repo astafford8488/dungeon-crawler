@@ -1,0 +1,100 @@
+{
+  "dungeon_id": "iron_horde_fortress",
+  "dungeon_name": "Iron Horde Fortress",
+  "theme": "humanoid",
+  "tier": 2,
+  "base_level": 10,
+  "description": "A fortified stronghold carved into a mountainside, home to an alliance of goblins, orcs, and human outlaws united under the banner of the Iron Horde.",
+  "unlock_condition": "clear_thornwood_depths",
+  "environment": {
+    "backdrop": "fortress_interior",
+    "ambience": "clanking metal, war drums, shouting",
+    "lighting": "brazier light, torches along stone walls"
+  },
+  "enemy_pool": ["goblin_grunt", "goblin_shaman", "orc_berserker", "bandit_rogue", "dark_knight", "cultist"],
+  "encounter_waves": [
+    {
+      "wave": 1,
+      "template": "easy_intro",
+      "name": "Gate Guards",
+      "description": "Goblin sentries screech an alarm as you breach the outer gate.",
+      "fixed_enemies": [
+        { "id": "goblin_grunt", "count": 4 },
+        { "id": "goblin_shaman", "count": 1 }
+      ]
+    },
+    {
+      "wave": 2,
+      "template": "ambush",
+      "name": "Ambush in the Barracks",
+      "description": "Bandit rogues drop from the rafters as you pass through the sleeping quarters.",
+      "fixed_enemies": [
+        { "id": "bandit_rogue", "count": 2 },
+        { "id": "goblin_grunt", "count": 2 }
+      ]
+    },
+    {
+      "wave": 3,
+      "template": "standard",
+      "name": "The War Room",
+      "description": "An orc berserker flips the strategy table and charges, flanked by cultist advisors.",
+      "fixed_enemies": [
+        { "id": "orc_berserker", "count": 1 },
+        { "id": "cultist", "count": 1 },
+        { "id": "goblin_grunt", "count": 2 }
+      ]
+    },
+    {
+      "wave": 4,
+      "template": "tough",
+      "name": "The Ritual Chamber",
+      "description": "Dark cultists chant around a glowing sigil while guards defend them.",
+      "fixed_enemies": [
+        { "id": "cultist", "count": 2 },
+        { "id": "dark_knight", "count": 1 },
+        { "id": "goblin_shaman", "count": 1 }
+      ]
+    },
+    {
+      "wave": 5,
+      "template": "tough",
+      "name": "Elite Guard",
+      "description": "Kragoth's personal guard blocks the path to the throne room.",
+      "fixed_enemies": [
+        { "id": "dark_knight", "count": 1, "elite": true, "elite_prefix": "Ironhide" },
+        { "id": "orc_berserker", "count": 1 },
+        { "id": "bandit_rogue", "count": 1 }
+      ],
+      "difficulty_slider_min": 3
+    },
+    {
+      "wave": 6,
+      "template": "mini_boss",
+      "name": "The Black Knight",
+      "description": "A towering dark knight in spiked black plate guards the final door, silent and immovable.",
+      "fixed_enemies": [
+        { "id": "dark_knight", "count": 1, "elite": true, "elite_prefix": "Cursed" },
+        { "id": "cultist", "count": 1, "elite": true, "elite_prefix": "Frenzied" }
+      ],
+      "difficulty_slider_min": 6
+    }
+  ],
+  "boss": {
+    "boss_id": "boss_warlord",
+    "pre_battle_text": "The throne room doors slam open. Kragoth sits on a crude iron throne, a massive axe across his knees. His orc berserker bodyguard and a goblin shaman flank him.",
+    "intro_dialogue": "\"So. The 'heroes' finally arrive. My scouts said you were coming — I've been looking forward to this.\"",
+    "victory_text": "Kragoth falls to his knees, axes clattering to the ground. \"Impossible... the Iron Horde... defeated by four...\" The fortress grows quiet as the remaining forces scatter.",
+    "defeat_text": "\"Pathetic. Add their skulls to my collection.\""
+  },
+  "completion_rewards": {
+    "first_clear_bonus": {
+      "gold": 500,
+      "xp": 350,
+      "unlock": "infernal_rift"
+    },
+    "repeatable_bonus": {
+      "gold_multiplier": 0.5,
+      "xp_multiplier": 0.5
+    }
+  }
+}

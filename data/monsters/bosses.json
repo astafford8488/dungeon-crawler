@@ -1,0 +1,694 @@
+{
+  "description": "Boss monsters. Each has multiple phases, unique mechanics, and guaranteed loot. Boss stats scale with difficulty like regular monsters but start higher. One boss per theme.",
+  "bosses": [
+    {
+      "id": "boss_lich_king",
+      "name": "Varekth the Undying",
+      "title": "The Lich King",
+      "type": "undead",
+      "description": "An ancient sorcerer who conquered death itself. His phylactery pulses with stolen souls, fueling an endless army of the dead.",
+      "primary_stats": { "str": 6, "int": 16, "dex": 7, "sta": 14 },
+      "base_resistances": {
+        "holy_resist": -0.20,
+        "dark_resist": 0.40,
+        "poison_resist": 1.0,
+        "physical_resist": 0.15,
+        "fire_resist": 0.0,
+        "ice_resist": 0.20,
+        "lightning_resist": 0.0
+      },
+      "immunities": ["poison_dot", "stun"],
+      "phases": [
+        {
+          "phase": 1,
+          "hp_threshold": 1.0,
+          "name": "The Scholar",
+          "description": "Varekth fights cautiously, probing the party's strength with dark magic.",
+          "abilities": [
+            {
+              "id": "soul_bolt",
+              "name": "Soul Bolt",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.2,
+              "cooldown": 0
+            },
+            {
+              "id": "death_coil",
+              "name": "Death Coil",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.5,
+              "effect": { "lifesteal": 0.50 },
+              "cooldown": 3
+            },
+            {
+              "id": "summon_skeletons",
+              "name": "Summon Skeletons",
+              "type": "summon",
+              "target": "self",
+              "effect": { "summon_id": "skeleton_warrior", "summon_count": 2, "summon_hp_percent": 0.6 },
+              "cooldown": 5
+            }
+          ],
+          "ai_behavior": "caster"
+        },
+        {
+          "phase": 2,
+          "hp_threshold": 0.60,
+          "name": "The Tyrant",
+          "description": "Enraged, Varekth begins raising the dead in waves and cursing the party.",
+          "transition_text": "Varekth's eyes blaze with fury. \"You dare challenge the master of death? I will add your bones to my collection!\"",
+          "on_transition": { "heal_percent": 0.10, "summon_id": "wraith", "summon_count": 1 },
+          "abilities": [
+            {
+              "id": "soul_bolt",
+              "name": "Soul Bolt",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.2,
+              "cooldown": 0
+            },
+            {
+              "id": "soul_harvest",
+              "name": "Soul Harvest",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 0.8,
+              "effect": { "lifesteal": 0.30 },
+              "cooldown": 4
+            },
+            {
+              "id": "curse_of_decay",
+              "name": "Curse of Decay",
+              "type": "debuff",
+              "target": "all_enemies",
+              "effect": { "reduce_heal_received": 0.40, "dark_dot_percent": 0.03, "duration": 3 },
+              "cooldown": 5
+            },
+            {
+              "id": "raise_army",
+              "name": "Raise Army",
+              "type": "summon",
+              "target": "self",
+              "effect": { "summon_id": "skeleton_warrior", "summon_count": 3, "summon_hp_percent": 0.4 },
+              "cooldown": 6
+            }
+          ],
+          "ai_behavior": "aggressive_caster"
+        },
+        {
+          "phase": 3,
+          "hp_threshold": 0.25,
+          "name": "Death Incarnate",
+          "description": "Desperate, Varekth channels the full power of his phylactery, becoming a conduit of pure death energy.",
+          "transition_text": "The phylactery SHATTERS. Dark energy floods the chamber as Varekth's form dissolves into a screaming vortex of souls!",
+          "on_transition": { "kill_all_summons": true, "aoe_dark_damage_percent": 0.15 },
+          "stat_multipliers": { "int": 1.3, "dex": 1.5 },
+          "abilities": [
+            {
+              "id": "death_ray",
+              "name": "Death Ray",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 2.5,
+              "cooldown": 0
+            },
+            {
+              "id": "death_nova",
+              "name": "Death Nova",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.5,
+              "cooldown": 3
+            },
+            {
+              "id": "soul_rend",
+              "name": "Soul Rend",
+              "type": "attack",
+              "damage_type": "dark",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.0,
+              "effect": { "reduce_max_hp_percent": 0.10 },
+              "cooldown": 4,
+              "description": "Tears at the target's soul, permanently reducing their max HP by 10% for this fight."
+            }
+          ],
+          "ai_behavior": "berserk"
+        }
+      ],
+      "base_xp": 300,
+      "base_gold": { "min": 150, "max": 500 },
+      "guaranteed_drops": ["lich_crown", "soul_gem"],
+      "loot_tags": ["legendary_gear", "dark_tome", "spirit_essence"]
+    },
+
+    {
+      "id": "boss_alpha_beast",
+      "name": "Goremaw the Ravager",
+      "title": "Alpha of the Deep",
+      "type": "beast",
+      "description": "A primordial predator that has lurked in the deepest caverns for centuries. Its hide is scarred from a thousand battles, and it has consumed countless adventurers.",
+      "primary_stats": { "str": 16, "int": 3, "dex": 10, "sta": 18 },
+      "base_resistances": {
+        "physical_resist": 0.15,
+        "poison_resist": 0.30,
+        "ice_resist": 0.10,
+        "fire_resist": -0.15,
+        "lightning_resist": -0.10,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0
+      },
+      "immunities": ["stun"],
+      "phases": [
+        {
+          "phase": 1,
+          "hp_threshold": 1.0,
+          "name": "The Hunt",
+          "description": "Goremaw circles the party, picking off the weakest members.",
+          "abilities": [
+            {
+              "id": "savage_bite",
+              "name": "Savage Bite",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 1.4,
+              "cooldown": 0
+            },
+            {
+              "id": "tail_sweep",
+              "name": "Tail Sweep",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "all_enemies",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 0.6,
+              "effect": { "stun_chance": 0.20, "stun_duration": 1 },
+              "cooldown": 3
+            },
+            {
+              "id": "thick_hide",
+              "name": "Thick Hide",
+              "type": "defense",
+              "target": "self",
+              "effect": { "physical_resist_bonus": 0.15, "duration": 3 },
+              "cooldown": 5
+            }
+          ],
+          "ai_behavior": "targets_lowest_hp"
+        },
+        {
+          "phase": 2,
+          "hp_threshold": 0.50,
+          "name": "Blood Frenzy",
+          "description": "The scent of its own blood drives Goremaw into a frenzy.",
+          "transition_text": "Goremaw rears back and ROARS. The cavern shakes. Blood drips from its maw as its eyes turn red with primal fury!",
+          "on_transition": { "buff_phys_atk": 0.30, "buff_spd": 0.40 },
+          "abilities": [
+            {
+              "id": "frenzy_bite",
+              "name": "Frenzy Bite",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 1.6,
+              "hits": 2,
+              "cooldown": 0
+            },
+            {
+              "id": "rending_claws",
+              "name": "Rending Claws",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 1.0,
+              "effect": { "bleed_dot": true, "dot_percent": 0.05, "dot_duration": 3 },
+              "cooldown": 3
+            },
+            {
+              "id": "devour",
+              "name": "Devour",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 2.5,
+              "effect": { "lifesteal": 0.40 },
+              "cooldown": 5,
+              "description": "Attempts to swallow a party member whole. Massive damage with lifesteal."
+            }
+          ],
+          "ai_behavior": "berserk"
+        }
+      ],
+      "base_xp": 280,
+      "base_gold": { "min": 120, "max": 400 },
+      "guaranteed_drops": ["goremaw_fang", "primordial_hide"],
+      "loot_tags": ["legendary_gear", "thick_pelt", "fang", "claw"]
+    },
+
+    {
+      "id": "boss_demon_lord",
+      "name": "Azgoroth the Burning",
+      "title": "Lord of Cinders",
+      "type": "demon",
+      "description": "A demon prince who commands an army of hellfire. The air itself ignites in his presence, and his infernal blade has slain a hundred heroes.",
+      "primary_stats": { "str": 18, "int": 16, "dex": 10, "sta": 18 },
+      "base_resistances": {
+        "fire_resist": 0.75,
+        "dark_resist": 0.30,
+        "holy_resist": -0.25,
+        "ice_resist": -0.20,
+        "physical_resist": 0.10,
+        "lightning_resist": 0.10,
+        "poison_resist": 0.25
+      },
+      "immunities": ["burn_dot", "stun"],
+      "phases": [
+        {
+          "phase": 1,
+          "hp_threshold": 1.0,
+          "name": "The Warlord",
+          "description": "Azgoroth fights with martial discipline, wielding blade and flame in concert.",
+          "abilities": [
+            {
+              "id": "infernal_blade",
+              "name": "Infernal Blade",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 1.3,
+              "effect": { "burn_dot": true, "dot_percent": 0.03, "dot_duration": 2 },
+              "cooldown": 0
+            },
+            {
+              "id": "hellfire_wave",
+              "name": "Hellfire Wave",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 0.8,
+              "cooldown": 3
+            },
+            {
+              "id": "summon_imps",
+              "name": "Summon Imps",
+              "type": "summon",
+              "target": "self",
+              "effect": { "summon_id": "imp", "summon_count": 3, "summon_hp_percent": 0.5 },
+              "cooldown": 5
+            }
+          ],
+          "ai_behavior": "targets_highest_atk"
+        },
+        {
+          "phase": 2,
+          "hp_threshold": 0.55,
+          "name": "Inferno",
+          "description": "Azgoroth sheathes his blade and becomes pure flame, raining destruction from above.",
+          "transition_text": "Azgoroth plunges his sword into the ground. The floor CRACKS and magma erupts! \"BURN IN THE FIRES OF THE ABYSS!\"",
+          "on_transition": { "aoe_fire_damage_percent": 0.12, "summon_id": "hellhound", "summon_count": 2 },
+          "stat_multipliers": { "int": 1.4 },
+          "abilities": [
+            {
+              "id": "meteor",
+              "name": "Meteor",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 2.5,
+              "cooldown": 0
+            },
+            {
+              "id": "rain_of_fire",
+              "name": "Rain of Fire",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.2,
+              "effect": { "burn_dot": true, "dot_percent": 0.04, "dot_duration": 2 },
+              "cooldown": 4
+            },
+            {
+              "id": "magma_prison",
+              "name": "Magma Prison",
+              "type": "debuff",
+              "damage_type": "fire",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 0.5,
+              "effect": { "immobilize": true, "burn_dot": true, "dot_percent": 0.06, "duration": 2 },
+              "cooldown": 5,
+              "description": "Encases a target in hardening magma. Immobilized and burning for 2 turns."
+            }
+          ],
+          "ai_behavior": "aoe_focused"
+        },
+        {
+          "phase": 3,
+          "hp_threshold": 0.20,
+          "name": "Dying Blaze",
+          "description": "Mortally wounded, Azgoroth prepares to detonate his essence in one final cataclysm.",
+          "transition_text": "Azgoroth's body begins to crack, blinding light pouring from the fissures. \"If I fall... I take you ALL with me!\"",
+          "on_transition": { "kill_all_summons": true },
+          "stat_multipliers": { "str": 1.3, "int": 1.5, "dex": 1.5 },
+          "mechanic": {
+            "type": "enrage_timer",
+            "turns": 5,
+            "on_expire": "party_wipe_explosion",
+            "description": "The party has 5 turns to kill Azgoroth before he self-destructs, wiping the party."
+          },
+          "abilities": [
+            {
+              "id": "supernova",
+              "name": "Supernova",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 2.0,
+              "cooldown": 0
+            },
+            {
+              "id": "last_grasp",
+              "name": "Last Grasp",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 3.0,
+              "cooldown": 2
+            }
+          ],
+          "ai_behavior": "berserk"
+        }
+      ],
+      "base_xp": 400,
+      "base_gold": { "min": 250, "max": 800 },
+      "guaranteed_drops": ["infernal_blade_azgoroth", "demon_crown"],
+      "loot_tags": ["legendary_gear", "infernal_iron", "fire_gem"]
+    },
+
+    {
+      "id": "boss_elemental_titan",
+      "name": "Terrakai the Eternal",
+      "title": "Primordial Titan",
+      "type": "elemental",
+      "description": "A titanic being forged from all four elements. It shifts between forms, each commanding a different destructive force.",
+      "primary_stats": { "str": 16, "int": 16, "dex": 8, "sta": 22 },
+      "base_resistances": {
+        "fire_resist": 0.15,
+        "ice_resist": 0.15,
+        "lightning_resist": 0.15,
+        "physical_resist": 0.15,
+        "holy_resist": 0.0,
+        "dark_resist": 0.0,
+        "poison_resist": 1.0
+      },
+      "immunities": ["poison_dot", "stun"],
+      "phases": [
+        {
+          "phase": 1,
+          "hp_threshold": 1.0,
+          "name": "Earth Form",
+          "description": "Terrakai begins in earth form — immensely durable and hitting like a landslide.",
+          "resistance_override": { "physical_resist": 0.35, "lightning_resist": -0.25 },
+          "abilities": [
+            {
+              "id": "earth_slam",
+              "name": "Earth Slam",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 1.5,
+              "cooldown": 0
+            },
+            {
+              "id": "earthquake",
+              "name": "Earthquake",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "all_enemies",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 0.7,
+              "effect": { "stun_chance": 0.30, "stun_duration": 1 },
+              "cooldown": 4
+            },
+            {
+              "id": "fortify",
+              "name": "Fortify",
+              "type": "defense",
+              "target": "self",
+              "effect": { "phys_def_multiplier": 1.6, "duration": 2 },
+              "cooldown": 4
+            }
+          ],
+          "ai_behavior": "targets_highest_atk"
+        },
+        {
+          "phase": 2,
+          "hp_threshold": 0.70,
+          "name": "Fire Form",
+          "description": "Terrakai shifts to fire — explosive damage but its defenses weaken.",
+          "transition_text": "Terrakai's stone body CRACKS and magma boils through the fissures! The titan reshapes into a being of living flame!",
+          "resistance_override": { "fire_resist": 0.75, "ice_resist": -0.40, "physical_resist": 0.0 },
+          "abilities": [
+            {
+              "id": "flame_strike",
+              "name": "Flame Strike",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.6,
+              "effect": { "burn_dot": true, "dot_percent": 0.04, "dot_duration": 2 },
+              "cooldown": 0
+            },
+            {
+              "id": "eruption",
+              "name": "Eruption",
+              "type": "attack",
+              "damage_type": "fire",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.0,
+              "cooldown": 3
+            }
+          ],
+          "ai_behavior": "aoe_focused"
+        },
+        {
+          "phase": 3,
+          "hp_threshold": 0.40,
+          "name": "Storm Form",
+          "description": "Terrakai becomes lightning — blindingly fast and striking multiple targets.",
+          "transition_text": "The flames extinguish in an instant. Static fills the air. Terrakai crackles and SPLITS into bolts of pure lightning!",
+          "resistance_override": { "lightning_resist": 0.75, "ice_resist": 0.10, "fire_resist": 0.10, "physical_resist": -0.15 },
+          "stat_multipliers": { "dex": 2.0 },
+          "abilities": [
+            {
+              "id": "thunderbolt",
+              "name": "Thunderbolt",
+              "type": "attack",
+              "damage_type": "lightning",
+              "target": "single_enemy",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.4,
+              "chain": { "targets": 2, "falloff": 0.6 },
+              "cooldown": 0
+            },
+            {
+              "id": "storm_surge",
+              "name": "Storm Surge",
+              "type": "attack",
+              "damage_type": "lightning",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.2,
+              "effect": { "reduce_spd": 0.30, "duration": 2 },
+              "cooldown": 3
+            }
+          ],
+          "ai_behavior": "targets_healer"
+        },
+        {
+          "phase": 4,
+          "hp_threshold": 0.15,
+          "name": "Primal Convergence",
+          "description": "All four elements merge. Terrakai becomes unstable, cycling through elemental attacks.",
+          "transition_text": "Earth, fire, lightning, and ice CONVERGE. Terrakai howls as raw elemental chaos tears reality apart around it!",
+          "resistance_override": { "fire_resist": 0.10, "ice_resist": 0.10, "lightning_resist": 0.10, "physical_resist": 0.10 },
+          "stat_multipliers": { "str": 1.3, "int": 1.3, "dex": 1.3 },
+          "abilities": [
+            {
+              "id": "elemental_barrage",
+              "name": "Elemental Barrage",
+              "type": "attack",
+              "damage_type": "random_element",
+              "target": "all_enemies",
+              "damage_stat": "mag_atk",
+              "damage_multiplier": 1.5,
+              "hits": 3,
+              "cooldown": 0,
+              "description": "Strikes all enemies 3 times with random elements (fire/ice/lightning)."
+            },
+            {
+              "id": "primal_roar",
+              "name": "Primal Roar",
+              "type": "debuff",
+              "target": "all_enemies",
+              "effect": { "reduce_all_resist": 0.15, "duration": 3 },
+              "cooldown": 4
+            }
+          ],
+          "ai_behavior": "berserk"
+        }
+      ],
+      "base_xp": 350,
+      "base_gold": { "min": 180, "max": 600 },
+      "guaranteed_drops": ["primal_core", "titans_shard"],
+      "loot_tags": ["legendary_gear", "elemental_core", "fire_gem", "ice_gem", "lightning_gem", "earth_gem"]
+    },
+
+    {
+      "id": "boss_warlord",
+      "name": "Kragoth the Conqueror",
+      "title": "Warlord of the Iron Horde",
+      "type": "humanoid",
+      "description": "A ruthless orc warlord who has united the dungeon's humanoid forces under his banner. A master tactician who fights alongside his elite guard.",
+      "primary_stats": { "str": 18, "int": 6, "dex": 10, "sta": 16 },
+      "base_resistances": {
+        "physical_resist": 0.15,
+        "fire_resist": 0.05,
+        "ice_resist": 0.05,
+        "lightning_resist": 0.0,
+        "holy_resist": 0.0,
+        "dark_resist": 0.10,
+        "poison_resist": 0.15
+      },
+      "immunities": ["confusion"],
+      "phases": [
+        {
+          "phase": 1,
+          "hp_threshold": 1.0,
+          "name": "The Commander",
+          "description": "Kragoth fights alongside his elite guards, issuing tactical commands.",
+          "summons_on_start": [
+            { "id": "orc_berserker", "count": 1 },
+            { "id": "goblin_shaman", "count": 1 }
+          ],
+          "abilities": [
+            {
+              "id": "warlords_strike",
+              "name": "Warlord's Strike",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 1.4,
+              "cooldown": 0
+            },
+            {
+              "id": "rally_troops",
+              "name": "Rally Troops",
+              "type": "buff",
+              "target": "all_allies",
+              "effect": { "phys_atk_multiplier": 1.25, "phys_def_multiplier": 1.15, "duration": 3 },
+              "cooldown": 5
+            },
+            {
+              "id": "shield_bash",
+              "name": "Shield Bash",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 0.8,
+              "effect": { "stun_duration": 1 },
+              "cooldown": 4
+            }
+          ],
+          "ai_behavior": "tactical"
+        },
+        {
+          "phase": 2,
+          "hp_threshold": 0.50,
+          "name": "Personal Combat",
+          "description": "His guards fallen, Kragoth drops his shield and fights with savage fury.",
+          "transition_text": "Kragoth hurls his shield aside and draws a SECOND axe. \"Now you face ME. No more games!\"",
+          "on_transition": { "heal_percent": 0.05, "buff_phys_atk": 0.40, "buff_spd": 0.30 },
+          "abilities": [
+            {
+              "id": "dual_cleave",
+              "name": "Dual Cleave",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 1.2,
+              "hits": 2,
+              "cooldown": 0
+            },
+            {
+              "id": "whirlwind",
+              "name": "Whirlwind",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "all_enemies",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 0.9,
+              "cooldown": 3
+            },
+            {
+              "id": "execute",
+              "name": "Execute",
+              "type": "attack",
+              "damage_type": "physical",
+              "target": "single_enemy",
+              "damage_stat": "phys_atk",
+              "damage_multiplier": 3.5,
+              "condition": "target_below_25_hp",
+              "cooldown": 2,
+              "description": "Massive damage to targets below 25% HP. Kragoth finishes the weak."
+            },
+            {
+              "id": "battle_cry",
+              "name": "Battle Cry",
+              "type": "debuff",
+              "target": "all_enemies",
+              "effect": { "reduce_phys_def": 0.20, "duration": 3 },
+              "cooldown": 5
+            }
+          ],
+          "ai_behavior": "berserk_tactical"
+        }
+      ],
+      "base_xp": 320,
+      "base_gold": { "min": 200, "max": 700 },
+      "guaranteed_drops": ["kragoths_war_axes", "iron_horde_banner"],
+      "loot_tags": ["legendary_gear", "orc_trophy", "crude_weapon"]
+    }
+  ]
+}

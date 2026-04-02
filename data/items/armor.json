@@ -1,0 +1,139 @@
+{
+  "category": "armor",
+  "slot": "armor",
+  "items": [
+    {
+      "id": "plate_armor",
+      "name": "Plate Armor",
+      "type": "heavy",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "Full plate mail offering maximum protection at the cost of mobility.",
+      "base_stats": { "sta": 6, "str": 1, "dex": -2 },
+      "base_resistances": { "physical_resist": 0.05 },
+      "base_price": 50,
+      "tags": ["heavy"]
+    },
+    {
+      "id": "chain_mail",
+      "name": "Chain Mail",
+      "type": "heavy",
+      "classes": ["warrior", "paladin", "shadowknight"],
+      "description": "Interlocked metal rings providing solid protection.",
+      "base_stats": { "sta": 4, "dex": -1 },
+      "base_resistances": { "physical_resist": 0.03 },
+      "base_price": 35,
+      "tags": ["heavy"]
+    },
+    {
+      "id": "scale_mail",
+      "name": "Scale Mail",
+      "type": "medium",
+      "classes": ["warrior", "paladin", "ranger", "shadowknight", "beastlord", "auramancer"],
+      "description": "Overlapping metal scales on a leather backing.",
+      "base_stats": { "sta": 3, "str": 1 },
+      "base_resistances": { "physical_resist": 0.02 },
+      "base_price": 30,
+      "tags": ["medium"]
+    },
+    {
+      "id": "brigandine",
+      "name": "Brigandine",
+      "type": "medium",
+      "classes": ["warrior", "paladin", "ranger", "rogue", "shadowknight", "beastlord", "auramancer"],
+      "description": "A coat of small plates riveted between layers of cloth.",
+      "base_stats": { "sta": 2, "dex": 1 },
+      "base_price": 28,
+      "tags": ["medium"]
+    },
+    {
+      "id": "leather_armor",
+      "name": "Leather Armor",
+      "type": "light",
+      "classes": ["rogue", "ranger", "beastlord"],
+      "description": "Hardened leather that offers decent protection without restricting movement.",
+      "base_stats": { "sta": 1, "dex": 2 },
+      "base_price": 20,
+      "tags": ["light"]
+    },
+    {
+      "id": "studded_leather",
+      "name": "Studded Leather",
+      "type": "light",
+      "classes": ["rogue", "ranger", "beastlord", "auramancer"],
+      "description": "Leather reinforced with metal studs at critical points.",
+      "base_stats": { "sta": 2, "dex": 1 },
+      "base_resistances": { "physical_resist": 0.02 },
+      "base_price": 25,
+      "tags": ["light"]
+    },
+    {
+      "id": "shadow_leather",
+      "name": "Shadow Leather",
+      "type": "light",
+      "classes": ["rogue"],
+      "description": "Darkened leather treated with alchemical compounds for stealth.",
+      "base_stats": { "dex": 4 },
+      "base_resistances": { "dark_resist": 0.03 },
+      "base_price": 40,
+      "bonus_effect_affinity": ["dodge_chance", "crit_chance"],
+      "tags": ["light"]
+    },
+    {
+      "id": "ranger_coat",
+      "name": "Ranger's Coat",
+      "type": "light",
+      "classes": ["ranger", "beastlord"],
+      "description": "A weatherproof longcoat with concealed pockets and reinforced shoulders.",
+      "base_stats": { "sta": 2, "dex": 2 },
+      "base_resistances": { "poison_resist": 0.05 },
+      "base_price": 35,
+      "tags": ["light"]
+    },
+    {
+      "id": "cloth_robe",
+      "name": "Cloth Robe",
+      "type": "cloth",
+      "classes": ["mage", "cleric", "necromancer", "witch", "elementalist"],
+      "description": "Simple robes that offer little physical protection.",
+      "base_stats": { "int": 3 },
+      "base_price": 15,
+      "tags": ["cloth"]
+    },
+    {
+      "id": "arcane_robe",
+      "name": "Arcane Robe",
+      "type": "cloth",
+      "classes": ["mage", "necromancer", "witch", "elementalist"],
+      "description": "Robes woven with arcane thread that amplifies magical power.",
+      "base_stats": { "int": 5, "sta": 1 },
+      "base_resistances": { "fire_resist": 0.03, "ice_resist": 0.03, "lightning_resist": 0.03 },
+      "base_price": 40,
+      "bonus_effect_affinity": ["mp_regen", "cooldown_reduction"],
+      "tags": ["cloth"]
+    },
+    {
+      "id": "priest_vestments",
+      "name": "Priest's Vestments",
+      "type": "cloth",
+      "classes": ["cleric", "auramancer"],
+      "description": "Sacred garments blessed by the Dawn Temple that enhance healing.",
+      "base_stats": { "int": 3, "sta": 2 },
+      "base_resistances": { "holy_resist": 0.05, "dark_resist": 0.05 },
+      "base_price": 35,
+      "bonus_effect_affinity": ["heal_bonus", "hp_regen"],
+      "tags": ["cloth"]
+    },
+    {
+      "id": "holy_plate",
+      "name": "Holy Plate",
+      "type": "heavy",
+      "classes": ["paladin", "shadowknight"],
+      "description": "Consecrated plate armor engraved with protective wards.",
+      "base_stats": { "sta": 4, "int": 2, "dex": -1 },
+      "base_resistances": { "holy_resist": 0.05, "dark_resist": 0.05, "physical_resist": 0.03 },
+      "base_price": 55,
+      "bonus_effect_affinity": ["magic_resist", "heal_bonus"],
+      "tags": ["heavy"]
+    }
+  ]
+}

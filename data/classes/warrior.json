@@ -1,0 +1,154 @@
+{
+  "id": "warrior",
+  "name": "Warrior",
+  "role": "tank",
+  "description": "A stalwart defender who shields allies from harm with heavy armor and an unbreakable will.",
+  "lore": "Forged in the fighting pits of Ironhold, Warriors are the backbone of any dungeon party. Their ability to absorb punishment and redirect enemy aggression keeps squishier allies alive.",
+  "primary_stats": {
+    "str": 12,
+    "int": 3,
+    "dex": 5,
+    "sta": 16,
+    "wis": 3
+  },
+  "stat_growth_per_level": {
+    "str": 2,
+    "int": 0,
+    "dex": 1,
+    "sta": 4,
+    "wis": 0
+  },
+  "base_derived_bonuses": {
+    "hp": 20,
+    "mp": 0,
+    "phys_atk": 0,
+    "mag_atk": 0,
+    "phys_def": 5,
+    "mag_def": 0,
+    "spd": 0,
+    "crit_rate": 0.05,
+    "dodge": 0.0,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.0,
+    "lightning_resist": 0.0,
+    "holy_resist": 0.0,
+    "dark_resist": 0.0,
+    "poison_resist": 0.05,
+    "physical_resist": 0.05
+  },
+  "equipment_slots": ["weapon", "shield", "armor", "accessory"],
+  "preferred_weapons": ["sword", "axe", "mace", "hammer"],
+  "abilities": [
+    {
+      "id": "slash",
+      "name": "Slash",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 1.0,
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "A reliable sword strike that deals physical damage."
+    },
+    {
+      "id": "shield_wall",
+      "name": "Shield Wall",
+      "level_required": 1,
+      "type": "defense",
+      "target": "self",
+      "effect": { "phys_def_multiplier": 1.5, "mag_def_multiplier": 1.2, "duration": 3 },
+      "mp_cost": 10,
+      "cooldown": 4,
+      "description": "Raises shield, increasing Physical DEF by 50% and Magic DEF by 20% for 3 turns."
+    },
+    {
+      "id": "taunt",
+      "name": "Taunt",
+      "level_required": 10,
+      "type": "debuff",
+      "target": "all_enemies",
+      "effect": { "force_target": "self", "duration": 2 },
+      "mp_cost": 15,
+      "cooldown": 5,
+      "description": "Forces all enemies to attack the Warrior for 2 turns."
+    },
+    {
+      "id": "crushing_blow",
+      "name": "Crushing Blow",
+      "level_required": 20,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 2.0,
+      "effect": { "reduce_phys_def": 0.3, "duration": 2 },
+      "mp_cost": 20,
+      "cooldown": 3,
+      "description": "A devastating strike that deals 2x physical damage and reduces enemy Physical DEF by 30% for 2 turns."
+    },
+    {
+      "id": "rallying_cry",
+      "name": "Rallying Cry",
+      "level_required": 30,
+      "type": "buff",
+      "target": "all_allies",
+      "effect": { "phys_atk_multiplier": 1.2, "duration": 3 },
+      "mp_cost": 25,
+      "cooldown": 6,
+      "description": "Inspires all allies, increasing Physical ATK by 20% for 3 turns."
+    },
+    {
+      "id": "iron_skin",
+      "name": "Iron Skin",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "physical_resist": 0.10, "poison_resist": 0.10 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: Permanently gains 10% Physical Resistance and 10% Poison Resistance."
+    },
+    {
+      "id": "last_stand",
+      "name": "Last Stand",
+      "level_required": 50,
+      "type": "defense",
+      "target": "self",
+      "effect": {
+        "invulnerable_duration": 2,
+        "heal_percent": 0.3,
+        "phys_atk_multiplier": 1.5,
+        "duration": 3
+      },
+      "mp_cost": 50,
+      "cooldown": 10,
+      "description": "Ultimate: Become invulnerable for 2 turns, heal 30% HP, and gain 50% Physical ATK for 3 turns."
+    }
+  ],
+  "ai_priority": [
+    "use_last_stand_if_hp_below_15_and_available",
+    "use_taunt_if_healer_targeted",
+    "use_shield_wall_if_hp_below_50",
+    "use_crushing_blow_if_enemy_hp_above_70",
+    "use_rallying_cry_if_no_atk_buff_active",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Cleric: Sustained frontline — Warrior tanks while Cleric keeps HP topped off",
+    "Rogue: Warrior holds aggro while Rogue deals massive backstab damage",
+    "Mage: Taunt protects the fragile Mage during long cast times"
+  ],
+  "weaknesses": [
+    "Low damage output without Crushing Blow",
+    "Low INT makes magic damage very effective against them",
+    "Slow — often acts last in turn order",
+    "MP-starved if Taunting and Shield Walling frequently"
+  ],
+  "hire_cost": 100,
+  "hire_description": "A scarred veteran leans against the guild wall, arms crossed over dented plate armor. \"Need someone to stand between you and death? That's my specialty.\""
+}

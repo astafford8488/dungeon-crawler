@@ -1,0 +1,183 @@
+{
+  "category": "accessory",
+  "slot": "accessory",
+  "items": [
+    {
+      "id": "iron_ring",
+      "name": "Iron Ring",
+      "type": "ring",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A simple iron band. Provides a small boost to resilience.",
+      "base_stats": { "sta": 2 },
+      "base_price": 10,
+      "tags": ["ring"]
+    },
+    {
+      "id": "ring_of_strength",
+      "name": "Ring of Strength",
+      "type": "ring",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A ruby-set ring that enhances the wearer's striking power.",
+      "base_stats": { "str": 3 },
+      "base_price": 25,
+      "bonus_effect_affinity": ["crit_damage"],
+      "tags": ["ring"]
+    },
+    {
+      "id": "ring_of_intellect",
+      "name": "Ring of Intellect",
+      "type": "ring",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A sapphire ring that sharpens the mind and deepens magical reserves.",
+      "base_stats": { "int": 3 },
+      "base_price": 25,
+      "bonus_effect_affinity": ["mp_regen"],
+      "tags": ["ring"]
+    },
+    {
+      "id": "ring_of_fortitude",
+      "name": "Ring of Fortitude",
+      "type": "ring",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "An emerald ring that toughens the wearer against harm.",
+      "base_stats": { "sta": 3 },
+      "base_price": 25,
+      "bonus_effect_affinity": ["damage_reduction"],
+      "tags": ["ring"]
+    },
+    {
+      "id": "ring_of_haste",
+      "name": "Ring of Haste",
+      "type": "ring",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A topaz ring that quickens the wearer's reflexes.",
+      "base_stats": { "dex": 3 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["dodge_chance", "cooldown_reduction"],
+      "tags": ["ring"]
+    },
+    {
+      "id": "amulet_of_vitality",
+      "name": "Amulet of Vitality",
+      "type": "amulet",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A jade pendant that pulses with life energy.",
+      "base_stats": { "sta": 4 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["hp_regen"],
+      "tags": ["amulet"]
+    },
+    {
+      "id": "amulet_of_wisdom",
+      "name": "Amulet of Wisdom",
+      "type": "amulet",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "An amethyst pendant that deepens the wearer's magical reserves.",
+      "base_stats": { "int": 4 },
+      "base_price": 28,
+      "bonus_effect_affinity": ["mp_regen", "cooldown_reduction"],
+      "tags": ["amulet"]
+    },
+    {
+      "id": "amulet_of_warding",
+      "name": "Amulet of Warding",
+      "type": "amulet",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A warded silver pendant that resists magical effects.",
+      "base_stats": { "int": 1, "sta": 1 },
+      "base_resistances": { "fire_resist": 0.03, "ice_resist": 0.03, "lightning_resist": 0.03 },
+      "base_price": 25,
+      "bonus_effect_affinity": ["magic_resist"],
+      "tags": ["amulet"]
+    },
+    {
+      "id": "fire_ward_amulet",
+      "name": "Fire Ward Amulet",
+      "type": "amulet",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A red amulet that absorbs the heat of flames.",
+      "base_stats": { "sta": 1 },
+      "base_resistances": { "fire_resist": 0.10 },
+      "base_price": 30,
+      "tags": ["amulet"]
+    },
+    {
+      "id": "frost_ward_amulet",
+      "name": "Frost Ward Amulet",
+      "type": "amulet",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A blue amulet that keeps the wearer warm against even magical cold.",
+      "base_stats": { "sta": 1 },
+      "base_resistances": { "ice_resist": 0.10 },
+      "base_price": 30,
+      "tags": ["amulet"]
+    },
+    {
+      "id": "lucky_coin",
+      "name": "Lucky Coin",
+      "type": "trinket",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A suspiciously shiny coin that seems to attract fortune.",
+      "base_stats": { "dex": 1 },
+      "base_price": 15,
+      "bonus_effect_affinity": ["gold_bonus", "xp_bonus", "crit_chance"],
+      "tags": ["trinket"]
+    },
+    {
+      "id": "warriors_medallion",
+      "name": "Warrior's Medallion",
+      "type": "trinket",
+      "classes": ["warrior", "paladin", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A bronze medallion awarded for valor in combat.",
+      "base_stats": { "str": 2, "sta": 2 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["thorns", "damage_reduction"],
+      "tags": ["trinket"]
+    },
+    {
+      "id": "shadow_pendant",
+      "name": "Shadow Pendant",
+      "type": "amulet",
+      "classes": ["rogue", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A dark gem that seems to drink in the light around it.",
+      "base_stats": { "dex": 3, "str": 1 },
+      "base_resistances": { "dark_resist": 0.05 },
+      "base_price": 35,
+      "bonus_effect_affinity": ["crit_chance", "crit_damage", "dodge_chance"],
+      "tags": ["amulet"]
+    },
+    {
+      "id": "arcane_focus_gem",
+      "name": "Arcane Focus Gem",
+      "type": "trinket",
+      "classes": ["mage", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A crystallized shard of raw magic that hums with latent power.",
+      "base_stats": { "int": 4 },
+      "base_price": 35,
+      "bonus_effect_affinity": ["fire_damage", "ice_damage", "lightning_damage", "mp_regen"],
+      "tags": ["trinket"]
+    },
+    {
+      "id": "healers_brooch",
+      "name": "Healer's Brooch",
+      "type": "trinket",
+      "classes": ["cleric", "paladin", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A golden brooch shaped like a sunburst, warm to the touch.",
+      "base_stats": { "int": 2, "sta": 1 },
+      "base_price": 30,
+      "bonus_effect_affinity": ["heal_bonus", "mp_regen"],
+      "tags": ["trinket"]
+    },
+    {
+      "id": "poison_ward_charm",
+      "name": "Poison Ward Charm",
+      "type": "trinket",
+      "classes": ["warrior", "paladin", "rogue", "ranger", "mage", "cleric", "shadowknight", "necromancer", "witch", "elementalist", "beastlord", "auramancer"],
+      "description": "A pungent herbal charm that neutralizes toxins on contact.",
+      "base_stats": { "sta": 1 },
+      "base_resistances": { "poison_resist": 0.12 },
+      "base_price": 22,
+      "tags": ["trinket"]
+    }
+  ]
+}

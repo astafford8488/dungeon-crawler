@@ -1,0 +1,20 @@
+{
+  "description": "Formation system. Party arranged in 2x2 grid. Front row absorbs damage, back row gets damage bonus but is exposed if front falls.",
+  "positions": {
+    "front_left": { "row": "front", "col": 0 },
+    "front_right": { "row": "front", "col": 1 },
+    "back_left": { "row": "back", "col": 0 },
+    "back_right": { "row": "back", "col": 1 }
+  },
+  "front_row_effects": {
+    "damage_taken_multiplier": 1.15,
+    "threat_multiplier": 2.0,
+    "description": "Front row takes 15% more damage and draws enemy attacks"
+  },
+  "back_row_effects": {
+    "damage_bonus": 0.10,
+    "protected": true,
+    "exposed_when_front_dead": true,
+    "description": "Back row deals 10% more damage. Protected by front row unless front row is dead."
+  }
+}

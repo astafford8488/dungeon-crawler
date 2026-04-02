@@ -1,0 +1,62 @@
+{
+  "description": "Item set bonuses. 1% chance for any generated item to belong to a set. Collecting 2+ pieces of the same set gives stacking bonuses.",
+  "drop_chance": 0.01,
+  "sets": [
+    {
+      "id": "ironforge",
+      "name": "Ironforge",
+      "icon": "&#9881;",
+      "color": "#aaa",
+      "pieces_needed": { "2": { "phys_def_bonus": 10, "hp_bonus": 20 }, "3": { "physical_resist": 0.08, "thorns": 5 } }
+    },
+    {
+      "id": "shadowweave",
+      "name": "Shadowweave",
+      "icon": "&#128065;",
+      "color": "#8e44ad",
+      "pieces_needed": { "2": { "crit_rate_bonus": 0.06, "dodge_bonus": 0.04 }, "3": { "double_strike": 0.12, "lifesteal": 0.05 } }
+    },
+    {
+      "id": "arcane_legacy",
+      "name": "Arcane Legacy",
+      "icon": "&#10024;",
+      "color": "#3498db",
+      "pieces_needed": { "2": { "mag_atk_bonus": 8, "mp_bonus": 15 }, "3": { "cooldown_reduction": 0.10, "mp_regen": 5 } }
+    },
+    {
+      "id": "blessed_dawn",
+      "name": "Blessed Dawn",
+      "icon": "&#9788;",
+      "color": "#f1c40f",
+      "pieces_needed": { "2": { "heal_power_bonus": 10, "holy_resist": 0.08 }, "3": { "hp_regen": 8, "dark_resist": 0.10 } }
+    },
+    {
+      "id": "berserker",
+      "name": "Berserker's Fury",
+      "icon": "&#128293;",
+      "color": "#e74c3c",
+      "pieces_needed": { "2": { "phys_atk_bonus": 8, "spd_bonus": 5 }, "3": { "crit_damage_bonus": 0.25, "lifesteal": 0.08 } }
+    },
+    {
+      "id": "nature_warden",
+      "name": "Nature's Warden",
+      "icon": "&#127807;",
+      "color": "#2ecc71",
+      "pieces_needed": { "2": { "poison_resist": 0.10, "hp_bonus": 15 }, "3": { "hp_regen": 10, "all_resist": 0.05 } }
+    },
+    {
+      "id": "storm_caller",
+      "name": "Storm Caller",
+      "icon": "&#9889;",
+      "color": "#f39c12",
+      "pieces_needed": { "2": { "lightning_damage": 8, "spd_bonus": 4 }, "3": { "mag_atk_bonus": 12, "crit_rate_bonus": 0.08 } }
+    },
+    {
+      "id": "void_touched",
+      "name": "Void Touched",
+      "icon": "&#127761;",
+      "color": "#2c3e50",
+      "pieces_needed": { "2": { "dark_resist": 0.10, "mag_def_bonus": 6 }, "3": { "damage_reduction": 0.06, "lifesteal": 0.06 } }
+    }
+  ]
+}

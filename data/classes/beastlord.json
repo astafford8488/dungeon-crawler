@@ -1,0 +1,169 @@
+{
+  "id": "beastlord",
+  "name": "Beastlord",
+  "role": "summoner_hybrid",
+  "description": "A primal warrior who tames ferocious beasts and fights alongside them, blending melee prowess with animal cunning.",
+  "lore": "Born in the untamed Wyldlands, Beastlords form unbreakable bonds with the creatures most adventurers would flee from. Their companion beasts are not mere pets — they are brothers and sisters in battle.",
+  "primary_stats": {
+    "str": 10,
+    "int": 4,
+    "dex": 10,
+    "sta": 8,
+    "wis": 6
+  },
+  "stat_growth_per_level": {
+    "str": 2,
+    "int": 0,
+    "dex": 3,
+    "sta": 2,
+    "wis": 1
+  },
+  "base_derived_bonuses": {
+    "hp": 10,
+    "mp": 5,
+    "phys_atk": 3,
+    "mag_atk": 0,
+    "phys_def": 2,
+    "mag_def": 0,
+    "spd": 3,
+    "crit_rate": 0.08,
+    "dodge": 0.05,
+    "heal_power": 0
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.05,
+    "lightning_resist": 0.0,
+    "holy_resist": 0.0,
+    "dark_resist": 0.0,
+    "poison_resist": 0.10,
+    "physical_resist": 0.05
+  },
+  "equipment_slots": ["weapon", "armor", "accessory", "quiver"],
+  "preferred_weapons": ["bow", "axe"],
+  "abilities": [
+    {
+      "id": "feral_strike",
+      "name": "Feral Strike",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 1.0,
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "A savage strike that deals physical damage to a single enemy."
+    },
+    {
+      "id": "call_wolf",
+      "name": "Call Wolf",
+      "level_required": 1,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": { "summon_id": "dire_wolf", "summon_hp_percent": 0.5, "summon_atk_percent": 0.35, "duration": 5 },
+      "mp_cost": 12,
+      "cooldown": 6,
+      "description": "Calls a dire wolf companion to fight alongside the party for 5 turns."
+    },
+    {
+      "id": "wild_roar",
+      "name": "Wild Roar",
+      "level_required": 5,
+      "type": "buff",
+      "target": "all_allies",
+      "effect": { "phys_atk_multiplier": 1.15, "duration": 3 },
+      "mp_cost": 12,
+      "cooldown": 5,
+      "description": "Lets out a primal roar that increases all allies' Physical ATK by 15% for 3 turns."
+    },
+    {
+      "id": "pack_tactics",
+      "name": "Pack Tactics",
+      "level_required": 10,
+      "type": "buff",
+      "target": "self_and_summons",
+      "effect": { "phys_atk_multiplier": 1.25, "crit_rate_bonus": 0.10, "duration": 3 },
+      "mp_cost": 15,
+      "cooldown": 5,
+      "description": "Coordinates with beast companions, increasing Physical ATK by 25% and Crit Rate by 10% for self and all summons for 3 turns."
+    },
+    {
+      "id": "summon_bear",
+      "name": "Summon Bear",
+      "level_required": 20,
+      "type": "summon",
+      "target": "summon_slot",
+      "effect": { "summon_id": "great_bear", "summon_hp_percent": 0.7, "summon_atk_percent": 0.25, "taunt_on_summon": true, "duration": 5 },
+      "mp_cost": 22,
+      "cooldown": 7,
+      "description": "Summons a great bear that taunts enemies on arrival and absorbs damage for the party for 5 turns."
+    },
+    {
+      "id": "nature_rend",
+      "name": "Nature Rend",
+      "level_required": 30,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "single_enemy",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 1.6,
+      "effect": { "nature_dot_percent": 0.15, "dot_duration": 3, "bonus_with_summon": 0.5 },
+      "mp_cost": 20,
+      "cooldown": 4,
+      "description": "Tears into the enemy for 1.6x physical damage plus a nature bleed over 3 turns. Deals 50% bonus damage if a beast companion is active."
+    },
+    {
+      "id": "bond_of_the_wild",
+      "name": "Bond of the Wild",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "summon_hp_bonus": 0.20, "dodge_while_summon_active": 0.10, "poison_resist": 0.10 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: Beast companions gain 20% more HP. While a companion is active, the Beastlord gains 10% Dodge and 10% Poison Resistance."
+    },
+    {
+      "id": "stampede",
+      "name": "Stampede",
+      "level_required": 50,
+      "type": "attack",
+      "damage_type": "physical",
+      "target": "all_enemies",
+      "damage_stat": "phys_atk",
+      "damage_multiplier": 2.0,
+      "effect": {
+        "summon_all_beasts": true,
+        "stun_chance": 0.4,
+        "stun_duration": 1,
+        "duration": 3
+      },
+      "mp_cost": 50,
+      "cooldown": 10,
+      "description": "Ultimate: Unleashes a stampede of all beast companions, dealing 2x physical damage to all enemies with a 40% chance to stun for 1 turn."
+    }
+  ],
+  "ai_priority": [
+    "use_stampede_if_multiple_enemies_and_available",
+    "use_call_wolf_if_no_summons_active",
+    "use_summon_bear_if_party_taking_heavy_damage",
+    "use_pack_tactics_if_summon_active_and_no_buff",
+    "use_nature_rend_if_summon_active",
+    "use_feral_strike",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Auramancer: Aura buffs affect beast companions too, making the pack devastatingly strong",
+    "Rogue: Pack Tactics crit bonus pairs well with the Rogue's high crit damage",
+    "Warrior: Bear summon and Warrior taunt together create an impenetrable front line"
+  ],
+  "weaknesses": [
+    "Split stats mean neither melee nor pet damage excels alone early on",
+    "Heavily reliant on having beast companions active for full effectiveness",
+    "Low INT and WIS make magical enemies difficult to deal with",
+    "AoE attacks from enemies quickly destroy beast companions"
+  ],
+  "hire_cost": 130,
+  "hire_description": "A weathered ranger sits cross-legged by the hearth, a massive wolf dozing at their feet. As you approach, the wolf opens one eye. The ranger smiles. \"Don't worry, she only bites things I tell her to. Usually.\""
+}

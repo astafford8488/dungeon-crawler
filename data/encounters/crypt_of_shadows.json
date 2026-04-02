@@ -1,0 +1,90 @@
+{
+  "dungeon_id": "crypt_of_shadows",
+  "dungeon_name": "Crypt of Shadows",
+  "theme": "undead",
+  "tier": 1,
+  "base_level": 1,
+  "description": "An ancient burial complex beneath the ruined cathedral. The dead have risen, and a dark presence commands them from the lowest chamber.",
+  "unlock_condition": "available_from_start",
+  "environment": {
+    "backdrop": "stone_crypt",
+    "ambience": "dripping water, distant moaning",
+    "lighting": "dim torchlight, flickering shadows"
+  },
+  "enemy_pool": ["skeleton_warrior", "skeleton_archer", "zombie", "ghoul", "wraith", "necromancer_acolyte"],
+  "encounter_waves": [
+    {
+      "wave": 1,
+      "template": "easy_intro",
+      "name": "Restless Bones",
+      "description": "Skeletal remains stir to life as you enter the crypt.",
+      "fixed_enemies": [
+        { "id": "skeleton_warrior", "count": 2 },
+        { "id": "skeleton_archer", "count": 1 }
+      ]
+    },
+    {
+      "wave": 2,
+      "template": "standard",
+      "name": "The Shambling Dead",
+      "description": "A pack of zombies lurches out from behind crumbling sarcophagi.",
+      "fixed_enemies": [
+        { "id": "zombie", "count": 2 },
+        { "id": "skeleton_warrior", "count": 1 }
+      ]
+    },
+    {
+      "wave": 3,
+      "template": "ambush",
+      "name": "Ghoul Ambush",
+      "description": "Ghouls drop from the ceiling, shrieking with hunger!",
+      "fixed_enemies": [
+        { "id": "ghoul", "count": 2 },
+        { "id": "skeleton_archer", "count": 2 }
+      ]
+    },
+    {
+      "wave": 4,
+      "template": "tough",
+      "name": "The Inner Sanctum",
+      "description": "A necromancer acolyte chants over a pile of bones, raising warriors to defend the passage.",
+      "fixed_enemies": [
+        { "id": "necromancer_acolyte", "count": 1 },
+        { "id": "skeleton_warrior", "count": 2 },
+        { "id": "wraith", "count": 1 }
+      ],
+      "difficulty_slider_min": 3,
+      "note": "Only appears at difficulty 3+"
+    },
+    {
+      "wave": 5,
+      "template": "mini_boss",
+      "name": "The Crypt Guardian",
+      "description": "An ancient wraith guards the passage to the Lich King's chamber.",
+      "fixed_enemies": [
+        { "id": "wraith", "count": 1, "elite": true, "elite_prefix": "Ancient" },
+        { "id": "skeleton_warrior", "count": 2 }
+      ],
+      "difficulty_slider_min": 5,
+      "note": "Only appears at difficulty 5+"
+    }
+  ],
+  "boss": {
+    "boss_id": "boss_lich_king",
+    "pre_battle_text": "The air grows deathly cold. At the heart of the crypt, a robed figure sits upon a throne of bones, a sickly green light pulsing from the phylactery in his skeletal hand.",
+    "intro_dialogue": "\"Ah... more souls for my collection. How thoughtful of you to deliver yourselves.\"",
+    "victory_text": "Varekth crumbles to dust. The phylactery shatters, releasing a cascade of freed souls that spiral upward and vanish. The crypt falls silent at last.",
+    "defeat_text": "\"Your bones will serve me well...\""
+  },
+  "completion_rewards": {
+    "first_clear_bonus": {
+      "gold": 200,
+      "xp": 100,
+      "unlock": "thornwood_depths"
+    },
+    "repeatable_bonus": {
+      "gold_multiplier": 0.5,
+      "xp_multiplier": 0.5
+    }
+  }
+}

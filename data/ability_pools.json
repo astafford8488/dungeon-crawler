@@ -1,0 +1,265 @@
+{
+  "description": "Ability pools by class. At each milestone level, players choose one ability from the available pool for that tier. They can also upgrade existing abilities instead of learning new ones.",
+  "milestone_levels": [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+  "choices_per_milestone": 1,
+  "upgrade_cost_description": "Instead of learning a new ability, a player can upgrade an existing ability. Upgrades improve damage/healing multipliers by 20%, reduce cooldown by 1, or reduce MP cost by 15%.",
+
+  "warrior": {
+    "tier_1": {
+      "level": 1,
+      "choices": [
+        { "id": "slash", "name": "Slash", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 1.0, "mp_cost": 0, "cooldown": 0, "description": "A reliable sword strike." },
+        { "id": "shield_bash", "name": "Shield Bash", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 0.7, "mp_cost": 5, "cooldown": 3, "effect": { "stun_duration": 1 }, "description": "Bash with shield. Low damage but stuns for 1 turn." },
+        { "id": "war_cry", "name": "War Cry", "type": "buff", "target": "self", "effect": { "phys_atk_multiplier": 1.2, "duration": 3 }, "mp_cost": 8, "cooldown": 4, "description": "Boost own Physical ATK by 20% for 3 turns." },
+        { "id": "guard", "name": "Guard", "type": "defense", "target": "self", "effect": { "phys_def_multiplier": 1.3, "duration": 2 }, "mp_cost": 5, "cooldown": 3, "description": "Raise defenses. +30% Phys DEF for 2 turns." },
+        { "id": "provoke", "name": "Provoke", "type": "debuff", "target": "single_enemy", "effect": { "force_target": "self", "duration": 2 }, "mp_cost": 8, "cooldown": 4, "description": "Force one enemy to attack you for 2 turns." }
+      ]
+    },
+    "tier_2": {
+      "level": 5,
+      "choices": [
+        { "id": "shield_wall", "name": "Shield Wall", "type": "defense", "target": "self", "effect": { "phys_def_multiplier": 1.5, "mag_def_multiplier": 1.2, "duration": 3 }, "mp_cost": 10, "cooldown": 4, "description": "+50% Phys DEF, +20% Mag DEF for 3 turns." },
+        { "id": "cleave", "name": "Cleave", "type": "attack", "damage_type": "physical", "target": "all_enemies", "damage_stat": "phys_atk", "damage_multiplier": 0.6, "mp_cost": 12, "cooldown": 3, "description": "Hit all enemies for 60% damage." },
+        { "id": "intimidate", "name": "Intimidate", "type": "debuff", "target": "all_enemies", "effect": { "reduce_phys_atk": 0.15, "duration": 3 }, "mp_cost": 10, "cooldown": 5, "description": "Reduce all enemies' Phys ATK by 15% for 3 turns." }
+      ]
+    },
+    "tier_3": {
+      "level": 10,
+      "choices": [
+        { "id": "taunt", "name": "Taunt", "type": "debuff", "target": "all_enemies", "effect": { "force_target": "self", "duration": 2 }, "mp_cost": 15, "cooldown": 5, "description": "Force all enemies to attack you for 2 turns." },
+        { "id": "revenge", "name": "Revenge", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 1.8, "mp_cost": 15, "cooldown": 4, "condition": "bonus_if_hp_below_50", "conditional_multiplier": 2.5, "description": "1.8x damage. 2.5x if your HP is below 50%." },
+        { "id": "iron_skin", "name": "Iron Skin", "type": "passive", "target": "self", "effect": { "physical_resist": 0.10, "poison_resist": 0.10 }, "mp_cost": 0, "cooldown": 0, "description": "Passive: +10% Physical and Poison Resistance." }
+      ]
+    },
+    "tier_4": {
+      "level": 20,
+      "choices": [
+        { "id": "crushing_blow", "name": "Crushing Blow", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 2.0, "effect": { "reduce_phys_def": 0.3, "duration": 2 }, "mp_cost": 20, "cooldown": 3, "description": "2x damage, reduce target Phys DEF 30% for 2 turns." },
+        { "id": "rallying_cry", "name": "Rallying Cry", "type": "buff", "target": "all_allies", "effect": { "phys_atk_multiplier": 1.2, "duration": 3 }, "mp_cost": 25, "cooldown": 6, "description": "All allies gain 20% Phys ATK for 3 turns." }
+      ]
+    },
+    "tier_5": {
+      "level": 30,
+      "choices": [
+        { "id": "last_stand", "name": "Last Stand", "type": "defense", "target": "self", "effect": { "invulnerable_duration": 2, "heal_percent": 0.3, "phys_atk_multiplier": 1.5, "duration": 3 }, "mp_cost": 50, "cooldown": 10, "description": "Ultimate: Invulnerable 2 turns, heal 30%, +50% ATK 3 turns." },
+        { "id": "earthquake", "name": "Earthquake", "type": "attack", "damage_type": "physical", "target": "all_enemies", "damage_stat": "phys_atk", "damage_multiplier": 1.2, "effect": { "stun_chance": 0.3, "stun_duration": 1 }, "mp_cost": 35, "cooldown": 6, "description": "1.2x AoE damage with 30% stun chance." }
+      ]
+    }
+  },
+
+  "mage": {
+    "tier_1": {
+      "level": 1,
+      "choices": [
+        { "id": "arcane_bolt", "name": "Arcane Bolt", "type": "attack", "damage_type": "magic", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 1.1, "mp_cost": 0, "cooldown": 0, "description": "Basic arcane projectile." },
+        { "id": "fireball", "name": "Fireball", "type": "attack", "damage_type": "fire", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 0.8, "mp_cost": 15, "cooldown": 2, "description": "Fire AoE hitting all enemies." },
+        { "id": "ice_shard", "name": "Ice Shard", "type": "attack", "damage_type": "ice", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 1.3, "effect": { "reduce_spd": 0.2, "duration": 2 }, "mp_cost": 10, "cooldown": 2, "description": "1.3x ice damage, slows target 20% for 2 turns." },
+        { "id": "arcane_shield", "name": "Arcane Shield", "type": "defense", "target": "self", "effect": { "mag_def_multiplier": 1.4, "duration": 2 }, "mp_cost": 8, "cooldown": 4, "description": "Magical barrier. +40% Mag DEF for 2 turns." },
+        { "id": "drain_mana", "name": "Drain Mana", "type": "attack", "damage_type": "magic", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 0.6, "effect": { "mp_steal": 10 }, "mp_cost": 0, "cooldown": 3, "description": "Weak damage but steals 10 MP from enemy." }
+      ]
+    },
+    "tier_2": {
+      "level": 5,
+      "choices": [
+        { "id": "frost_nova", "name": "Frost Nova", "type": "attack", "damage_type": "ice", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 0.5, "effect": { "reduce_spd": 0.5, "duration": 2 }, "mp_cost": 20, "cooldown": 4, "description": "Ice AoE, slows all enemies 50% for 2 turns." },
+        { "id": "lightning_bolt", "name": "Lightning Bolt", "type": "attack", "damage_type": "lightning", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 1.5, "mp_cost": 15, "cooldown": 2, "description": "High single-target lightning damage." },
+        { "id": "mana_shield", "name": "Mana Shield", "type": "defense", "target": "self", "effect": { "absorb_damage_with_mp": true, "conversion_rate": 2, "duration": 3 }, "mp_cost": 10, "cooldown": 6, "description": "Absorb damage using MP at 2:1 ratio for 3 turns." }
+      ]
+    },
+    "tier_3": {
+      "level": 10,
+      "choices": [
+        { "id": "chain_lightning", "name": "Chain Lightning", "type": "attack", "damage_type": "lightning", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 1.5, "chain": { "targets": 2, "falloff": 0.6 }, "mp_cost": 25, "cooldown": 3, "description": "Chains to 2 additional targets at 60% damage." },
+        { "id": "flame_wall", "name": "Flame Wall", "type": "attack", "damage_type": "fire", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 0.4, "effect": { "burn_dot": true, "dot_percent": 0.04, "dot_duration": 3 }, "mp_cost": 20, "cooldown": 4, "description": "Low AoE but applies burn (4% HP/turn for 3 turns)." },
+        { "id": "arcane_mastery", "name": "Arcane Mastery", "type": "passive", "target": "self", "effect": { "mag_atk_bonus": 0.15, "mp_regen_per_turn": 5 }, "mp_cost": 0, "cooldown": 0, "description": "Passive: +15% magic damage, +5 MP regen/turn." }
+      ]
+    },
+    "tier_4": {
+      "level": 20,
+      "choices": [
+        { "id": "blizzard", "name": "Blizzard", "type": "attack", "damage_type": "ice", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 1.0, "effect": { "reduce_spd": 0.3, "duration": 2 }, "mp_cost": 30, "cooldown": 4, "description": "Strong ice AoE with slow." },
+        { "id": "pyroblast", "name": "Pyroblast", "type": "attack", "damage_type": "fire", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 2.5, "mp_cost": 35, "cooldown": 4, "description": "Massive single-target fire damage." }
+      ]
+    },
+    "tier_5": {
+      "level": 30,
+      "choices": [
+        { "id": "meteor_storm", "name": "Meteor Storm", "type": "attack", "damage_type": "fire", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 2.5, "effect": { "burn_dot": true, "dot_percent": 0.05, "dot_duration": 3 }, "mp_cost": 60, "cooldown": 8, "description": "Ultimate: Massive fire AoE + burn 5% HP/turn." },
+        { "id": "time_stop", "name": "Time Stop", "type": "debuff", "target": "all_enemies", "effect": { "stun_duration": 2 }, "mp_cost": 50, "cooldown": 10, "description": "Ultimate: Stun ALL enemies for 2 turns." }
+      ]
+    }
+  },
+
+  "rogue": {
+    "tier_1": {
+      "level": 1,
+      "choices": [
+        { "id": "backstab", "name": "Backstab", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 1.3, "crit_bonus": 0.15, "mp_cost": 0, "cooldown": 0, "description": "Precise strike with +15% crit chance." },
+        { "id": "poison_blade", "name": "Poison Blade", "type": "attack", "damage_type": "poison", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 0.8, "effect": { "poison_dot": true, "dot_percent": 0.04, "dot_duration": 3 }, "mp_cost": 10, "cooldown": 3, "description": "Poisons target for 4% HP/turn for 3 turns." },
+        { "id": "quick_slash", "name": "Quick Slash", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 0.6, "hits": 2, "mp_cost": 0, "cooldown": 0, "description": "Two quick strikes at 60% damage each." },
+        { "id": "crippling_strike", "name": "Crippling Strike", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 0.9, "effect": { "reduce_spd": 0.3, "duration": 2 }, "mp_cost": 8, "cooldown": 3, "description": "Strike that slows target 30% for 2 turns." },
+        { "id": "pickpocket", "name": "Pickpocket", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 0.5, "effect": { "gold_steal": 15 }, "mp_cost": 5, "cooldown": 4, "description": "Low damage but steals 15 gold per use." }
+      ]
+    },
+    "tier_2": {
+      "level": 5,
+      "choices": [
+        { "id": "evasion", "name": "Evasion", "type": "defense", "target": "self", "effect": { "dodge_bonus": 0.50, "duration": 2 }, "mp_cost": 15, "cooldown": 5, "description": "+50% dodge for 2 turns." },
+        { "id": "expose_weakness", "name": "Expose Weakness", "type": "debuff", "target": "single_enemy", "effect": { "damage_taken_increase": 0.20, "duration": 3 }, "mp_cost": 12, "cooldown": 4, "description": "Target takes 20% more damage for 3 turns." },
+        { "id": "throwing_knives", "name": "Throwing Knives", "type": "attack", "damage_type": "physical", "target": "all_enemies", "damage_stat": "phys_atk", "damage_multiplier": 0.5, "mp_cost": 12, "cooldown": 3, "description": "Hit all enemies for 50% damage." }
+      ]
+    },
+    "tier_3": {
+      "level": 10,
+      "choices": [
+        { "id": "ambush", "name": "Ambush", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 2.5, "condition": "bonus_if_target_debuffed", "conditional_multiplier": 3.75, "mp_cost": 20, "cooldown": 4, "description": "2.5x damage. 3.75x if target has a debuff." },
+        { "id": "smoke_bomb", "name": "Smoke Bomb", "type": "debuff", "target": "all_enemies", "effect": { "miss_chance": 0.35, "duration": 2 }, "mp_cost": 20, "cooldown": 6, "description": "All enemies have 35% miss chance for 2 turns." },
+        { "id": "blade_dance", "name": "Blade Dance", "type": "passive", "target": "self", "effect": { "double_strike_chance": 0.20, "crit_rate_bonus": 0.10 }, "mp_cost": 0, "cooldown": 0, "description": "Passive: 20% double strike, +10% crit." }
+      ]
+    },
+    "tier_4": {
+      "level": 20,
+      "choices": [
+        { "id": "death_mark", "name": "Death Mark", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 3.0, "effect": { "execute_threshold": 0.20, "damage_taken_increase": 0.25, "mark_duration": 3 }, "mp_cost": 40, "cooldown": 10, "description": "3x damage. Target takes 25% more damage, executed below 20% HP." },
+        { "id": "shadow_step", "name": "Shadow Step", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 2.0, "crit_bonus": 0.30, "effect": { "dodge_bonus": 0.40, "duration": 1 }, "mp_cost": 25, "cooldown": 4, "description": "2x damage with +30% crit, gain 40% dodge for 1 turn." }
+      ]
+    },
+    "tier_5": {
+      "level": 30,
+      "choices": [
+        { "id": "assassinate", "name": "Assassinate", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 4.0, "effect": { "guaranteed_crit": true, "execute_threshold": 0.30 }, "mp_cost": 50, "cooldown": 10, "description": "Ultimate: 4x guaranteed crit. Execute below 30% HP." },
+        { "id": "vanish", "name": "Vanish", "type": "defense", "target": "self", "effect": { "dodge_bonus": 1.0, "phys_atk_multiplier": 1.5, "duration": 2 }, "mp_cost": 40, "cooldown": 8, "description": "Ultimate: 100% dodge for 2 turns + 50% ATK boost." }
+      ]
+    }
+  },
+
+  "cleric": {
+    "tier_1": {
+      "level": 1,
+      "default_all": true,
+      "choices": [
+        { "id": "smite", "name": "Smite", "type": "attack", "damage_type": "holy", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 0.8, "bonus_vs": { "undead": 1.5, "demon": 1.5 }, "mp_cost": 0, "cooldown": 0, "description": "Holy damage. +50% vs undead/demons." },
+        { "id": "heal", "name": "Heal", "type": "heal", "target": "single_ally", "heal_stat": "heal_power", "heal_multiplier": 2.0, "heal_base": 15, "mp_cost": 12, "cooldown": 1, "description": "Heal one ally. Scales with Healing Power." },
+        { "id": "bless", "name": "Bless", "type": "buff", "target": "single_ally", "effect": { "phys_atk_multiplier": 1.15, "mag_atk_multiplier": 1.15, "duration": 4 }, "mp_cost": 10, "cooldown": 4, "description": "+15% ATK (both) on one ally for 4 turns." },
+        { "id": "mend", "name": "Mend", "type": "heal", "target": "single_ally", "heal_stat": "heal_power", "heal_multiplier": 1.0, "heal_base": 10, "mp_cost": 6, "cooldown": 0, "description": "Small but free heal. Weaker than Heal but no cooldown." },
+        { "id": "holy_bolt", "name": "Holy Bolt", "type": "attack", "damage_type": "holy", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 1.1, "effect": { "heal_allies_percent_of_damage": 0.15 }, "mp_cost": 10, "cooldown": 2, "description": "Holy damage + heal lowest ally for 15% of damage dealt." }
+      ]
+    },
+    "tier_2": {
+      "level": 5,
+      "choices": [
+        { "id": "purify", "name": "Purify", "type": "heal", "target": "single_ally", "effect": { "cleanse_debuffs": "all", "heal_base": 10 }, "mp_cost": 15, "cooldown": 3, "description": "Remove all debuffs and heal slightly." },
+        { "id": "holy_fire", "name": "Holy Fire", "type": "attack", "damage_type": "holy", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 1.2, "effect": { "burn_dot": true, "dot_percent": 0.03, "dot_duration": 3 }, "mp_cost": 15, "cooldown": 3, "description": "Holy damage + burn. For offensive clerics." },
+        { "id": "shield_of_faith", "name": "Shield of Faith", "type": "buff", "target": "single_ally", "effect": { "absorb_shield_base": 30, "absorb_shield_stat": "heal_power", "absorb_multiplier": 2.0, "duration": 3 }, "mp_cost": 18, "cooldown": 4, "description": "Absorb shield on one ally. Scales with Healing Power." }
+      ]
+    },
+    "tier_3": {
+      "level": 10,
+      "choices": [
+        { "id": "prayer_of_healing", "name": "Prayer of Healing", "type": "heal", "target": "all_allies", "heal_stat": "heal_power", "heal_multiplier": 1.2, "heal_base": 10, "mp_cost": 30, "cooldown": 5, "description": "Heal entire party." },
+        { "id": "divine_shield", "name": "Divine Shield", "type": "buff", "target": "single_ally", "effect": { "absorb_shield_base": 40, "absorb_shield_stat": "heal_power", "absorb_multiplier": 2.5, "duration": 3 }, "mp_cost": 25, "cooldown": 4, "description": "Strong absorb shield on one ally." },
+        { "id": "holy_aura", "name": "Holy Aura", "type": "passive", "target": "all_allies", "effect": { "hp_regen_per_turn": 5, "dark_resist_bonus": 0.10, "holy_resist_bonus": 0.10 }, "mp_cost": 0, "cooldown": 0, "description": "Passive: Party regens 5 HP/turn, +10% dark/holy resist." }
+      ]
+    },
+    "tier_4": {
+      "level": 20,
+      "choices": [
+        { "id": "holy_nova", "name": "Holy Nova", "type": "attack", "damage_type": "holy", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 0.8, "effect": { "heal_allies_percent_of_damage": 0.30 }, "mp_cost": 30, "cooldown": 4, "description": "Holy AoE + heal allies for 30% of damage dealt." },
+        { "id": "resurrection", "name": "Resurrection", "type": "heal", "target": "single_dead_ally", "effect": { "revive": true, "revive_hp_percent": 0.40 }, "mp_cost": 40, "cooldown": 8, "description": "Revive a fallen ally at 40% HP." }
+      ]
+    },
+    "tier_5": {
+      "level": 30,
+      "choices": [
+        { "id": "divine_intervention", "name": "Divine Intervention", "type": "heal", "target": "all_allies", "effect": { "heal_percent": 0.50, "cleanse_all": true, "revive": true, "revive_hp_percent": 0.25, "immunity_duration": 1 }, "mp_cost": 65, "cooldown": 12, "description": "Ultimate: Heal 50%, cleanse, revive dead, 1 turn immunity." },
+        { "id": "wrath_of_god", "name": "Wrath of God", "type": "attack", "damage_type": "holy", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 2.0, "bonus_vs": { "undead": 2.0, "demon": 2.0 }, "mp_cost": 55, "cooldown": 8, "description": "Ultimate: Massive holy AoE. 4x vs undead/demons." }
+      ]
+    }
+  },
+
+  "ranger": {
+    "tier_1": {
+      "level": 1,
+      "choices": [
+        { "id": "precise_shot", "name": "Precise Shot", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 1.2, "crit_bonus": 0.10, "mp_cost": 0, "cooldown": 0, "description": "Aimed arrow with +10% crit." },
+        { "id": "hunters_mark", "name": "Hunter's Mark", "type": "debuff", "target": "single_enemy", "effect": { "damage_taken_increase": 0.15, "duration": 4 }, "mp_cost": 10, "cooldown": 4, "description": "Target takes 15% more damage for 4 turns." },
+        { "id": "rapid_fire", "name": "Rapid Fire", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 0.5, "hits": 3, "mp_cost": 10, "cooldown": 3, "description": "3 quick shots at 50% damage each." },
+        { "id": "natures_touch", "name": "Nature's Touch", "type": "heal", "target": "single_ally", "heal_stat": "heal_power", "heal_multiplier": 0.8, "heal_base": 10, "mp_cost": 10, "cooldown": 3, "description": "Minor heal using nature magic." },
+        { "id": "entangle", "name": "Entangle", "type": "debuff", "target": "single_enemy", "effect": { "reduce_spd": 0.5, "duration": 2 }, "mp_cost": 8, "cooldown": 4, "description": "Vines root target, reducing SPD by 50% for 2 turns." }
+      ]
+    },
+    "tier_2": {
+      "level": 5,
+      "choices": [
+        { "id": "volley", "name": "Volley", "type": "attack", "damage_type": "physical", "target": "all_enemies", "damage_stat": "phys_atk", "damage_multiplier": 0.6, "mp_cost": 15, "cooldown": 3, "description": "Arrow rain hitting all enemies." },
+        { "id": "snare_trap", "name": "Snare Trap", "type": "debuff", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 0.5, "effect": { "immobilize": true, "reduce_spd_to_zero": true, "duration": 2 }, "mp_cost": 15, "cooldown": 5, "description": "Immobilize one enemy for 2 turns." },
+        { "id": "camouflage", "name": "Camouflage", "type": "defense", "target": "self", "effect": { "dodge_bonus": 0.40, "crit_bonus_next": 0.25, "duration": 2 }, "mp_cost": 12, "cooldown": 4, "description": "+40% dodge for 2 turns, next attack +25% crit." }
+      ]
+    },
+    "tier_3": {
+      "level": 10,
+      "choices": [
+        { "id": "beast_lore", "name": "Beast Lore", "type": "buff", "target": "all_allies", "effect": { "damage_bonus_all": 0.15, "damage_bonus_vs_beast": 0.30, "duration": 4 }, "mp_cost": 20, "cooldown": 6, "description": "All allies +15% damage (30% vs beasts) for 4 turns." },
+        { "id": "eagle_eye", "name": "Eagle Eye", "type": "passive", "target": "self", "effect": { "crit_rate_bonus": 0.15, "ignore_evasion": true }, "mp_cost": 0, "cooldown": 0, "description": "Passive: +15% crit, attacks can't be dodged." },
+        { "id": "poison_arrow", "name": "Poison Arrow", "type": "attack", "damage_type": "poison", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 1.0, "effect": { "poison_dot": true, "dot_percent": 0.05, "dot_duration": 3 }, "mp_cost": 15, "cooldown": 3, "description": "Arrow + strong poison (5% HP/turn for 3 turns)." }
+      ]
+    },
+    "tier_4": {
+      "level": 20,
+      "choices": [
+        { "id": "headshot", "name": "Headshot", "type": "attack", "damage_type": "physical", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 4.0, "effect": { "stun_duration": 2, "guaranteed_crit": true, "ignore_phys_def": true }, "mp_cost": 45, "cooldown": 10, "description": "4x guaranteed crit, ignores defense, stuns 2 turns." },
+        { "id": "barrage", "name": "Barrage", "type": "attack", "damage_type": "physical", "target": "all_enemies", "damage_stat": "phys_atk", "damage_multiplier": 0.5, "hits": 3, "mp_cost": 35, "cooldown": 5, "description": "3 volleys hitting all enemies at 50% each." }
+      ]
+    },
+    "tier_5": {
+      "level": 30,
+      "choices": [
+        { "id": "rain_of_arrows", "name": "Rain of Arrows", "type": "attack", "damage_type": "physical", "target": "all_enemies", "damage_stat": "phys_atk", "damage_multiplier": 1.5, "hits": 2, "mp_cost": 50, "cooldown": 8, "description": "Ultimate: 2 waves of arrows at 1.5x AoE each." },
+        { "id": "summon_wolf", "name": "Summon Wolf", "type": "buff", "target": "self", "effect": { "phys_atk_multiplier": 1.3, "double_strike_chance": 0.30, "duration": 5 }, "mp_cost": 40, "cooldown": 10, "description": "Ultimate: Wolf companion gives +30% ATK and 30% double strike for 5 turns." }
+      ]
+    }
+  },
+
+  "paladin": {
+    "tier_1": {
+      "level": 1,
+      "choices": [
+        { "id": "holy_strike", "name": "Holy Strike", "type": "attack", "damage_type": "holy", "target": "single_enemy", "damage_stat": "phys_atk", "secondary_damage_stat": "mag_atk", "secondary_ratio": 0.3, "damage_multiplier": 1.0, "bonus_vs": { "undead": 1.5, "demon": 1.5 }, "mp_cost": 0, "cooldown": 0, "description": "STR + 30% INT holy damage. +50% vs undead/demons." },
+        { "id": "lay_on_hands", "name": "Lay on Hands", "type": "heal", "target": "single_ally", "heal_stat": "heal_power", "heal_multiplier": 1.5, "heal_base": 15, "mp_cost": 15, "cooldown": 3, "description": "Heal one ally." },
+        { "id": "judgment", "name": "Judgment", "type": "attack", "damage_type": "holy", "target": "single_enemy", "damage_stat": "mag_atk", "damage_multiplier": 1.2, "effect": { "damage_taken_increase": 0.10, "duration": 3 }, "mp_cost": 10, "cooldown": 3, "description": "Holy damage + target takes 10% more damage for 3 turns." },
+        { "id": "devotion", "name": "Devotion", "type": "buff", "target": "all_allies", "effect": { "phys_def_multiplier": 1.1, "mag_def_multiplier": 1.1, "duration": 3 }, "mp_cost": 12, "cooldown": 5, "description": "+10% both DEF for entire party for 3 turns." },
+        { "id": "shield_throw", "name": "Shield Throw", "type": "attack", "damage_type": "holy", "target": "all_enemies", "damage_stat": "phys_atk", "damage_multiplier": 0.5, "mp_cost": 10, "cooldown": 3, "description": "Throw your shield for weak AoE holy damage." }
+      ]
+    },
+    "tier_2": {
+      "level": 5,
+      "choices": [
+        { "id": "holy_shield", "name": "Holy Shield", "type": "defense", "target": "self", "effect": { "phys_def_multiplier": 1.4, "reflect_damage_percent": 0.10, "duration": 3 }, "mp_cost": 15, "cooldown": 5, "description": "+40% Phys DEF + reflect 10% damage for 3 turns." },
+        { "id": "consecrate", "name": "Consecrate", "type": "attack", "damage_type": "holy", "target": "all_enemies", "damage_stat": "mag_atk", "damage_multiplier": 0.6, "effect": { "heal_allies_percent_of_damage": 0.10 }, "mp_cost": 25, "cooldown": 4, "description": "Holy AoE + heal party for 10% of damage." },
+        { "id": "guardian_aura", "name": "Guardian Aura", "type": "buff", "target": "all_allies", "effect": { "physical_resist_bonus": 0.10, "fire_resist_bonus": 0.05, "ice_resist_bonus": 0.05, "duration": 4 }, "mp_cost": 20, "cooldown": 6, "description": "Party gains +10% phys resist, +5% fire/ice resist 4 turns." }
+      ]
+    },
+    "tier_3": {
+      "level": 10,
+      "choices": [
+        { "id": "righteous_fury", "name": "Righteous Fury", "type": "passive", "target": "self", "effect": { "phys_atk_bonus_when_ally_below_30": 0.30, "heal_on_kill": 15 }, "mp_cost": 0, "cooldown": 0, "description": "Passive: +30% ATK when ally below 30% HP. Heal 15 on kill." },
+        { "id": "cleansing_light", "name": "Cleansing Light", "type": "heal", "target": "all_allies", "effect": { "cleanse_debuffs": "all", "heal_base": 15 }, "mp_cost": 25, "cooldown": 5, "description": "Cleanse all debuffs from party + small heal." },
+        { "id": "hammer_of_justice", "name": "Hammer of Justice", "type": "attack", "damage_type": "holy", "target": "single_enemy", "damage_stat": "phys_atk", "damage_multiplier": 1.5, "effect": { "stun_duration": 1 }, "mp_cost": 20, "cooldown": 4, "description": "1.5x holy damage + stun 1 turn." }
+      ]
+    },
+    "tier_4": {
+      "level": 20,
+      "choices": [
+        { "id": "divine_judgement", "name": "Divine Judgement", "type": "attack", "damage_type": "holy", "target": "single_enemy", "damage_stat": "phys_atk", "secondary_damage_stat": "mag_atk", "secondary_ratio": 0.5, "damage_multiplier": 3.0, "bonus_vs": { "undead": 2.0, "demon": 2.0 }, "effect": { "stun_duration": 1, "heal_all_allies_percent": 0.25 }, "mp_cost": 50, "cooldown": 10, "description": "3x holy (6x vs undead), stun, heal party 25%." },
+        { "id": "avenging_wrath", "name": "Avenging Wrath", "type": "buff", "target": "self", "effect": { "phys_atk_multiplier": 1.5, "mag_atk_multiplier": 1.5, "heal_bonus": 0.30, "duration": 4 }, "mp_cost": 35, "cooldown": 8, "description": "+50% ATK (both) + 30% heal bonus for 4 turns." }
+      ]
+    },
+    "tier_5": {
+      "level": 30,
+      "choices": [
+        { "id": "divine_storm", "name": "Divine Storm", "type": "attack", "damage_type": "holy", "target": "all_enemies", "damage_stat": "phys_atk", "secondary_damage_stat": "mag_atk", "secondary_ratio": 0.5, "damage_multiplier": 2.0, "effect": { "heal_allies_percent_of_damage": 0.20 }, "mp_cost": 55, "cooldown": 8, "description": "Ultimate: Holy AoE + heal party 20% of damage dealt." },
+        { "id": "divine_protection", "name": "Divine Protection", "type": "buff", "target": "all_allies", "effect": { "damage_reduction": 0.30, "immunity_duration": 1, "duration": 3 }, "mp_cost": 60, "cooldown": 12, "description": "Ultimate: Party gets 30% damage reduction 3 turns + 1 turn immunity." }
+      ]
+    }
+  }
+}

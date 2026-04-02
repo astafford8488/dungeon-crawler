@@ -1,0 +1,17 @@
+{
+  "description": "Random modifiers applied to each dungeon run. One modifier per run.",
+  "modifiers": [
+    { "id": "burning_ground", "name": "Burning Ground", "icon": "&#128293;", "color": "#e67e22", "description": "The ground smolders. All combatants take 2% fire damage per turn.", "effect": { "dot_all": true, "dot_percent": 0.02, "dot_type": "fire" } },
+    { "id": "treasure_hunter", "name": "Treasure Hunter", "icon": "&#128176;", "color": "#ffd700", "description": "+50% gold drops. Enemies have +20% HP.", "effect": { "gold_mult": 1.5, "enemy_hp_mult": 1.2 } },
+    { "id": "cursed", "name": "Cursed", "icon": "&#128128;", "color": "#8e44ad", "description": "Healing abilities are 50% less effective. Potions work normally.", "effect": { "heal_reduction": 0.5 } },
+    { "id": "berserk", "name": "Berserk", "icon": "&#9876;", "color": "#e74c3c", "description": "Everyone deals +30% damage and takes +30% damage.", "effect": { "damage_mult_all": 1.3, "damage_taken_mult_all": 1.3 } },
+    { "id": "fortified", "name": "Fortified", "icon": "&#128737;", "color": "#3498db", "description": "All enemies have +25% DEF. Loot quality improved.", "effect": { "enemy_def_mult": 1.25, "loot_rarity_boost": 1 } },
+    { "id": "swift", "name": "Swift Enemies", "icon": "&#9889;", "color": "#f1c40f", "description": "All enemies have +30% speed.", "effect": { "enemy_spd_mult": 1.3 } },
+    { "id": "vampiric", "name": "Vampiric", "icon": "&#129499;", "color": "#c0392b", "description": "All attacks heal the attacker for 10% of damage dealt.", "effect": { "global_lifesteal": 0.10 } },
+    { "id": "toxic", "name": "Toxic Fumes", "icon": "&#9763;", "color": "#2ecc71", "description": "Poison damage increased by 50%. Poison resist reduced by 10%.", "effect": { "poison_damage_mult": 1.5, "poison_resist_penalty": 0.10 } },
+    { "id": "empowered", "name": "Empowered Magic", "icon": "&#10024;", "color": "#9b59b6", "description": "All magic damage +25%. MP costs -20%.", "effect": { "magic_damage_mult": 1.25, "mp_cost_reduction": 0.20 } },
+    { "id": "gauntlet", "name": "The Gauntlet", "icon": "&#127942;", "color": "#e6cc80", "description": "No rest points between waves. +75% XP and gold.", "effect": { "no_rest": true, "xp_mult": 1.75, "gold_mult": 1.75 } },
+    { "id": "peaceful", "name": "Calm Before Storm", "icon": "&#127774;", "color": "#87ceeb", "description": "Party starts with +15% all stats. Boss is 20% stronger.", "effect": { "party_stat_mult": 1.15, "boss_stat_mult": 1.2 } },
+    { "id": "thorns", "name": "Thorny", "icon": "&#127801;", "color": "#27ae60", "description": "All combatants reflect 5% of damage taken back to attackers.", "effect": { "global_thorns": 0.05 } }
+  ]
+}

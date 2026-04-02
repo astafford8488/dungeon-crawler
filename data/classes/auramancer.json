@@ -1,0 +1,161 @@
+{
+  "id": "auramancer",
+  "name": "Auramancer",
+  "role": "support_buffer",
+  "description": "A radiant support caster who projects powerful auras that bolster allies while wielding light-based attacks. Auras reserve mana — the more active, the less MP available for active skills.",
+  "lore": "The Auramancers of the Crystal Spire learn to weave ambient magical energy into persistent fields of power. Their auras are not spells that fade — they are constant emanations that reshape the battlefield as long as the caster maintains concentration.",
+  "primary_stats": {
+    "str": 4,
+    "int": 10,
+    "dex": 6,
+    "sta": 8,
+    "wis": 12
+  },
+  "stat_growth_per_level": {
+    "str": 0,
+    "int": 2,
+    "dex": 1,
+    "sta": 2,
+    "wis": 3
+  },
+  "base_derived_bonuses": {
+    "hp": 10,
+    "mp": 15,
+    "phys_atk": 0,
+    "mag_atk": 0,
+    "phys_def": 2,
+    "mag_def": 3,
+    "spd": 0,
+    "crit_rate": 0.05,
+    "dodge": 0.0,
+    "heal_power": 5
+  },
+  "base_resistances": {
+    "fire_resist": 0.0,
+    "ice_resist": 0.0,
+    "lightning_resist": 0.0,
+    "holy_resist": 0.10,
+    "dark_resist": 0.0,
+    "poison_resist": 0.0,
+    "physical_resist": 0.0
+  },
+  "equipment_slots": ["weapon", "armor", "accessory", "focus"],
+  "preferred_weapons": ["scepter", "staff"],
+  "abilities": [
+    {
+      "id": "radiant_pulse",
+      "name": "Radiant Pulse",
+      "level_required": 1,
+      "type": "attack",
+      "damage_type": "holy",
+      "target": "single_enemy",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 1.0,
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "A burst of radiant energy. Basic holy attack."
+    },
+    {
+      "id": "aura_of_might",
+      "name": "Aura of Might",
+      "level_required": 1,
+      "type": "aura",
+      "target": "all_allies",
+      "effect": { "phys_atk_multiplier": 1.12, "mag_atk_multiplier": 1.12 },
+      "mp_reserve": 15,
+      "description": "AURA (reserves 15 MP): All allies deal 12% more physical and magic damage while active."
+    },
+    {
+      "id": "radiant_nova",
+      "name": "Radiant Nova",
+      "level_required": 5,
+      "type": "attack",
+      "damage_type": "holy",
+      "target": "all_enemies",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 0.7,
+      "effect": { "heal_allies_percent_of_damage": 0.15 },
+      "mp_cost": 15,
+      "cooldown": 3,
+      "description": "Releases a burst of radiant energy hitting all enemies for 0.7x holy damage. Heals all allies for 15% of damage dealt."
+    },
+    {
+      "id": "aura_of_warding",
+      "name": "Aura of Warding",
+      "level_required": 10,
+      "type": "aura",
+      "target": "all_allies",
+      "effect": { "physical_resist_bonus": 0.08, "damage_reduction": 0.06 },
+      "mp_reserve": 20,
+      "description": "AURA (reserves 20 MP): All allies gain 8% physical resistance and 6% damage reduction."
+    },
+    {
+      "id": "prismatic_bolt",
+      "name": "Prismatic Bolt",
+      "level_required": 20,
+      "type": "attack",
+      "damage_type": "holy",
+      "target": "all_enemies",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 0.8,
+      "effect": { "reduce_phys_def": 0.10, "reduce_mag_def": 0.10, "duration": 2 },
+      "mp_cost": 20,
+      "cooldown": 3,
+      "description": "Prismatic AoE that damages all enemies and reduces their DEF by 10% for 2 turns."
+    },
+    {
+      "id": "aura_of_restoration",
+      "name": "Aura of Restoration",
+      "level_required": 30,
+      "type": "aura",
+      "target": "all_allies",
+      "effect": { "hp_regen_per_turn": 8, "mp_regen_per_turn": 3 },
+      "mp_reserve": 25,
+      "description": "AURA (reserves 25 MP): All allies regenerate 8 HP and 3 MP per turn."
+    },
+    {
+      "id": "resonance",
+      "name": "Resonance",
+      "level_required": 40,
+      "type": "passive",
+      "target": "self",
+      "effect": { "aura_potency_bonus": 0.25, "mp_bonus": 20 },
+      "mp_cost": 0,
+      "cooldown": 0,
+      "description": "Passive: All aura effects are 25% stronger. +20 max MP."
+    },
+    {
+      "id": "transcendent_burst",
+      "name": "Transcendent Burst",
+      "level_required": 50,
+      "type": "attack",
+      "damage_type": "holy",
+      "target": "all_enemies",
+      "damage_stat": "mag_atk",
+      "damage_multiplier": 2.0,
+      "effect": { "heal_allies_percent_of_damage": 0.25, "buff_party_all_stats": 0.15, "buff_duration": 3 },
+      "mp_cost": 50,
+      "cooldown": 8,
+      "description": "Ultimate: Massive holy AoE. Heals party for 25% of damage dealt. All party stats +15% for 3 turns."
+    }
+  ],
+  "ai_priority": [
+    "use_transcendent_burst_if_enemies_above_3",
+    "use_prismatic_bolt_if_enemies_above_2",
+    "use_radiant_pulse",
+    "basic_attack"
+  ],
+  "synergies": [
+    "Warrior: Aura of Warding + Shield Wall makes the Warrior nearly unkillable",
+    "Mage: Aura of Might boosts the Mage's already high magic damage",
+    "Witch: Auramancer buffs while Witch debuffs — enemies crushed from both sides"
+  ],
+  "weaknesses": [
+    "Low personal damage — relies on empowering allies",
+    "Active auras reduce available MP for active abilities",
+    "Fragile if focused — low STR and moderate STA",
+    "Needs a party to be useful — terrible solo"
+  ],
+  "hire_cost": 120,
+  "hire_description": "A figure in flowing white and gold robes sits cross-legged, eyes closed. The air around them shimmers with visible energy — warmth, clarity, power. They open their eyes. \"I do not fight your battles. I make your warriors fight harder, your mages cast truer, your shields hold stronger.\""
+}

@@ -1,0 +1,98 @@
+{
+  "description": "Events that trigger after defeating a dungeon boss, on the way back to town. One random event per return trip.",
+  "event_chance": 0.6,
+  "events": [
+    {
+      "id": "merchant_caravan",
+      "name": "Triumphant Merchant Caravan",
+      "description": "A merchant caravan spots your victorious party and offers to trade.",
+      "icon": "&#128722;",
+      "choices": [
+        { "id": "buy_supplies", "text": "Buy supplies (100g)", "outcome": "fixed", "cost": { "type": "gold", "amount": 100 }, "result": { "type": "potions", "count": 3, "message": "You purchase 3 potions from the merchants." } },
+        { "id": "sell_premium", "text": "Sell loot at premium prices", "outcome": "fixed", "result": { "type": "gold_percent_bonus", "percent": 0.5, "message": "The merchants pay top gold for fresh dungeon goods! +50% bonus gold!" } },
+        { "id": "trade_stories", "text": "Trade war stories", "outcome": "fixed", "result": { "type": "xp_percent_bonus", "percent": 0.2, "message": "Sharing tales of battle inspires your party. +20% bonus XP!" } },
+        { "id": "rob", "text": "Rob them (risky)", "outcome": "random", "good": { "type": "gold", "amount": 300, "message": "The merchants flee! You claim 300 gold!" }, "bad": { "type": "damage_party", "percent": 0.10, "message": "They fight back! Your party takes damage." }, "good_chance": 0.5 }
+      ]
+    },
+    {
+      "id": "wounded_rival",
+      "name": "Wounded Rival Party",
+      "description": "Another adventuring party lies wounded on the road, defeated by the dungeon you just conquered.",
+      "icon": "&#129492;",
+      "choices": [
+        { "id": "help", "text": "Help them (costs 1 potion)", "outcome": "fixed", "cost": { "type": "potion", "amount": 1 }, "result": { "type": "loot", "count": 1, "rarity_boost": 1, "message": "Grateful, they give you a piece of their best gear!" } },
+        { "id": "take_gear", "text": "Take their abandoned gear", "outcome": "fixed", "result": { "type": "loot", "count": 2, "message": "You scavenge 2 items from their camp." } },
+        { "id": "trade_knowledge", "text": "Share healing knowledge", "class_bonus": "cleric", "outcome": "fixed", "result": { "type": "buff_next_run", "stat": "heal_power", "value": 0.20, "message": "They teach advanced healing techniques. +20% heal power next run!" } },
+        { "id": "pass", "text": "Pass by", "outcome": "fixed", "result": { "type": "nothing", "message": "You leave them to their fate." } }
+      ]
+    },
+    {
+      "id": "ancient_vault",
+      "name": "Ancient Vault Door",
+      "description": "Behind the boss's chamber, a hidden vault door glows with ancient runes.",
+      "icon": "&#128274;",
+      "choices": [
+        { "id": "force_open", "text": "Force it open (STR check)", "class_bonus": "warrior", "outcome": "random", "good": { "type": "loot", "count": 3, "rarity_boost": 2, "message": "The vault opens! Incredible treasures within!" }, "bad": { "type": "damage_party", "percent": 0.20, "message": "A trap explodes! Your party takes heavy damage!" }, "good_chance": 0.45, "class_bonus_chance": 0.75 },
+        { "id": "dispel", "text": "Dispel the wards (INT check)", "class_bonus": "mage", "outcome": "random", "good": { "type": "loot_and_materials", "loot_count": 2, "mat_count": 5, "message": "Wards dissolved! Items and rare materials inside!" }, "bad": { "type": "debuff_next_run", "message": "The wards backlash — your party feels cursed..." }, "good_chance": 0.45, "class_bonus_chance": 0.75 },
+        { "id": "leave", "text": "Leave it sealed", "outcome": "fixed", "result": { "type": "gold", "amount": 50, "message": "You pocket some scattered coins nearby." } }
+      ]
+    },
+    {
+      "id": "mysterious_traveler",
+      "name": "Mysterious Traveler",
+      "description": "A cloaked figure waits at the dungeon exit. 'I see you survived. I can offer you... an exchange.'",
+      "icon": "&#129497;",
+      "choices": [
+        { "id": "buy_power", "text": "Trade gold for power (200g)", "outcome": "fixed", "cost": { "type": "gold", "amount": 200 }, "result": { "type": "stat_boost", "amount": 2, "message": "One party member gains +2 to a random stat permanently!" } },
+        { "id": "trade_item", "text": "Trade an item for knowledge", "outcome": "fixed", "cost": { "type": "item", "amount": 1 }, "result": { "type": "xp_percent_bonus", "percent": 0.5, "message": "Ancient knowledge floods your minds. +50% bonus XP!" } },
+        { "id": "trade_blood", "text": "Trade blood for treasure", "outcome": "fixed", "result": { "type": "blood_trade", "hp_cost": 0.15, "message": "The traveler draws your blood... and produces a magnificent item." } },
+        { "id": "decline", "text": "Decline", "outcome": "fixed", "result": { "type": "nothing", "message": "'Perhaps next time.' The figure vanishes." } }
+      ]
+    },
+    {
+      "id": "collapsing_dungeon",
+      "name": "Collapsing Dungeon",
+      "description": "The dungeon begins to shake! The boss's death has destabilized the structure!",
+      "icon": "&#127959;",
+      "choices": [
+        { "id": "rush", "text": "Rush to the exit!", "outcome": "random", "good": { "type": "nothing", "message": "You make it out safely!" }, "bad": { "type": "damage_party", "percent": 0.25, "message": "Falling debris hits the party hard!" }, "good_chance": 0.7 },
+        { "id": "search_rubble", "text": "Search the rubble (risky)", "outcome": "random", "good": { "type": "loot_and_gold", "loot_count": 3, "gold": 200, "message": "You find a hidden treasure room in the collapse!" }, "bad": { "type": "damage_party", "percent": 0.15, "message": "Nothing valuable, and you take some hits." }, "good_chance": 0.4 },
+        { "id": "barrier", "text": "Cast a barrier (Mage/Auramancer)", "class_bonus": "mage", "class_required": true, "outcome": "fixed", "result": { "type": "safe_and_loot", "loot_count": 1, "message": "A magical barrier shields the party. You find an item in the rubble." } }
+      ]
+    },
+    {
+      "id": "fork_return",
+      "name": "Fork in the Return Path",
+      "description": "Two paths lead back to town. The main road... or a shortcut through the Whispering Woods.",
+      "icon": "&#127795;",
+      "choices": [
+        { "id": "main_road", "text": "Main road (safe)", "outcome": "fixed", "result": { "type": "nothing", "message": "A peaceful walk back to town." } },
+        { "id": "shortcut", "text": "Whispering Woods (risky)", "outcome": "random", "good": { "type": "potions", "count": 5, "message": "You discover a hidden herb garden! 5 free potions!" }, "bad": { "type": "damage_party", "percent": 0.10, "message": "Ambushed by forest creatures! Minor injuries." }, "good_chance": 0.5 },
+        { "id": "camp", "text": "Set up camp and rest", "outcome": "fixed", "result": { "type": "full_heal", "message": "A good night's rest. Party fully restored!" } }
+      ]
+    },
+    {
+      "id": "loot_goblin",
+      "name": "Loot Goblin",
+      "description": "A cackling goblin darts past carrying a sack overflowing with treasure!",
+      "icon": "&#128176;",
+      "choices": [
+        { "id": "chase", "text": "Chase it! (DEX check)", "class_bonus": "rogue", "outcome": "random", "good": { "type": "loot_and_gold", "loot_count": 2, "gold": 500, "message": "Caught it! 500 gold and 2 items from the sack!" }, "bad": { "type": "nothing", "message": "It escapes into a tiny tunnel. Gone." }, "good_chance": 0.4, "class_bonus_chance": 0.7 },
+        { "id": "trap", "text": "Set a trap", "class_bonus": "ranger", "outcome": "random", "good": { "type": "loot_and_gold", "loot_count": 1, "gold": 300, "message": "Trapped! 300 gold and an item." }, "bad": { "type": "nothing", "message": "The goblin avoids the trap entirely." }, "good_chance": 0.6, "class_bonus_chance": 0.85 },
+        { "id": "let_go", "text": "Let it go", "outcome": "fixed", "result": { "type": "gold", "amount": 10, "message": "It drops a single coin as it flees. Sad." } }
+      ]
+    },
+    {
+      "id": "grateful_spirit",
+      "name": "The Grateful Spirit",
+      "description": "The spirit of someone the boss had imprisoned appears, freed by your victory.",
+      "icon": "&#128123;",
+      "choices": [
+        { "id": "blessing", "text": "Accept their blessing", "outcome": "fixed", "result": { "type": "stat_boost", "amount": 3, "message": "Divine energy flows into a party member. +3 to a random stat!" } },
+        { "id": "treasure", "text": "Ask for treasure", "outcome": "fixed", "result": { "type": "loot_and_materials", "loot_count": 0, "mat_count": 8, "gold": 150, "message": "The spirit reveals a hidden cache. 150 gold and crafting materials!" } },
+        { "id": "knowledge", "text": "Ask for knowledge of the next dungeon", "outcome": "fixed", "result": { "type": "buff_next_run", "stat": "damage_all", "value": 0.10, "message": "The spirit reveals weaknesses. +10% damage next dungeon run!" } },
+        { "id": "free", "text": "Free them to the afterlife", "outcome": "fixed", "result": { "type": "xp_percent_bonus", "percent": 0.3, "message": "The spirit thanks you with a surge of spiritual energy. +30% bonus XP!" } }
+      ]
+    }
+  ]
+}

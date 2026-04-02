@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungeon Crawler</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="game-container">
+
+    <!-- Top Bar -->
+    <header id="top-bar">
+      <div id="player-info">
+        <span id="gold-display">Gold: 0</span>
+        <span id="party-level-display">Party Avg Lv: 1</span>
+      </div>
+      <h1 id="game-title">Dungeon Crawler</h1>
+      <div id="top-actions">
+        <button id="btn-save" class="btn-small">Save</button>
+        <button id="btn-menu" class="btn-small">Menu</button>
+      </div>
+    </header>
+
+    <!-- Screen: Main Menu -->
+    <section id="screen-menu" class="screen active">
+      <div class="menu-content">
+        <h1 class="menu-title">Dungeon Crawler</h1>
+        <p class="menu-subtitle">A Team-Based Autobattler</p>
+        <div class="menu-buttons">
+          <button id="btn-new-game" class="btn-primary">New Game</button>
+          <button id="btn-continue" class="btn-primary" style="display:none;">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Town -->
+    <section id="screen-town" class="screen">
+      <div class="town-layout">
+        <h2 class="screen-title">Town Square</h2>
+        <div class="town-buildings">
+          <button class="town-building" data-building="guild">
+            <div class="building-icon">&#9876;</div>
+            <div class="building-name">Adventurer's Guild</div>
+            <div class="building-desc">Hire party members</div>
+          </button>
+          <button class="town-building" data-building="blacksmith">
+            <div class="building-icon">&#9881;</div>
+            <div class="building-name">Blacksmith</div>
+            <div class="building-desc">Buy weapons & armor</div>
+          </button>
+          <button class="town-building" data-building="alchemist">
+            <div class="building-icon">&#9883;</div>
+            <div class="building-name">Alchemist</div>
+            <div class="building-desc">Potions & buffs</div>
+          </button>
+          <button class="town-building" data-building="party">
+            <div class="building-icon">&#128101;</div>
+            <div class="building-name">Party Camp</div>
+            <div class="building-desc">Equip gear & manage party</div>
+          </button>
+          <button class="town-building" data-building="dungeon">
+            <div class="building-icon">&#9760;</div>
+            <div class="building-name">Dungeon Gate</div>
+            <div class="building-desc">Enter the dungeon</div>
+          </button>
+        </div>
+        <div id="party-overview" class="party-bar">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Party Camp -->
+    <section id="screen-party" class="screen">
+      <div class="shop-layout">
+        <div class="shop-header">
+          <button class="btn-back" data-back="town">&#8592; Town</button>
+          <h2 class="screen-title">Party Camp</h2>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:6px;">
+            <input type="text" id="party-name-input" class="party-name-input" placeholder="Party Name" maxlength="30">
+            <button id="btn-party-stats" class="btn-small">Stats</button>
+          </div>
+        </div>
+        <div class="shop-tabs" id="camp-tabs">
+          <button class="shop-tab active" data-camp-tab="gear">Gear</button>
+          <button class="shop-tab" data-camp-tab="formation">Formation</button>
+          <button class="shop-tab" data-camp-tab="abilities">Abilities</button>
+        </div>
+        <div class="shop-content" id="camp-gear-panel">
+          <div id="party-members-list" class="shop-items">
+            <!-- Party member cards with equipment -->
+          </div>
+          <div id="party-inventory" class="shop-sidebar">
+            <h3>Inventory (<span id="inv-count">0</span>)</h3>
+            <div id="inventory-list"></div>
+          </div>
+        </div>
+        <div class="shop-content" id="camp-formation-panel" style="display:none;">
+          <div id="formation-grid" class="formation-grid">
+            <!-- 2x2 grid for party positioning -->
+          </div>
+          <div class="shop-sidebar">
+            <h3>Formation</h3>
+            <p style="font-size:11px;color:var(--text-dim);">Drag party members to positions. Front row absorbs damage and draws enemy attacks. Back row deals +10% damage but is exposed if front falls.</p>
+            <div class="section-label" style="margin-top:8px;">Row Effects</div>
+            <div style="font-size:11px;">
+              <div style="color:var(--danger);">Front: +15% damage taken, 2x threat</div>
+              <div style="color:var(--success);">Back: +10% damage dealt, protected</div>
+            </div>
+          </div>
+        </div>
+        <div class="shop-content" id="camp-abilities-panel" style="display:none;">
+          <div id="ability-manager" class="shop-items">
+            <!-- Ability slot management per character -->
+          </div>
+          <div class="shop-sidebar">
+            <h3>Ability Slots</h3>
+            <p style="font-size:11px;color:var(--text-dim);">Drag abilities to reorder priority. Active abilities execute in order from top to bottom. Passives are always active.</p>
+            <div class="section-label" style="margin-top:8px;">Slots</div>
+            <div style="font-size:11px;">
+              <div>Active: 4 slots (execute in order)</div>
+              <div>Passive: 2 slots (always active)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Guild -->
+    <section id="screen-guild" class="screen">
+      <div class="shop-layout">
+        <div class="shop-header">
+          <button class="btn-back" data-back="town">&#8592; Town</button>
+          <h2 class="screen-title">Adventurer's Guild</h2>
+        </div>
+        <div class="shop-content">
+          <div id="guild-roster" class="shop-items">
+            <!-- Available hires -->
+          </div>
+          <div id="guild-party" class="shop-sidebar">
+            <h3>Your Party (<span id="party-count">0</span>/4)</h3>
+            <div id="guild-party-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Blacksmith -->
+    <section id="screen-blacksmith" class="screen">
+      <div class="shop-layout">
+        <div class="shop-header">
+          <button class="btn-back" data-back="town">&#8592; Town</button>
+          <h2 class="screen-title">Blacksmith</h2>
+          <span class="shop-gold">Gold: <span id="bs-gold">0</span></span>
+        </div>
+        <div class="shop-mode-tabs">
+          <button class="shop-mode-tab active" data-mode="buy">Buy</button>
+          <button class="shop-mode-tab" data-mode="sell">Sell</button>
+          <button class="shop-mode-tab" data-mode="salvage">Salvage</button>
+          <button class="shop-mode-tab" data-mode="forge">Forge</button>
+        </div>
+        <div class="shop-content" id="bs-buy-panel">
+          <div style="display:flex;flex-direction:column;flex:1;min-height:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <div class="shop-tabs">
+                <button class="shop-tab active" data-tab="weapons">Weapons</button>
+                <button class="shop-tab" data-tab="armor">Armor</button>
+                <button class="shop-tab" data-tab="accessories">Accessories</button>
+              </div>
+              <button id="btn-refresh-wares" class="btn-small" title="Refresh stock for 200 gold" style="margin-left:auto;">&#x21bb; Refresh (200g)</button>
+            </div>
+            <div id="blacksmith-items" class="shop-items">
+              <!-- Items for sale -->
+            </div>
+          </div>
+          <div id="blacksmith-detail" class="shop-sidebar">
+            <h3>Item Details</h3>
+            <div id="bs-item-detail"></div>
+          </div>
+        </div>
+        <div class="shop-content" id="bs-sell-panel" style="display:none;">
+          <div style="display:flex;flex-direction:column;flex:1;min-height:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <span style="font-size:12px;color:var(--text-dim);" id="bs-sell-total"></span>
+              <button id="btn-sell-all" class="btn-small btn-danger" style="margin-left:auto;">Sell All</button>
+            </div>
+            <div id="bs-sell-items" class="shop-items">
+              <!-- Player inventory for selling -->
+            </div>
+          </div>
+          <div id="bs-sell-detail" class="shop-sidebar">
+            <h3>Sell Item</h3>
+            <div id="bs-sell-item-detail"></div>
+            <label style="display:flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;color:var(--text-dim);cursor:pointer;">
+              <input type="checkbox" id="bs-skip-confirm"> Skip sell confirmation
+            </label>
+          </div>
+        </div>
+        <div class="shop-content" id="bs-salvage-panel" style="display:none;">
+          <div style="display:flex;flex-direction:column;flex:1;min-height:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <span style="font-size:12px;color:var(--text-dim);" id="bs-salvage-total"></span>
+              <button id="btn-salvage-all" class="btn-small" style="background:var(--warning);margin-left:auto;">Salvage All</button>
+            </div>
+            <div id="bs-salvage-items" class="shop-items"></div>
+          </div>
+          <div id="bs-salvage-detail" class="shop-sidebar">
+            <h3>Salvage Item</h3>
+            <div id="bs-salvage-item-detail"></div>
+            <div class="section-label" style="margin-top:12px;">Your Materials</div>
+            <div id="bs-salvage-materials"></div>
+            <label style="display:flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;color:var(--text-dim);cursor:pointer;">
+              <input type="checkbox" id="bs-skip-salvage-confirm"> Skip salvage confirmation
+            </label>
+          </div>
+        </div>
+        <div class="shop-content" id="bs-forge-panel" style="display:none;">
+          <div id="bs-forge-items" class="shop-items" style="flex:1;"></div>
+          <div id="bs-forge-detail" class="shop-sidebar">
+            <h3>Forge / Upgrade</h3>
+            <div id="bs-forge-item-detail"></div>
+            <div class="section-label" style="margin-top:12px;">Your Materials</div>
+            <div id="bs-forge-materials"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Alchemist -->
+    <section id="screen-alchemist" class="screen">
+      <div class="shop-layout">
+        <div class="shop-header">
+          <button class="btn-back" data-back="town">&#8592; Town</button>
+          <h2 class="screen-title">Alchemist</h2>
+          <span class="shop-gold">Gold: <span id="alch-gold">0</span></span>
+        </div>
+        <div class="shop-content">
+          <div class="shop-tabs">
+            <button class="shop-tab active" data-tab="potions">Potions</button>
+            <button class="shop-tab" data-tab="buffs">Buff Elixirs</button>
+            <button class="shop-tab" data-tab="scrolls">Scrolls</button>
+          </div>
+          <div id="alchemist-items" class="shop-items"></div>
+          <div id="alchemist-detail" class="shop-sidebar">
+            <h3>Item Details</h3>
+            <div id="alch-item-detail"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Dungeon Select -->
+    <section id="screen-dungeon-select" class="screen">
+      <div class="shop-layout">
+        <div class="shop-header">
+          <button class="btn-back" data-back="town">&#8592; Town</button>
+          <h2 class="screen-title">Dungeon Gate</h2>
+        </div>
+        <div class="dungeon-select-content">
+          <div id="dungeon-list" class="dungeon-list">
+            <!-- Dungeon cards -->
+          </div>
+          <div id="dungeon-config" class="dungeon-config" style="display:none;">
+            <h3 id="dungeon-config-name"></h3>
+            <p id="dungeon-config-desc"></p>
+            <div class="difficulty-slider">
+              <label>Difficulty: <span id="diff-value">5</span></label>
+              <input type="range" id="diff-slider" min="1" max="10" value="5">
+              <div class="diff-labels">
+                <span>Easy</span><span>Nightmare</span>
+              </div>
+            </div>
+            <div id="dungeon-rec-level"></div>
+            <div id="dungeon-party-preview"></div>
+            <button id="btn-enter-dungeon" class="btn-primary">Enter Dungeon</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Dungeon (Combat) -->
+    <section id="screen-dungeon" class="screen">
+      <div class="dungeon-layout">
+        <div class="dungeon-header">
+          <div id="dungeon-name-bar"></div>
+          <div id="dungeon-progress">Wave <span id="wave-current">1</span> / <span id="wave-total">5</span></div>
+        </div>
+        <div id="combat-narrative" class="combat-narrative"></div>
+        <div class="combat-arena">
+          <div id="enemy-side" class="combat-side enemy-side">
+            <!-- Enemy sprites & health bars -->
+          </div>
+          <div class="combat-divider">VS</div>
+          <div id="party-side" class="combat-side party-side">
+            <!-- Party sprites & health bars -->
+          </div>
+          <div id="consumable-panel" class="consumable-panel">
+            <div class="section-label">Items</div>
+            <div id="consumable-list"></div>
+          </div>
+        </div>
+        <div id="combat-log" class="combat-log">
+          <div id="combat-log-inner"></div>
+        </div>
+        <div id="combat-controls" class="combat-controls">
+          <button id="btn-battle-mode" class="btn-small">Mode: Auto</button>
+          <button id="btn-auto-speed" class="btn-small">Speed: 1x</button>
+          <button id="btn-skip-combat" class="btn-small">Skip</button>
+          <button id="btn-flee" class="btn-small btn-danger">Flee!</button>
+        </div>
+        <div id="manual-controls" class="manual-controls" style="display:none;">
+          <div class="manual-header">
+            <span id="manual-actor-name"></span>'s turn — choose an action:
+          </div>
+          <div id="manual-abilities" class="manual-abilities"></div>
+          <div id="manual-targets" class="manual-targets" style="display:none;">
+            <div class="manual-header">Select target:</div>
+            <div id="manual-target-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Dungeon Result -->
+    <section id="screen-dungeon-result" class="screen">
+      <div class="result-layout">
+        <h2 id="result-title"></h2>
+        <div id="result-rewards" class="result-rewards"></div>
+        <div id="result-loot" class="result-loot"></div>
+        <div id="result-xp" class="result-xp"></div>
+        <button id="btn-result-continue" class="btn-primary">Return to Town</button>
+      </div>
+    </section>
+
+    <!-- Screen: Character Detail (modal overlay) -->
+    <div id="modal-character" class="modal" style="display:none;">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div id="char-detail-content"></div>
+      </div>
+    </div>
+
+    <!-- Level Up modal -->
+    <div id="modal-levelup" class="modal" style="display:none;">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div id="levelup-content"></div>
+      </div>
+    </div>
+
+    <!-- Sell confirmation modal -->
+    <div id="modal-sell-confirm" class="modal" style="display:none;">
+      <div class="modal-content modal-small">
+        <h3>Sell Item?</h3>
+        <p id="sell-confirm-text"></p>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;">
+          <button id="btn-sell-yes" class="btn-primary">Sell</button>
+          <button id="btn-sell-no" class="btn-small">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen: Item Detail (modal overlay) -->
+    <div id="modal-item" class="modal" style="display:none;">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div id="item-detail-content"></div>
+      </div>
+    </div>
+
+    <!-- Rest Point overlay -->
+    <div id="modal-rest" class="modal" style="display:none;">
+      <div class="modal-content modal-small">
+        <h3>Rest Point</h3>
+        <p id="rest-text"></p>
+        <button id="btn-rest-continue" class="btn-primary">Continue</button>
+      </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container"></div>
+
+  </div>
+
+  <script src="js/assets.js"></script>
+  <script src="js/crafting.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/items.js"></script>
+  <script src="js/party.js"></script>
+  <script src="js/combat.js"></script>
+  <script src="js/dungeon.js"></script>
+  <script src="js/town.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
