@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dungeon Crawler</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
   <div id="game-container">
@@ -17,6 +18,8 @@
       </div>
       <h1 id="game-title">Dungeon Crawler</h1>
       <div id="top-actions">
+        <span id="auth-status" style="font-size:11px;color:var(--accent-light);"></span>
+        <button id="btn-auth" class="btn-small">Login</button>
         <button id="btn-save" class="btn-small">Save</button>
         <button id="btn-menu" class="btn-small">Menu</button>
       </div>
@@ -30,6 +33,7 @@
         <div class="menu-buttons">
           <button id="btn-new-game" class="btn-primary">New Game</button>
           <button id="btn-continue" class="btn-primary" style="display:none;">Continue</button>
+          <button id="btn-leaderboard" class="btn-primary" style="background:var(--gold);color:var(--bg-dark);">Leaderboard</button>
         </div>
       </div>
     </section>
@@ -371,6 +375,34 @@
     </div>
 
     <!-- Rest Point overlay -->
+    <!-- Auth modal -->
+    <div id="modal-auth" class="modal" style="display:none;">
+      <div class="modal-content modal-small">
+        <button class="modal-close">&times;</button>
+        <h3 id="auth-modal-title">Login</h3>
+        <div id="auth-form">
+          <input type="email" id="auth-email" class="party-name-input" placeholder="Email" style="width:100%;margin-bottom:8px;">
+          <input type="password" id="auth-password" class="party-name-input" placeholder="Password" style="width:100%;margin-bottom:8px;">
+          <input type="text" id="auth-display-name" class="party-name-input" placeholder="Display Name (signup only)" style="width:100%;margin-bottom:12px;display:none;">
+          <div style="display:flex;gap:8px;justify-content:center;">
+            <button id="btn-auth-submit" class="btn-primary">Login</button>
+            <button id="btn-auth-toggle" class="btn-small">Need an account? Sign Up</button>
+          </div>
+          <div id="auth-error" style="color:var(--danger);font-size:12px;margin-top:8px;text-align:center;"></div>
+          <div id="auth-cloud-info" style="color:var(--text-dim);font-size:11px;margin-top:12px;text-align:center;">Login to sync saves across devices, appear on leaderboards, and track global stats.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard modal -->
+    <div id="modal-leaderboard" class="modal" style="display:none;">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <h3>Leaderboard</h3>
+        <div id="leaderboard-content"></div>
+      </div>
+    </div>
+
     <div id="modal-rest" class="modal" style="display:none;">
       <div class="modal-content modal-small">
         <h3>Rest Point</h3>
@@ -384,6 +416,7 @@
 
   </div>
 
+  <script src="js/supabase.js"></script>
   <script src="js/assets.js"></script>
   <script src="js/crafting.js"></script>
   <script src="js/data.js"></script>

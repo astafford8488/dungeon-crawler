@@ -30,6 +30,9 @@ const Game = (() => {
     // Init UI
     UI.initModals();
 
+    // Init Supabase
+    Cloud.init();
+
     // Check for saves
     const hasSaves = Array.from({ length: MAX_SLOTS }, (_, i) => localStorage.getItem(SAVE_PREFIX + i)).some(Boolean);
     if (hasSaves) {
@@ -40,6 +43,8 @@ const Game = (() => {
     document.getElementById('btn-new-game').addEventListener('click', showSlotSelect.bind(null, 'new'));
     document.getElementById('btn-continue').addEventListener('click', showSlotSelect.bind(null, 'load'));
     document.getElementById('btn-save').addEventListener('click', saveGame);
+    setupAuthUI();
+    document.getElementById('btn-leaderboard').addEventListener('click', showLeaderboard);
     document.getElementById('btn-menu').addEventListener('click', () => {
       if (state) saveGame();
       UI.showScreen('menu');
@@ -229,7 +234,15 @@ const Game = (() => {
     if (!state) return;
     state._itemNextId = Items.getNextId();
     localStorage.setItem(SAVE_PREFIX + currentSlot, JSON.stringify(state));
-    UI.toast(`Saved to slot ${currentSlot + 1}!`, 'toast-success');
+    // Cloud save if logged in
+    if (Cloud.isLoggedIn()) {
+      Cloud.cloudSave(currentSlot, state).then(({ error }) => {
+        if (error) console.warn('Cloud save failed:', error);
+      });
+      Cloud.updateLeaderboard(state);
+      if (state.stats?.classDps) Cloud.updateClassStats(state.stats.classDps);
+    }
+    UI.toast(`Saved${Cloud.isLoggedIn() ? ' (cloud + local)' : ' (local)'}!`, 'toast-success');
   }
 
   function goToTown() {
@@ -894,6 +907,93 @@ const Game = (() => {
     Combat.syncPartyState();
     UI.toast('The party flees!', 'toast-error');
     finishDungeon(false, false);
+  }
+
+  // Auth UI setup
+  function setupAuthUI() {
+    let isSignUp = false;
+
+    document.getElementById('btn-auth').addEventListener('click', () => {
+      if (Cloud.isLoggedIn()) {
+        Cloud.signOut();
+        UI.toast('Logged out', 'toast-success');
+      } else {
+        document.getElementById('modal-auth').style.display = 'flex';
+      }
+    });
+
+    document.getElementById('btn-auth-toggle').addEventListener('click', () => {
+      isSignUp = !isSignUp;
+      document.getElementById('auth-modal-title').textContent = isSignUp ? 'Sign Up' : 'Login';
+      document.getElementById('btn-auth-submit').textContent = isSignUp ? 'Sign Up' : 'Login';
+      document.getElementById('btn-auth-toggle').textContent = isSignUp ? 'Already have an account? Login' : 'Need an account? Sign Up';
+      document.getElementById('auth-display-name').style.display = isSignUp ? 'block' : 'none';
+      document.getElementById('auth-error').textContent = '';
+    });
+
+    document.getElementById('btn-auth-submit').addEventListener('click', async () => {
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+      const displayName = document.getElementById('auth-display-name').value.trim();
+      const errorEl = document.getElementById('auth-error');
+
+      if (!email || !password) { errorEl.textContent = 'Email and password required'; return; }
+      if (isSignUp && password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters'; return; }
+
+      errorEl.textContent = '';
+      const result = isSignUp
+        ? await Cloud.signUp(email, password, displayName)
+        : await Cloud.signIn(email, password);
+
+      if (result.error) {
+        errorEl.textContent = result.error.message || result.error;
+      } else {
+        document.getElementById('modal-auth').style.display = 'none';
+        UI.toast(isSignUp ? 'Account created! Welcome!' : 'Logged in!', 'toast-success');
+      }
+    });
+  }
+
+  // Leaderboard
+  async function showLeaderboard() {
+    const content = document.getElementById('leaderboard-content');
+    content.innerHTML = '<div style="text-align:center;color:var(--text-dim);">Loading...</div>';
+    document.getElementById('modal-leaderboard').style.display = 'flex';
+
+    const { data } = await Cloud.getLeaderboard('avg_level', 25);
+
+    if (!data || data.length === 0) {
+      content.innerHTML = '<div style="text-align:center;color:var(--text-dim);padding:20px;">No entries yet. Clear dungeons while logged in to appear here!</div>';
+      return;
+    }
+
+    content.innerHTML = `
+      <table style="width:100%;font-size:12px;border-collapse:collapse;">
+        <tr style="color:var(--text-dim);text-align:left;border-bottom:1px solid var(--border);">
+          <th style="padding:6px;">#</th>
+          <th>Party</th>
+          <th>Level</th>
+          <th>Deepest</th>
+          <th>Kills</th>
+          <th>Bosses</th>
+          <th>Runs</th>
+        </tr>
+        ${data.map((row, i) => `
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:6px;font-weight:600;color:${i < 3 ? 'var(--gold)' : 'var(--text-dim)'};">${i + 1}</td>
+            <td>
+              <div style="font-weight:600;color:var(--text-bright);">${row.party_name}</div>
+              <div style="font-size:10px;color:var(--text-dim);">${(row.party_classes || []).join(', ')}</div>
+            </td>
+            <td style="color:var(--accent-light);">${row.avg_level}</td>
+            <td style="font-size:11px;">${row.deepest_dungeon || '-'}</td>
+            <td>${row.monsters_killed || 0}</td>
+            <td>${row.bosses_killed || 0}</td>
+            <td>${row.dungeon_runs || 0}</td>
+          </tr>
+        `).join('')}
+      </table>
+    `;
   }
 
   function getState() { return state; }
