@@ -131,7 +131,7 @@ const Town = (() => {
     // Show all classes available for hire
     roster.innerHTML = '';
     for (const [classId, cls] of Object.entries(Data.cache.classes)) {
-      const alreadyHired = gameState.party.some(m => m.classId === classId);
+      const countInParty = gameState.party.filter(m => m.classId === classId).length;
       const card = document.createElement('div');
       card.className = 'guild-hire-card';
       const sprite = Assets.getCharacterSprite(classId);
@@ -150,8 +150,8 @@ const Town = (() => {
         </div>
         <div class="ghc-actions">
           <div class="ghc-cost">${cls.hire_cost}g</div>
-          <button class="btn-primary btn-hire" data-class="${classId}" ${alreadyHired || gameState.party.length >= 4 || gameState.gold < cls.hire_cost ? 'disabled' : ''}>
-            ${alreadyHired ? 'Hired' : 'Hire'}
+          <button class="btn-primary btn-hire" data-class="${classId}" ${gameState.party.length >= 4 || gameState.gold < cls.hire_cost ? 'disabled' : ''}>
+            ${countInParty > 0 ? `Hire (${countInParty} in party)` : 'Hire'}
           </button>
         </div>
       `;
@@ -545,6 +545,7 @@ const Town = (() => {
       if (currentAlchTab === 'potions') return item.subtype === 'potion' || item.subtype === 'special';
       if (currentAlchTab === 'buffs') return item.subtype === 'buff_potion';
       if (currentAlchTab === 'scrolls') return item.subtype === 'scroll';
+      if (currentAlchTab === 'crafting') return item.subtype === 'reagent_pack';
       return true;
     });
 
