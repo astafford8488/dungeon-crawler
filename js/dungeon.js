@@ -146,19 +146,25 @@ const Dungeon = (() => {
     const diff = current.difficulty || 1;
     const diffMult = 1 + (diff - 1) * 0.5; // +50% per difficulty level
 
-    // XP: 100 × tier × difficulty multiplier, divided by total encounters
+    // Total run XP/Gold = 100 × tier × diffMult
+    // Split: regular waves get 1 share each, boss gets 3 shares
     const totalWaves = current.encounters.length || 1;
-    const baseRunXp = 100 * tier * diffMult;
-    let xp = Math.floor(baseRunXp / totalWaves);
-    // Boss wave gets double xp share
-    if (encounter.isBoss) xp *= 2;
+    const bossShares = 3;
+    const regularShares = totalWaves - 1; // number of non-boss waves
+    const totalShares = regularShares + bossShares;
+    const baseRunXp = Math.floor(100 * tier * diffMult);
+    const baseRunGold = Math.floor(100 * tier * diffMult);
 
-    // Gold: same formula as XP
-    const baseRunGold = 100 * tier * diffMult;
-    let gold = Math.floor(baseRunGold / totalWaves);
-    if (encounter.isBoss) gold *= 2;
-    // Small random variance ±20%
-    gold = Math.floor(gold * (0.8 + Math.random() * 0.4));
+    let xp, gold;
+    if (encounter.isBoss) {
+      xp = Math.floor(baseRunXp * bossShares / totalShares);
+      gold = Math.floor(baseRunGold * bossShares / totalShares);
+    } else {
+      xp = Math.floor(baseRunXp / totalShares);
+      gold = Math.floor(baseRunGold / totalShares);
+    }
+    // Small gold variance ±10%
+    gold = Math.floor(gold * (0.9 + Math.random() * 0.2));
 
     const items = [];
     for (const enemy of encounter.enemies) {

@@ -234,5 +234,5 @@ const Items = (() => {
   function setNextId(id) { nextId = id; }
   function getNextId() { return nextId; }
 
-  return { generate, generateRandom, generateShopStock, rollRarityAndRank, statSummary, effectSummary, RARITIES, setNextId, getNextId, guessSlot, guessCategory };
+  return { generate, generateRandom, generateShopStock, rollRarityAndRank, statSummary, effectSummary, RARITIES, DUNGEON_RARITY_CAPS, setNextId, getNextId, guessSlot, guessCategory };
 })();

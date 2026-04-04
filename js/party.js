@@ -115,6 +115,18 @@ const Party = (() => {
   // Points granted per level up
   const STAT_POINTS_PER_LEVEL = 4;
 
+  // HP/MP gained per level by class archetype: [HP, MP]
+  const LEVEL_HP_MP = {
+    // Tanks: 5 HP, 1 MP
+    warrior: [5, 1], shadowknight: [5, 1],
+    // Hybrid tanks: 4 HP, 2 MP
+    paladin: [4, 2], rogue: [4, 2], ranger: [4, 2],
+    // Hybrid DPS / summoners: 3 HP, 3 MP
+    beastlord: [3, 3], witch: [3, 3],
+    // Casters / support: 2 HP, 4 MP
+    mage: [2, 4], cleric: [2, 4], necromancer: [2, 4], elementalist: [2, 4], auramancer: [2, 4],
+  };
+
   // Add XP, return { leveled, newLevel, newAbilities }
   function addXp(member, amount) {
     // Initialize tracking fields if missing
@@ -132,6 +144,13 @@ const Party = (() => {
 
       // Grant stat points for manual allocation
       member.unspentStatPoints += STAT_POINTS_PER_LEVEL;
+
+      // Grant flat HP/MP per level based on class archetype
+      const hpMp = LEVEL_HP_MP[member.classId] || [3, 3];
+      if (!member.bonusHp) member.bonusHp = 0;
+      if (!member.bonusMp) member.bonusMp = 0;
+      member.bonusHp += hpMp[0];
+      member.bonusMp += hpMp[1];
 
       // Check ability pool milestones
       const pools = Data.cache.abilityPools?.[member.classId];
@@ -290,8 +309,8 @@ const Party = (() => {
 
     // Calculate derived stats from formulas
     const derived = {};
-    derived.hp = Math.floor((flatDerived.hp || 0) + total.sta * 5.0);
-    derived.mp = Math.floor((flatDerived.mp || 0) + total.int * 2.0);
+    derived.hp = Math.floor((flatDerived.hp || 0) + total.sta * 5.0 + (member.bonusHp || 0));
+    derived.mp = Math.floor((flatDerived.mp || 0) + total.int * 2.0 + (member.bonusMp || 0));
     derived.phys_atk = Math.floor((flatDerived.phys_atk || 0) + total.str * 2.0);
     derived.mag_atk = Math.floor((flatDerived.mag_atk || 0) + total.int * 2.0);
     derived.dex_atk = Math.floor((flatDerived.phys_atk || 0) + total.dex * 2.0); // DEX-based attack for rogues/rangers
@@ -334,8 +353,8 @@ const Party = (() => {
     const basePrimary = { ...member.primaryStats };
     const baseFlatDerived = { ...cls.base_derived_bonuses };
     const baseDerived = {};
-    baseDerived.hp = Math.floor((baseFlatDerived.hp || 0) + basePrimary.sta * 5.0);
-    baseDerived.mp = Math.floor((baseFlatDerived.mp || 0) + basePrimary.int * 2.0);
+    baseDerived.hp = Math.floor((baseFlatDerived.hp || 0) + basePrimary.sta * 5.0 + (member.bonusHp || 0));
+    baseDerived.mp = Math.floor((baseFlatDerived.mp || 0) + basePrimary.int * 2.0 + (member.bonusMp || 0));
     baseDerived.phys_atk = Math.floor((baseFlatDerived.phys_atk || 0) + basePrimary.str * 2.0);
     baseDerived.mag_atk = Math.floor((baseFlatDerived.mag_atk || 0) + basePrimary.int * 2.0);
     baseDerived.phys_def = Math.floor((baseFlatDerived.phys_def || 0) + basePrimary.str * 0.5 + basePrimary.sta * 0.8);

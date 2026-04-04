@@ -8,14 +8,15 @@ const Town = (() => {
 
   function refreshShops(playerLevel, partyClasses, maxDungeonTier) {
     blacksmithStock = Items.generateShopStock(playerLevel, partyClasses, maxDungeonTier || 1);
-    alchemistStock = generateAlchemistStock(playerLevel);
+    alchemistStock = generateAlchemistStock(playerLevel, maxDungeonTier || 1);
   }
 
-  function generateAlchemistStock(playerLevel) {
+  function generateAlchemistStock(playerLevel, maxDungeonTier) {
     const cons = Data.cache.consumables;
     const stock = [];
-    // Add potions of appropriate rarity
-    const maxRarityIdx = Math.min(Math.floor(playerLevel / 8), 4); // up to legendary at high levels
+    // Rarity unlocked by dungeon tier (same as items)
+    const maxRarity = Items.DUNGEON_RARITY_CAPS?.[maxDungeonTier || 1] || 'common';
+    const maxRarityIdx = Items.RARITIES.indexOf(maxRarity);
     const rarities = Items.RARITIES.slice(0, maxRarityIdx + 1);
 
     for (const potion of cons.potions) {

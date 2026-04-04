@@ -29,22 +29,22 @@
   "upgrade_rank": {
     "description": "Upgrade an item's rank (1->2, 2->3, etc). Costs materials of the same rarity + gold.",
     "costs": {
-      "1_to_2": { "materials": 3, "gold": 50 },
-      "2_to_3": { "materials": 5, "gold": 100 },
-      "3_to_4": { "materials": 8, "gold": 200 },
-      "4_to_5": { "materials": 12, "gold": 400 }
+      "1_to_2": { "materials": 2, "gold": 25 },
+      "2_to_3": { "materials": 4, "gold": 50 },
+      "3_to_4": { "materials": 6, "gold": 100 },
+      "4_to_5": { "materials": 9, "gold": 200 }
     }
   },
 
   "upgrade_rarity": {
     "description": "Upgrade item rarity (must be rank 5). Requires materials of the NEXT rarity tier + gold. Resets rank to 1.",
     "costs": {
-      "common_to_uncommon": { "materials": 5, "gold": 200 },
-      "uncommon_to_rare": { "materials": 8, "gold": 500 },
-      "rare_to_epic": { "materials": 12, "gold": 1200 },
-      "epic_to_legendary": { "materials": 18, "gold": 3000 },
-      "legendary_to_mythical": { "materials": 25, "gold": 8000 },
-      "mythical_to_divine": { "materials": 35, "gold": 20000 }
+      "common_to_uncommon": { "materials": 4, "gold": 100 },
+      "uncommon_to_rare": { "materials": 6, "gold": 250 },
+      "rare_to_epic": { "materials": 9, "gold": 600 },
+      "epic_to_legendary": { "materials": 14, "gold": 1500 },
+      "legendary_to_mythical": { "materials": 19, "gold": 4000 },
+      "mythical_to_divine": { "materials": 26, "gold": 10000 }
     }
   }
 }
