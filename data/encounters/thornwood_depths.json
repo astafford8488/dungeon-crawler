@@ -2,7 +2,7 @@
   "dungeon_id": "thornwood_depths",
   "dungeon_name": "Thornwood Depths",
   "theme": "beast",
-  "tier": 1,
+  "tier": 2,
   "base_level": 5,
   "description": "A network of caves beneath the ancient Thornwood forest. Something is driving the wildlife mad, turning once-docile creatures into savage predators.",
   "unlock_condition": "clear_crypt_of_shadows",

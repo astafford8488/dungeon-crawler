@@ -350,7 +350,7 @@ const Combat = (() => {
 
     // Get available abilities (off cooldown and enough MP)
     const available = actor.abilities.filter(ab =>
-      ab.currentCooldown <= 0 && (ab.mp_cost || 0) <= actor.mp && ab.type !== 'passive'
+      ab.currentCooldown <= 0 && (ab.mp_cost || 0) <= actor.mp && ab.type !== 'passive' && ab.type !== 'aura'
     );
 
     // Simple AI: try abilities in order, otherwise basic attack (first ability)

@@ -195,19 +195,23 @@ const Items = (() => {
     const items = [];
     const classes = partyClasses || ['warrior', 'mage', 'cleric', 'rogue'];
     const tier = maxDungeonTier || 1;
+    const ITEMS_PER_CATEGORY = 2; // per class per category
 
     for (const classId of classes) {
-      const classTemplates = Data.cache.allEquipment.filter(t =>
-        t.classes && t.classes.includes(classId)
-      );
-      if (classTemplates.length === 0) continue;
+      // Split templates into categories for balanced generation
+      const weapons = Data.cache.allEquipment.filter(t => t.classes?.includes(classId) && ['weapon', 'tome', 'offhand_weapon', 'quiver', 'focus'].includes(guessSlot(t)));
+      const armors = Data.cache.allEquipment.filter(t => t.classes?.includes(classId) && ['armor', 'shield'].includes(guessSlot(t)));
+      const accessories = Data.cache.allEquipment.filter(t => t.classes?.includes(classId) && guessSlot(t) === 'accessory');
 
-      for (let i = 0; i < 5; i++) {
-        const template = classTemplates[Math.floor(Math.random() * classTemplates.length)];
-        if (!template) continue;
-        const { rarity, rank } = rollRarityAndRank(playerLevel, tier);
-        const item = generate(template.id, rarity, rank);
-        if (item) items.push(item);
+      for (const [pool, count] of [[weapons, ITEMS_PER_CATEGORY], [armors, ITEMS_PER_CATEGORY], [accessories, ITEMS_PER_CATEGORY]]) {
+        if (pool.length === 0) continue;
+        for (let i = 0; i < count; i++) {
+          const template = pool[Math.floor(Math.random() * pool.length)];
+          if (!template) continue;
+          const { rarity, rank } = rollRarityAndRank(playerLevel, tier);
+          const item = generate(template.id, rarity, rank);
+          if (item) items.push(item);
+        }
       }
     }
     return items;

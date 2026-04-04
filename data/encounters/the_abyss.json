@@ -2,7 +2,7 @@
   "dungeon_id": "the_abyss",
   "dungeon_name": "The Abyss",
   "theme": "mixed",
-  "tier": 4,
+  "tier": 6,
   "base_level": 40,
   "description": "The deepest dungeon — a nightmare realm where all the world's horrors converge. Every type of enemy dwells here, and at the bottom waits something ancient and unknowable. Only the strongest parties dare enter.",
   "unlock_condition": "clear_elemental_sanctum",

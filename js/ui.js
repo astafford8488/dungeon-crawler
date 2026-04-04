@@ -169,7 +169,24 @@ const UI = (() => {
           </div>
         </div>
         <div class="cb-buffs">
-          ${c.buffs.map(b => `<div class="buff-icon ${b.isDebuff ? 'debuff' : 'buff'}" title="${b.name} (${b.turnsLeft}t)">${b.isDebuff ? '-' : '+'}</div>`).join('')}
+          ${c.buffs.map(b => {
+            const details = [];
+            if (b.phys_atk_multiplier) details.push(`ATK+${Math.round((b.phys_atk_multiplier-1)*100)}%`);
+            if (b.mag_atk_multiplier) details.push(`MATK+${Math.round((b.mag_atk_multiplier-1)*100)}%`);
+            if (b.phys_def_multiplier) details.push(`DEF+${Math.round((b.phys_def_multiplier-1)*100)}%`);
+            if (b.reduce_phys_atk) details.push(`ATK-${Math.round(b.reduce_phys_atk*100)}%`);
+            if (b.reduce_spd) details.push(`SPD-${Math.round(b.reduce_spd*100)}%`);
+            if (b.dodge_bonus) details.push(`Dodge+${Math.round(b.dodge_bonus*100)}%`);
+            if (b.damage_taken_increase) details.push(`Vuln+${Math.round(b.damage_taken_increase*100)}%`);
+            if (b.damage_reduction) details.push(`DR${Math.round(b.damage_reduction*100)}%`);
+            if (b.isDot) details.push(`${Math.round((b.dotPercent||0.03)*100)}%/t`);
+            if (b.stun) details.push('STUN');
+            if (b.force_target) details.push('TAUNT');
+            if (b.miss_chance) details.push(`Miss${Math.round(b.miss_chance*100)}%`);
+            const detailStr = details.length > 0 ? details.join(' ') : '';
+            const turnsStr = b.turnsLeft != null ? `${b.turnsLeft}t` : '';
+            return `<div class="buff-icon-detail ${b.isDebuff ? 'debuff' : 'buff'}" title="${b.name}: ${detailStr} ${turnsStr}">${b.isDebuff ? '−' : '+'} <span class="buff-label">${b.name.slice(0,6)}${turnsStr ? ' '+turnsStr : ''}</span></div>`;
+          }).join('')}
         </div>
       </div>
     `;

@@ -2,7 +2,7 @@
   "dungeon_id": "infernal_rift",
   "dungeon_name": "Infernal Rift",
   "theme": "demon",
-  "tier": 3,
+  "tier": 4,
   "base_level": 20,
   "description": "A tear in reality where the mortal world bleeds into the Abyss. Demonic forces pour through, and the air itself burns with infernal heat.",
   "unlock_condition": "clear_iron_horde_fortress",

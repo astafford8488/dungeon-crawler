@@ -64,6 +64,12 @@ const Cloud = (() => {
   // Cloud save functions
   async function cloudSave(slot, gameState) {
     if (!supabase || !currentUser) return { error: 'Not logged in' };
+    // Ensure profile exists
+    await supabase.from('profiles').upsert({
+      id: currentUser.id,
+      display_name: currentUser.user_metadata?.display_name || currentUser.email?.split('@')[0] || 'Adventurer',
+    }, { onConflict: 'id', ignoreDuplicates: true });
+
     const avgLevel = gameState.party?.length > 0
       ? Math.round(gameState.party.reduce((s, m) => s + m.level, 0) / gameState.party.length)
       : 0;
@@ -135,27 +141,16 @@ const Cloud = (() => {
   async function updateClassStats(classDps) {
     if (!supabase || !classDps) return;
     for (const [classId, stats] of Object.entries(classDps)) {
-      await supabase.rpc('upsert_class_stats', {
-        p_class_id: classId,
-        p_damage: stats.totalDamage || 0,
-        p_healing: stats.totalHealing || 0,
-        p_damage_taken: stats.totalDamageTaken || 0,
-        p_kills: stats.kills || 0,
-        p_combats: stats.combats || 0,
-        p_turns: stats.totalTurns || 0,
-      }).catch(() => {
-        // Fallback: direct upsert if RPC doesn't exist
-        supabase.from('global_class_stats').upsert({
-          class_id: classId,
-          total_damage: stats.totalDamage || 0,
-          total_healing: stats.totalHealing || 0,
-          total_damage_taken: stats.totalDamageTaken || 0,
-          total_kills: stats.kills || 0,
-          total_combats: stats.combats || 0,
-          total_turns: stats.totalTurns || 0,
-          updated_at: new Date().toISOString(),
-        }, { onConflict: 'class_id' });
-      });
+      await supabase.from('global_class_stats').upsert({
+        class_id: classId,
+        total_damage: stats.totalDamage || 0,
+        total_healing: stats.totalHealing || 0,
+        total_damage_taken: stats.totalDamageTaken || 0,
+        total_kills: stats.kills || 0,
+        total_combats: stats.combats || 0,
+        total_turns: stats.totalTurns || 0,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'class_id' });
     }
   }
 

@@ -2,7 +2,7 @@
   "dungeon_id": "elemental_sanctum",
   "dungeon_name": "Elemental Sanctum",
   "theme": "elemental",
-  "tier": 3,
+  "tier": 5,
   "base_level": 30,
   "description": "An ancient temple where the four primal elements converge. Once a place of worship, now a battleground where elemental forces rage unchecked.",
   "unlock_condition": "clear_infernal_rift",

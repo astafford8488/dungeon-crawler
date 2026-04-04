@@ -2,7 +2,7 @@
   "dungeon_id": "iron_horde_fortress",
   "dungeon_name": "Iron Horde Fortress",
   "theme": "humanoid",
-  "tier": 2,
+  "tier": 3,
   "base_level": 10,
   "description": "A fortified stronghold carved into a mountainside, home to an alliance of goblins, orcs, and human outlaws united under the banner of the Iron Horde.",
   "unlock_condition": "clear_thornwood_depths",
