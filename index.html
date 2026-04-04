@@ -30,10 +30,33 @@
       <div class="menu-content">
         <h1 class="menu-title">Dungeon Crawler</h1>
         <p class="menu-subtitle">A Team-Based Autobattler</p>
-        <div class="menu-buttons">
-          <button id="btn-new-game" class="btn-primary">New Game</button>
-          <button id="btn-continue" class="btn-primary" style="display:none;">Continue</button>
-          <button id="btn-leaderboard" class="btn-primary" style="background:var(--gold);color:var(--bg-dark);">Leaderboard</button>
+
+        <!-- Auth section (shown when not logged in) -->
+        <div id="menu-auth-section">
+          <div style="background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:20px;width:300px;">
+            <h3 style="text-align:center;margin-bottom:12px;color:var(--text-bright);" id="menu-auth-title">Sign In</h3>
+            <input type="email" id="menu-auth-email" class="party-name-input" placeholder="Email" style="width:100%;margin-bottom:8px;">
+            <input type="password" id="menu-auth-password" class="party-name-input" placeholder="Password" style="width:100%;margin-bottom:8px;">
+            <input type="text" id="menu-auth-displayname" class="party-name-input" placeholder="Display Name" style="width:100%;margin-bottom:12px;display:none;">
+            <div style="display:flex;gap:8px;justify-content:center;">
+              <button id="btn-menu-auth-submit" class="btn-primary" style="flex:1;">Sign In</button>
+            </div>
+            <button id="btn-menu-auth-toggle" style="background:none;border:none;color:var(--accent-light);font-size:12px;cursor:pointer;margin-top:8px;width:100%;text-align:center;">Need an account? Sign Up</button>
+            <div id="menu-auth-error" style="color:var(--danger);font-size:12px;margin-top:8px;text-align:center;"></div>
+            <div style="text-align:center;margin-top:12px;">
+              <button id="btn-play-offline" style="background:none;border:none;color:var(--text-dim);font-size:11px;cursor:pointer;text-decoration:underline;">Play Offline (no cloud saves)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game buttons (shown when logged in or playing offline) -->
+        <div id="menu-game-section" style="display:none;">
+          <div id="menu-user-info" style="font-size:13px;color:var(--accent-light);margin-bottom:12px;text-align:center;"></div>
+          <div class="menu-buttons">
+            <button id="btn-new-game" class="btn-primary">New Game</button>
+            <button id="btn-continue" class="btn-primary" style="display:none;">Continue</button>
+            <button id="btn-leaderboard" class="btn-primary" style="background:var(--gold);color:var(--bg-dark);">Leaderboard</button>
+          </div>
         </div>
       </div>
     </section>

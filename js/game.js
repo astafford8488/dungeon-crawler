@@ -33,11 +33,19 @@ const Game = (() => {
     // Init Supabase
     Cloud.init();
 
+    // Menu auth gate
+    setupMenuAuth();
+
     // Check for saves
     const hasSaves = Array.from({ length: MAX_SLOTS }, (_, i) => localStorage.getItem(SAVE_PREFIX + i)).some(Boolean);
     if (hasSaves) {
       document.getElementById('btn-continue').style.display = 'block';
     }
+
+    // Check if already logged in from a previous session
+    setTimeout(() => {
+      if (Cloud.isLoggedIn()) showGameMenu();
+    }, 500);
 
     // Menu buttons
     document.getElementById('btn-new-game').addEventListener('click', showSlotSelect.bind(null, 'new'));
@@ -48,8 +56,7 @@ const Game = (() => {
     document.getElementById('btn-menu').addEventListener('click', () => {
       if (state) saveGame();
       UI.showScreen('menu');
-      const hasSaves = Array.from({ length: MAX_SLOTS }, (_, i) => localStorage.getItem(SAVE_PREFIX + i)).some(Boolean);
-      if (hasSaves) document.getElementById('btn-continue').style.display = 'block';
+      showGameMenu(); // go to game menu (already authenticated)
     });
 
     // Town building buttons
@@ -310,6 +317,17 @@ const Game = (() => {
 
     // Reset HP/MP persistence for a fresh dungeon run
     Combat.resetPartyPersistence(state.party);
+
+    // Apply any buffs from previous travel events
+    if (state.nextRunBuffs && state.nextRunBuffs.length > 0) {
+      for (const buff of state.nextRunBuffs) {
+        if (!run.partyBuffs) run.partyBuffs = [];
+        run.partyBuffs.push({ stat: buff.stat, value: buff.value, duration: 'rest_of_dungeon' });
+        UI.toast(`Travel buff active: +${Math.round(buff.value * 100)}% ${buff.stat}`, 'toast-buff');
+      }
+      state.nextRunBuffs = [];
+    }
+
     UI.showScreen('dungeon');
     UI.renderDungeonHeader(run);
     startEncounter();
@@ -480,17 +498,24 @@ const Game = (() => {
         }
       }
 
-      // Post-battle choice, then event check, then advance
-      showPostBattleChoice(() => {
-        const run = Dungeon.getCurrent();
-        // Event check (35% chance)
-        const event = Dungeon.rollEvent();
-        if (event) {
-          showDungeonEvent(event, () => advanceToNext());
-        } else {
-          advanceToNext();
-        }
-      });
+      const run = Dungeon.getCurrent();
+      const isLastWave = run.currentWave >= run.encounters.length - 1;
+
+      if (isLastWave) {
+        // Boss/final wave — skip mid-dungeon events, go straight to finish
+        // (post-dungeon travel events happen in finishDungeon)
+        advanceToNext();
+      } else {
+        // Mid-dungeon: post-battle choice, then possible event, then advance
+        showPostBattleChoice(() => {
+          const event = Dungeon.rollEvent();
+          if (event) {
+            showDungeonEvent(event, () => advanceToNext());
+          } else {
+            advanceToNext();
+          }
+        });
+      }
     } else {
       // Defeat — permadeath check
       const anyAlive = Combat.getState().combatants.some(c => c.isParty && !c.dead);
@@ -909,7 +934,67 @@ const Game = (() => {
     finishDungeon(false, false);
   }
 
-  // Auth UI setup
+  // Show game menu (after auth or offline)
+  function showGameMenu() {
+    document.getElementById('menu-auth-section').style.display = 'none';
+    document.getElementById('menu-game-section').style.display = 'block';
+    const user = Cloud.getUser();
+    const infoEl = document.getElementById('menu-user-info');
+    if (user) {
+      infoEl.textContent = `Signed in as ${user.email}`;
+    } else {
+      infoEl.textContent = 'Playing offline (local saves only)';
+    }
+    // Re-check saves
+    const hasSaves = Array.from({ length: MAX_SLOTS }, (_, i) => localStorage.getItem(SAVE_PREFIX + i)).some(Boolean);
+    document.getElementById('btn-continue').style.display = hasSaves ? 'block' : 'none';
+  }
+
+  function setupMenuAuth() {
+    let isSignUp = false;
+
+    document.getElementById('btn-menu-auth-toggle').addEventListener('click', () => {
+      isSignUp = !isSignUp;
+      document.getElementById('menu-auth-title').textContent = isSignUp ? 'Create Account' : 'Sign In';
+      document.getElementById('btn-menu-auth-submit').textContent = isSignUp ? 'Create Account' : 'Sign In';
+      document.getElementById('btn-menu-auth-toggle').textContent = isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up';
+      document.getElementById('menu-auth-displayname').style.display = isSignUp ? 'block' : 'none';
+      document.getElementById('menu-auth-error').textContent = '';
+    });
+
+    document.getElementById('btn-menu-auth-submit').addEventListener('click', async () => {
+      const email = document.getElementById('menu-auth-email').value.trim();
+      const password = document.getElementById('menu-auth-password').value;
+      const displayName = document.getElementById('menu-auth-displayname').value.trim();
+      const errorEl = document.getElementById('menu-auth-error');
+
+      if (!email || !password) { errorEl.textContent = 'Email and password required'; return; }
+      if (isSignUp && password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters'; return; }
+
+      errorEl.textContent = '';
+      document.getElementById('btn-menu-auth-submit').disabled = true;
+      document.getElementById('btn-menu-auth-submit').textContent = 'Please wait...';
+
+      const result = isSignUp
+        ? await Cloud.signUp(email, password, displayName)
+        : await Cloud.signIn(email, password);
+
+      document.getElementById('btn-menu-auth-submit').disabled = false;
+      document.getElementById('btn-menu-auth-submit').textContent = isSignUp ? 'Create Account' : 'Sign In';
+
+      if (result.error) {
+        errorEl.textContent = result.error.message || String(result.error);
+      } else {
+        showGameMenu();
+      }
+    });
+
+    document.getElementById('btn-play-offline').addEventListener('click', () => {
+      showGameMenu();
+    });
+  }
+
+  // Auth UI setup (top bar)
   function setupAuthUI() {
     let isSignUp = false;
 

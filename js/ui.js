@@ -378,7 +378,11 @@ const UI = (() => {
     });
     document.querySelectorAll('.modal').forEach(modal => {
       modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.style.display = 'none';
+        // Don't close game-flow modals on backdrop click (rest, sell-confirm, auth, leaderboard)
+        const noBackdropClose = ['modal-rest', 'modal-sell-confirm', 'modal-auth', 'modal-leaderboard'];
+        if (e.target === modal && !noBackdropClose.includes(modal.id)) {
+          modal.style.display = 'none';
+        }
       });
     });
   }
