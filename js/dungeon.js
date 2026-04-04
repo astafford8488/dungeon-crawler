@@ -141,40 +141,10 @@ const Dungeon = (() => {
   }
 
   // Process rewards after winning an encounter
+  // XP and Gold are accumulated and awarded as a lump sum at dungeon end
   function processEncounterRewards(encounter) {
-    const tier = current.dungeon.tier || 1;
-    const diff = current.difficulty || 1;
-    const diffMult = 1 + (diff - 1) * 0.5; // +50% per difficulty level
-
-    // Total run XP/Gold = 100 × tier × diffMult (exact, no rounding loss)
-    const baseRunXp = Math.round(100 * tier * diffMult);
-    const baseRunGold = Math.round(100 * tier * diffMult);
-
-    // Track how much has been awarded so far this run
-    if (!current._xpAwarded) current._xpAwarded = 0;
-    if (!current._goldAwarded) current._goldAwarded = 0;
-    if (!current._wavesProcessed) current._wavesProcessed = 0;
-    current._wavesProcessed++;
-
-    const isLastEncounter = current._wavesProcessed >= current.encounters.length;
-    let xp, gold;
-
-    if (isLastEncounter) {
-      // Boss/final wave gets ALL remaining XP/Gold to avoid rounding loss
-      xp = baseRunXp - current._xpAwarded;
-      gold = baseRunGold - current._goldAwarded;
-    } else {
-      // Regular waves split evenly (boss gets the remainder)
-      const regularWaves = current.encounters.length - 1;
-      xp = Math.floor(baseRunXp * 0.6 / Math.max(1, regularWaves));
-      gold = Math.floor(baseRunGold * 0.6 / Math.max(1, regularWaves));
-    }
-
-    current._xpAwarded += xp;
-    current._goldAwarded += gold;
-
-    // Small gold variance ±10% (only on non-boss)
-    if (!isLastEncounter) gold = Math.floor(gold * (0.9 + Math.random() * 0.2));
+    let xp = 0;
+    let gold = 0;
 
     const items = [];
     for (const enemy of encounter.enemies) {
@@ -241,6 +211,18 @@ const Dungeon = (() => {
 
   function getCurrent() { return current; }
 
+  // Calculate total run XP and Gold (awarded at dungeon end, not per-wave)
+  function getRunRewards() {
+    if (!current) return { xp: 0, gold: 0 };
+    const tier = current.dungeon.tier || 1;
+    const diff = current.difficulty || 1;
+    const diffMult = 1 + (diff - 1) * 0.5;
+    return {
+      xp: Math.round(100 * tier * diffMult),
+      gold: Math.round(100 * tier * diffMult),
+    };
+  }
+
   function endRun(victory) {
     if (current) {
       current.completed = true;
@@ -276,5 +258,5 @@ const Dungeon = (() => {
     return events[Math.floor(Math.random() * events.length)];
   }
 
-  return { startRun, getCurrentEncounter, advanceWave, processEncounterRewards, shouldRest, applyRest, getCurrent, endRun, rollEvent, rollPostDungeonEvent, getPostBattleChoices };
+  return { startRun, getCurrentEncounter, advanceWave, processEncounterRewards, getRunRewards, shouldRest, applyRest, getCurrent, endRun, rollEvent, rollPostDungeonEvent, getPostBattleChoices };
 })();

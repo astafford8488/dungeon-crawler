@@ -226,11 +226,14 @@ const UI = (() => {
     // Show modifier if any
     const modStr = result.modifier ? `<div style="font-size:13px;color:${result.modifier.color || '#fff'};margin-top:4px;">${result.modifier.icon} ${result.modifier.name}: ${result.modifier.description}</div>` : '';
 
+    const fcb = result.firstClearBonus;
     document.getElementById('result-rewards').innerHTML = `
       ${modStr}
       ${result.totalPartyKill ? '<div style="color:var(--danger);font-size:14px;margin:8px 0;">Your entire party has been wiped out. Dead members must be resurrected at the Alchemist.</div>' : ''}
       <div class="reward reward-gold"><div class="reward-value">${result.totalGold}</div><div class="reward-label">Gold</div></div>
-      <div class="reward reward-xp"><div class="reward-value">${result.totalXp}</div><div class="reward-label">XP</div></div>
+      <div class="reward reward-xp"><div class="reward-value">${result.totalXp}</div><div class="reward-label">Total XP</div></div>
+      ${result.victory ? `<div style="font-size:11px;color:var(--text-dim);margin-top:4px;">${result.totalXp} XP ÷ ${result.partySize || 4} members = ${Math.floor(result.totalXp / (result.partySize || 4))} XP each</div>` : ''}
+      ${fcb ? `<div style="font-size:12px;color:var(--gold);margin-top:6px;">&#127942; First Clear Bonus: +${fcb.gold}g, +${fcb.xp} XP</div>` : ''}
     `;
 
     // Loot

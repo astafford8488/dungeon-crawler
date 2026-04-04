@@ -484,26 +484,13 @@ const Game = (() => {
     }
 
     if (combatState.victory) {
-      // Process rewards
+      // Process loot only (XP and Gold awarded at dungeon end)
       const rewards = Dungeon.processEncounterRewards(encounter);
-      state.gold += rewards.gold;
-      state.stats.totalGoldEarned += rewards.gold;
-      state.stats.totalXpEarned += rewards.xp;
       state.inventory.push(...rewards.items);
-
-      // Distribute XP
-      const xpPerMember = Math.floor(rewards.xp / state.party.length);
-      for (const member of state.party) {
-        const result = Party.addXp(member, xpPerMember);
-        if (result.leveled) {
-          UI.toast(`${member.name} reached level ${result.newLevel}!`, 'toast-levelup');
-          for (const ab of result.newAbilities) {
-            UI.toast(`${member.name} learned ${ab.name}!`, 'toast-success');
-          }
-        }
-      }
-
+      // Track loot in run
       const run = Dungeon.getCurrent();
+      run.loot.push(...rewards.items);
+
       const isLastWave = run.currentWave >= run.encounters.length - 1;
 
       if (isLastWave) {
@@ -815,19 +802,35 @@ const Game = (() => {
   function finishDungeon(victory, totalPartyKill) {
     const run = Dungeon.endRun(victory);
 
-    if (victory && !state.clearedDungeons.includes(run.dungeonId)) {
-      state.clearedDungeons.push(run.dungeonId);
-      state.stats.deepestDungeon = run.dungeon.dungeon_name;
-      const bonus = run.dungeon.completion_rewards?.first_clear_bonus;
-      if (bonus) {
-        state.gold += bonus.gold || 0;
-        run.totalXp += bonus.xp || 0;
-        const bonusXpPer = Math.floor((bonus.xp || 0) / state.party.length);
-        for (const member of state.party) {
-          const result = Party.addXp(member, bonusXpPer);
-          if (result.leveled) UI.toast(`${member.name} reached level ${result.newLevel}!`, 'toast-levelup');
+    // Award XP and Gold as lump sum at dungeon end
+    if (victory) {
+      const runRewards = Dungeon.getRunRewards();
+      run.totalXp = runRewards.xp;
+      run.totalGold = runRewards.gold;
+      run.firstClearBonus = null;
+
+      // First clear bonus
+      if (!state.clearedDungeons.includes(run.dungeonId)) {
+        state.clearedDungeons.push(run.dungeonId);
+        state.stats.deepestDungeon = run.dungeon.dungeon_name;
+        const bonus = run.dungeon.completion_rewards?.first_clear_bonus;
+        if (bonus) {
+          run.totalXp += bonus.xp || 0;
+          run.totalGold += bonus.gold || 0;
+          run.firstClearBonus = { xp: bonus.xp || 0, gold: bonus.gold || 0 };
         }
-        run.totalGold += bonus.gold || 0;
+      }
+
+      // Award gold
+      state.gold += run.totalGold;
+      state.stats.totalGoldEarned += run.totalGold;
+      state.stats.totalXpEarned += run.totalXp;
+
+      // Distribute XP to party
+      const xpPerMember = Math.floor(run.totalXp / Math.max(1, state.party.length));
+      for (const member of state.party) {
+        const result = Party.addXp(member, xpPerMember);
+        if (result.leveled) UI.toast(`${member.name} reached level ${result.newLevel}!`, 'toast-levelup');
       }
     }
 
@@ -871,11 +874,13 @@ const Game = (() => {
     UI.showScreen('dungeon-result');
     UI.renderResult({
       victory,
-      totalGold: run.totalGold,
-      totalXp: run.totalXp,
-      loot: run.loot,
+      totalGold: run.totalGold || 0,
+      totalXp: run.totalXp || 0,
+      loot: run.loot || [],
       totalPartyKill,
       modifier: run.modifier,
+      firstClearBonus: run.firstClearBonus || null,
+      partySize: state.party.length,
     }, state);
   }
 
