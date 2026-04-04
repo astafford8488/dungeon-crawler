@@ -105,11 +105,16 @@ const Party = (() => {
 
   // XP curve: fast early, exponentially slower
   // ~1 dungeon run per level early, ~2 in teens, ~4 in 20s, ~8 in 30s, ~16 in 40s, ~32 in 50s
+  // XP required to reach the next level
+  // Early levels: fast (1 dungeon run per level)
+  // Mid levels: moderate, Late levels: exponential
   function xpForLevel(level) {
-    if (level <= 1) return 30;
-    if (level <= 10) return Math.floor(30 + level * 15);
-    if (level <= 20) return Math.floor(80 * Math.pow(1.12, level));
-    return Math.floor(80 * Math.pow(1.18, level));
+    if (level <= 1) return 20;   // Lv1→2: 20 XP (easily 1 run)
+    if (level <= 5) return Math.floor(15 + level * 8);  // Lv2-5: 31-55
+    if (level <= 10) return Math.floor(20 + level * 15); // Lv6-10: 110-170
+    if (level <= 20) return Math.floor(50 * Math.pow(1.15, level)); // Lv11-20: 209-818
+    if (level <= 35) return Math.floor(50 * Math.pow(1.20, level)); // Lv21-35: 1916-9540
+    return Math.floor(50 * Math.pow(1.22, level)); // Lv36-50: exponential
   }
 
   // Points granted per level up

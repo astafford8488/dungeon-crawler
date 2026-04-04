@@ -284,6 +284,11 @@ const Game = (() => {
 
   function openPartyCamp() {
     UI.showScreen('party');
+    // Reset to Gear tab on open
+    document.querySelectorAll('[data-camp-tab]').forEach(t => t.classList.toggle('active', t.dataset.campTab === 'gear'));
+    document.getElementById('camp-gear-panel').style.display = 'flex';
+    document.getElementById('camp-formation-panel').style.display = 'none';
+    document.getElementById('camp-abilities-panel').style.display = 'none';
     Town.renderPartyCamp(state);
     // Party name
     const nameInput = document.getElementById('party-name-input');

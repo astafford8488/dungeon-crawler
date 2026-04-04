@@ -66,7 +66,7 @@ const UI = (() => {
           <div class="dc-theme">${unlocked ? dungeon.theme : 'Locked'}</div>
           <div class="dc-level">Base Level: ${dungeon.base_level}</div>
         </div>
-        <div class="dc-status ${cleared ? 'cleared' : 'new'}">${cleared ? 'Cleared' : unlocked ? 'New' : 'Locked'}</div>
+        <div class="dc-status ${cleared && unlocked ? 'cleared' : unlocked ? 'new' : ''}">${unlocked ? (cleared ? 'Cleared' : 'New') : 'Locked'}</div>
       `;
       if (unlocked) {
         card.addEventListener('click', () => selectDungeon(dungeon, gameState));

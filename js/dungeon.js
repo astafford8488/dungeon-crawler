@@ -146,25 +146,35 @@ const Dungeon = (() => {
     const diff = current.difficulty || 1;
     const diffMult = 1 + (diff - 1) * 0.5; // +50% per difficulty level
 
-    // Total run XP/Gold = 100 × tier × diffMult
-    // Split: regular waves get 1 share each, boss gets 3 shares
-    const totalWaves = current.encounters.length || 1;
-    const bossShares = 3;
-    const regularShares = totalWaves - 1; // number of non-boss waves
-    const totalShares = regularShares + bossShares;
-    const baseRunXp = Math.floor(100 * tier * diffMult);
-    const baseRunGold = Math.floor(100 * tier * diffMult);
+    // Total run XP/Gold = 100 × tier × diffMult (exact, no rounding loss)
+    const baseRunXp = Math.round(100 * tier * diffMult);
+    const baseRunGold = Math.round(100 * tier * diffMult);
 
+    // Track how much has been awarded so far this run
+    if (!current._xpAwarded) current._xpAwarded = 0;
+    if (!current._goldAwarded) current._goldAwarded = 0;
+    if (!current._wavesProcessed) current._wavesProcessed = 0;
+    current._wavesProcessed++;
+
+    const isLastEncounter = current._wavesProcessed >= current.encounters.length;
     let xp, gold;
-    if (encounter.isBoss) {
-      xp = Math.floor(baseRunXp * bossShares / totalShares);
-      gold = Math.floor(baseRunGold * bossShares / totalShares);
+
+    if (isLastEncounter) {
+      // Boss/final wave gets ALL remaining XP/Gold to avoid rounding loss
+      xp = baseRunXp - current._xpAwarded;
+      gold = baseRunGold - current._goldAwarded;
     } else {
-      xp = Math.floor(baseRunXp / totalShares);
-      gold = Math.floor(baseRunGold / totalShares);
+      // Regular waves split evenly (boss gets the remainder)
+      const regularWaves = current.encounters.length - 1;
+      xp = Math.floor(baseRunXp * 0.6 / Math.max(1, regularWaves));
+      gold = Math.floor(baseRunGold * 0.6 / Math.max(1, regularWaves));
     }
-    // Small gold variance ±10%
-    gold = Math.floor(gold * (0.9 + Math.random() * 0.2));
+
+    current._xpAwarded += xp;
+    current._goldAwarded += gold;
+
+    // Small gold variance ±10% (only on non-boss)
+    if (!isLastEncounter) gold = Math.floor(gold * (0.9 + Math.random() * 0.2));
 
     const items = [];
     for (const enemy of encounter.enemies) {
