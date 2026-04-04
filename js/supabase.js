@@ -8,7 +8,14 @@ const Cloud = (() => {
 
   function init() {
     if (window.supabase) {
-      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true,
+          storageKey: 'dungeon-crawler-auth',
+        }
+      });
       // Listen for auth state changes
       supabase.auth.onAuthStateChange((event, session) => {
         currentUser = session?.user || null;
