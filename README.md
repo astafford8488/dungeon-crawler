@@ -7,6 +7,7 @@
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Supabase](https://img.shields.io/badge/Supabase-Cloud%20Saves-3ECF8E.svg)](https://supabase.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **Build your party. Enter the dungeon. Watch them fight.**
 
@@ -15,6 +16,23 @@
 </div>
 
 ---
+
+## Quick Start
+
+```bash
+# Clone and play immediately
+git clone https://github.com/astafford8488/dungeon-crawler.git
+cd dungeon-crawler
+
+# Option 1: Open directly in your browser
+# Just open index.html — no build step, no dependencies
+
+# Option 2: Use a local server (recommended for cloud saves)
+npx serve .
+# Then open http://localhost:3000
+```
+
+> **Cloud saves** require a Supabase project. Set up your own Supabase instance and update the credentials in `js/cloud.js`. The game works fully offline with local storage saves — cloud saves are optional.
 
 ## Features
 
